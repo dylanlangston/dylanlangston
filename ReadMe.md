@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="dylan.svg" width="400" height="400" alt="Dylan">
+<img src="dylan.svg" width="100%" alt="Dylan">
 
 
 [![linkedin badge](https://img.shields.io/badge/Dylan_Langston-30302f?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/dylan-langston/)
