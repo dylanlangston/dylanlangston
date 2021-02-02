@@ -1,7 +1,7 @@
 **Page under construction**
 <div align="center">
 	<br>
-	<a href="">
+	<a href="#">
 		<img src="dylan.svg" width="400" height="350" alt="Dylan">
 	</a>
 	<br>
