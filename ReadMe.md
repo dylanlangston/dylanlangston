@@ -1,12 +1,9 @@
-**Page under construction**
 <div align="center">
-	<br>
-	<a href="#">
-		<img src="dylan.svg" width="400" height="350" alt="Dylan">
-	</a>
-	<br>
+
+<img src="dylan.svg" width="400" height="400" alt="Dylan">
 
 
+[![linkedin badge](https://img.shields.io/badge/Dylan_Langston-30302f?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/dylan-langston/)
 
 <a href="https://github.com/dylanlangston/dylanlangston">
   <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=dylanlangston&hide=&title_color=ffffff&text_color=c9cacc&icon_color=2bbc8a&bg_color=1d1f21" />
