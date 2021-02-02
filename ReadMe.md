@@ -2,7 +2,7 @@
 <div align="center">
 	<br>
 	<a href="">
-		<img src="dylan.svg" width="800" height="700" alt="Dylan">
+		<img align="right" src="dylan.svg" width="400" height="350" alt="Dylan">
 	</a>
 	<br>
 </div>
