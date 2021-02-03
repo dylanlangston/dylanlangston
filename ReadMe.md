@@ -1,5 +1,5 @@
 <div align="center">
-<a href="https://github.com/dylanlangston/dylanlangston/blob/master/dylan.svg" title="View Source">
+<a href="https://github.com/dylanlangston/dylanlangston/blob/master/dylan.svg" title="Click to View Source">
 <img src="dylan.svg" width="100%" alt="Dylan">
 </a?
 <br/>
