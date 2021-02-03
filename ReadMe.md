@@ -14,5 +14,5 @@
 ### Github Stats
 <div align="center">
 
-  [![](https://raw.githubusercontent.com/dylanlangston/dylanlangston-cards/master/profile-summary-card-output/solarized_dark/0-profile-details.svg)](https://github.com/dylanlangston/dylanlangston)
+  [![](https://raw.githubusercontent.com/dylanlangston/dylanlangston-cards/master/profile-summary-card-output/solarized_dark/0-profile-details.svg)](https://github.com/dylanlangston)
 </div>
