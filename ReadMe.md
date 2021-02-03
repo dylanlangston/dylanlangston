@@ -8,7 +8,7 @@
 ### Contact Me
 <div align="center">
 
-  [![website badge](https://img.shields.io/badge/dylanlangston.com-30302f?style=for-the-badge&logo=firefox)](https://dylanlangston.com) [![linkedin badge](https://img.shields.io/badge/Dylan_Langston-30302f?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/dylan-langston/) [![email badge](https://img.shields.io/badge/Email-30302f?style=for-the-badge&logo=Gmail)](mailto:mail@dylanlangston.com)
+  [![website badge](https://img.shields.io/badge/dylanlangston.com-073642?style=for-the-badge&logo=html5)](https://dylanlangston.com) [![linkedin badge](https://img.shields.io/badge/LinkedIn-073642?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/dylan-langston/) [![email badge](https://img.shields.io/badge/Email-073642?style=for-the-badge&logo=mail.ru)](mailto:mail@dylanlangston.com)
 </div>
 
 ### Github Stats
