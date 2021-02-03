@@ -449,7 +449,7 @@
                     sans-serif,
                     'Apple Color Emoji',
                     'Segoe UI Emoji';
-                  color: white;
+                  color: rgba(50, 50, 180, 1);
                   text-align: center;
               -webkit-user-select: none; /* Safari */
               -ms-user-select: none; /* IE 10 and IE 11 */
@@ -472,10 +472,10 @@
                   letter-spacing: 5px;
                   text-transform: uppercase;
                   text-shadow:
-                    0 1px 0 #efefef,
-                    0 2px 0 #efefef,
-                    0 3px 0 #efefef,
-                    0 4px 0 #efefef,
+                    0 1px 0 rgba(50, 50, 50, 1),
+                    0 2px 0 rgba(50, 50, 50, 1),
+                    0 3px 0 rgba(50, 50, 50, 1),
+                    0 4px 0 rgba(50, 50, 50, 1),
                     0 12px 5px rgba(0, 0, 0, 0.75);
                   animation: rotate ease-in-out 1s infinite alternate;
                 }
