@@ -456,7 +456,7 @@
               user-select: none; /* Standard syntax */
               clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
               padding: 1% 1% 1% 10%;
-              background: rgba(255,255,255,1);
+              background: rgba(255,255,255,0.9);
               height: 555px;
                 }
             .hand {
