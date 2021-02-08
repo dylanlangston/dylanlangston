@@ -21,7 +21,18 @@
           animation-fill-mode: both;
           border-radius: 50px;
         }
-
+        .background-4 {
+          background-image: linear-gradient(0deg, RGBA(152, 205, 141, 0.5) 25%, transparent 25%, transparent 50%, RGBA(152, 205, 141, 0.5) 50%, RGBA(152, 205, 141, 0.5) 75%, transparent 75%, transparent 100%);
+          background-size: 87.71px 31.93px;
+          height: 800px;
+          width: 1600px;
+          top: 0px;
+          left: 0px;
+          position: absolute;
+          animation: background-change-4 linear 6s infinite alternate;
+          animation-fill-mode: both;
+          border-radius: 50px;
+        }
         .background-2 {
           background-image: radial-gradient(circle at 23%, rgba(0, 0, 128, 0.0), #000080, #000080, #000080);
           height: 800px;
@@ -30,7 +41,7 @@
         }
         @keyframes background-change {
           0% {
-            width: 100%;
+            width: 99.5%;
             left: 0%;
           }
           50% {
@@ -38,7 +49,7 @@
             left: 0.5%;
           }
           100% {
-            width: 100%;
+            width: 99.5%;
             left: 0%;
           }
         }
