@@ -561,8 +561,8 @@
 		  width: 50%;
         }
 		.label-container {
-		  width: 1600px;
-		  height: 800px;
+		  width: 100%;
+		  height: 100%;
 		  position: absolute;
 		  top: 0px;
 		  left: 0px;
