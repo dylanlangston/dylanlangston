@@ -563,8 +563,7 @@
 		.label-container {
 		  width: 100%;
 		  height: 100%;
-		  position: absolute;
-		  top: 0px;
+		  margin-top: -800px;
 		  left: 0px;
 		}
         .hand {
