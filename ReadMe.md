@@ -1,7 +1,6 @@
 <div align="center">
 <a href="https://github.com/dylanlangston/dylanlangston/blob/master/dylan.svg" title="Click to View Source">
-  
-  [![](https://raw.githubusercontent.com/dylanlangston/dylanlangston/master/dylan.svg)]()
+  <img src="dylan.svg" width="auto" alt="Dylan">
 </a>
 <br/>
 </div>
