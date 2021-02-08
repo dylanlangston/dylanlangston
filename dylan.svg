@@ -24,8 +24,8 @@
         .background {
           background-image: linear-gradient(90deg, transparent 0%, transparent 25%, RGBA(152, 205, 141, 0.5) 25%, RGBA(152, 205, 141, 0.5) 50%, transparent 50%, transparent 75%, RGBA(152, 205, 141, 0.5) 75%, RGBA(152, 205, 141, 0.5) 100%);
           background-size: 87.71px 31.93px;
-          height: 800px;
-          width: 1600px;
+          height: 100%;
+          width: 100%;
           top: 0px;
           left: 0px;
           position: absolute;
@@ -36,8 +36,8 @@
         .background-4 {
           background-image: linear-gradient(0deg, RGBA(152, 205, 141, 0.5) 25%, transparent 25%, transparent 50%, RGBA(152, 205, 141, 0.5) 50%, RGBA(152, 205, 141, 0.5) 75%, transparent 75%, transparent 100%);
           background-size: 87.71px 31.93px;
-          height: 800px;
-          width: 1600px;
+          height: 100%;
+          width: 100%;
           top: 0px;
           left: 0px;
           position: absolute;
