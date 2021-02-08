@@ -1,7 +1,7 @@
 <div align="center">
 <a href="https://github.com/dylanlangston/dylanlangston/blob/master/dylan.svg" title="Click to View Source">
   <object>
-  <img src="dylan.svg" width="50%" alt="Dylan">
+  <img src="dylan.svg" width="200%" alt="Dylan">
   </object>
 </a>
 <br/>
