@@ -568,9 +568,8 @@
           clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
 		  /* webkit syntax */
           -webkit-clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
-          padding: 1% 0.5% 1% 10%;
+          padding: 1% 0.5% 0% 10%;
           background: rgba(255,255,255,0.9);
-          height: 60vh;
 		  width: 50%;
         }
         .hand {
@@ -592,6 +591,7 @@
             0 4px 0 rgba(50, 50, 50, 1),
             0 12px 5px rgba(0, 0, 0, 0.75);
           animation: rotate ease-in-out 1s infinite alternate;
+		  padding-bottom: 40px;
         }
         @keyframes rotate {
           0% {
