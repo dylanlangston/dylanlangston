@@ -493,6 +493,8 @@
           height: 100%;
           animation: mouth-animation-teeth 25s infinite;
           clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 80% 93%, 50% 105%, 20% 93%, 0% 60%);
+		  /* webkit syntax */
+          -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 80% 93%, 50% 105%, 20% 93%, 0% 60%);
         }
         @keyframes mouth-animation-teeth {
           30% {
@@ -558,6 +560,8 @@
           user-select: none;
           /* Standard syntax */
           clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
+		  /* webkit syntax */
+          -webkit-clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
           padding: 1% 1% 1% 10%;
           background: rgba(255,255,255,0.9);
           height: 555px;
