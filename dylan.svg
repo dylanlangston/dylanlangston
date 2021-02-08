@@ -28,7 +28,7 @@
           width: 100%;
           top: 0px;
           left: 0px;
-          animation: background-change-v 2s linear 1s infinite alternate;
+          /*animation: background-change-v 2s linear 1s infinite alternate;*/
           animation-fill-mode: both;
           border-radius: 50px;
         }
@@ -39,7 +39,7 @@
           width: 100%;
           top: 0px;
           left: 0px;
-          animation: background-change-h linear 3s infinite alternate;
+          /*animation: background-change-h linear 3s infinite alternate;*/
           animation-fill-mode: both;
           border-radius: 50px;
         }
@@ -551,9 +551,9 @@
           border-right: 0px;
         }
         .label {
-          position: fixed;
-          top: 18%;
-          left: 40%;
+          position: relative;
+          margin-top: -45%;
+          left: 38%;
           font-size: 150px;
           font-family:
             system-ui,
@@ -574,6 +574,7 @@
           padding: 1% 1% 1% 10%;
           background: rgba(255,255,255,0.9);
           height: 70%;
+		  width: 50%;
         }
         .hand {
           animation: rotate ease-in-out 0.75s infinite alternate;
