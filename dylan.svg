@@ -551,9 +551,8 @@
           border-right: 0px;
         }
         .label {
-          position: relative;
           margin-top: -45%;
-          left: 38%;
+          margin-left: 38%;
           font-size: 150px;
           font-family:
             system-ui,
