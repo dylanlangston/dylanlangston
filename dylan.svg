@@ -41,7 +41,7 @@
         }
         @keyframes background-change {
           0% {
-            width: 100%;
+            width: 1600px;
             left: 0%;
           }
           50% {
@@ -49,7 +49,7 @@
             left: 0.5%;
           }
           100% {
-            width: 100%;
+            width: 1600px;
             left: 0%;
           }
         }
@@ -59,7 +59,7 @@
             top: 0.5%;
           }
           50% {
-            height: 100%;
+            height: 1600px;
             top: 0%;
           }
           100% {
