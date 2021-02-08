@@ -21,62 +21,60 @@
 			top: 0;
 			left: 0;
 		}
-        .background {
+        .background-v {
           background-image: linear-gradient(90deg, transparent 0%, transparent 25%, RGBA(152, 205, 141, 0.5) 25%, RGBA(152, 205, 141, 0.5) 50%, transparent 50%, transparent 75%, RGBA(152, 205, 141, 0.5) 75%, RGBA(152, 205, 141, 0.5) 100%);
           background-size: 87.71px 31.93px;
           height: 100%;
           width: 100%;
           top: 0px;
           left: 0px;
-          position: absolute;
-          /*animation: background-change 2s linear 1s infinite alternate;*/
+          animation: background-change-v 2s linear 1s infinite alternate;
           animation-fill-mode: both;
           border-radius: 50px;
         }
-        .background-4 {
+        .background-h {
           background-image: linear-gradient(0deg, RGBA(152, 205, 141, 0.5) 25%, transparent 25%, transparent 50%, RGBA(152, 205, 141, 0.5) 50%, RGBA(152, 205, 141, 0.5) 75%, transparent 75%, transparent 100%);
           background-size: 87.71px 31.93px;
           height: 100%;
           width: 100%;
           top: 0px;
           left: 0px;
-          position: absolute;
-          /*animation: background-change-4 linear 6s infinite alternate;*/
+          animation: background-change-h linear 3s infinite alternate;
           animation-fill-mode: both;
           border-radius: 50px;
         }
-        .background-2 {
-          background-image: radial-gradient(circle at 23%, rgba(0, 0, 128, 0.0), #000080, #000080, #000080);
+        .background {
+          background-image: radial-gradient(circle at 23%, rgba(0, 0, 128, 0.0), rgba(0, 0, 128, 0.95), #000080, #000080);
           height: 800px;
           width: 1600px;
           border-radius: 50px;
         }
-        @keyframes background-change {
+        @keyframes background-change-h {
           0% {
             width: 99.5%;
-            left: 0%;
+            padding-left: 0%;
           }
           50% {
             width: 99.5%;
-            left: 0.5%;
+            padding-left: 0.5%;
           }
           100% {
             width: 99.5%;
-            left: 0%;
+            padding-left: 0%;
           }
         }
-        @keyframes background-change-4 {
+        @keyframes background-change-v {
           0% {
             height: 99.5%;
-            top: 0.5%;
+            padding-top: 0.5%;
           }
           50% {
             height: 99.5%;
-            top: 0%;
+            padding-top: 0%;
           }
           100% {
             height: 99.5%;
-            top: 0.5%;
+            padding-top: 0.5%;
           }
         }
         .dylan {
@@ -606,11 +604,11 @@
         }
       </style>
       <div class="container">
-        <div class="background-2">
-        </div>
-        <div class="background-4">
-        </div>
         <div class="background">
+		  <div class="background-v">
+		  	<div class="background-h">
+		    </div>
+		  </div>
         </div>
         <div class="label">
           <div class="hand">👋🏻
