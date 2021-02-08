@@ -610,14 +610,15 @@
 		  	<div class="background-h">
 		    </div>
 		  </div>
-        </div>
-        <div class="label">
+		  <div class="label">
           <div class="hand">👋🏻
           </div>
           <h1>Hello World
             <br/> I'm Dylan
           </h1>
+          </div>
         </div>
+        
         <div class="dylan">
           <div class="hair back">
           </div>
