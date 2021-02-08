@@ -287,7 +287,7 @@
             left: 12.5px}
         }
         .eyebrow {
-		  border: 0px transparent;
+		  border: 1px transparent;
           border-top: 10px solid #8B4513;
           width: 100px;
           height: 50px;
@@ -409,7 +409,7 @@
           }
         }
         .mustache {
-		  border: 0px transparent;
+		  border: 1px transparent;
           border-top: 20px solid #A0522D;
           border-radius: 30% 30% 0% 0%;
           width: 160px;
@@ -419,7 +419,7 @@
           left: 220px;
         }
         .mustache-2 {
-		  border: 0px transparent;
+		  border: 1px transparent;
           border-top: 20px solid #A0522D;
           border-radius: 25% 25% 0% 0%;
           width: 140px;
