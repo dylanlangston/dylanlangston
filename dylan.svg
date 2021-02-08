@@ -551,7 +551,7 @@
           border-right: 0px;
         }
         .label {
-          position: absolute;
+          position: fixed;
           top: 18%;
           left: 40%;
           font-size: 150px;
