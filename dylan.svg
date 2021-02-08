@@ -17,7 +17,7 @@
           top: 0px;
           left: 0px;
           position: absolute;
-          animation: background-change 2s linear 1s infinite alternate;
+          /*animation: background-change 2s linear 1s infinite alternate;*/
           animation-fill-mode: both;
           border-radius: 50px;
         }
@@ -29,7 +29,7 @@
           top: 0px;
           left: 0px;
           position: absolute;
-          animation: background-change-4 linear 6s infinite alternate;
+          /*animation: background-change-4 linear 6s infinite alternate;*/
           animation-fill-mode: both;
           border-radius: 50px;
         }
