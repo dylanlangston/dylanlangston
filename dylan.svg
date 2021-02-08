@@ -78,9 +78,10 @@
           }
         }
         .dylan {
-          left: 100px;
-          top: 50px;
-          position: absolute;
+          left: 0px;
+          top: 0px;
+		  width: 50%;
+		  height: 100%;
         }
         .head {
           border-radius: 50% 50% 50% 50% / 44% 44% 56% 56%;
@@ -551,8 +552,8 @@
         }
         .label {
           position: absolute;
-          top: 150px;
-          left: 640px;
+          top: 18%;
+          left: 40%;
           font-size: 150px;
           font-family:
             system-ui,
@@ -572,7 +573,7 @@
           -webkit-clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
           padding: 1% 1% 1% 10%;
           background: rgba(255,255,255,0.9);
-          height: 555px;
+          height: 70%;
         }
         .hand {
           animation: rotate ease-in-out 0.75s infinite alternate;
