@@ -1,6 +1,6 @@
 <div align="center">
 <a href="https://github.com/dylanlangston/dylanlangston/blob/master/dylan.svg" title="Click to View Source">
-<img src="dylan.svg" width="100%" alt="Dylan">
+<img src="dylan.svg" width="auto" alt="Dylan">
 </a?
 <br/>
 </div>
