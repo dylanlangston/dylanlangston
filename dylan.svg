@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1600 800" width="1600" height="800" preserveAspectRatio="none">
-  <foreignObject width="1600" height="800">
+  <foreignObject width="100%" height="100%">
     <div xmlns="http://www.w3.org/1999/xhtml">
       <style>
         svg {
@@ -535,8 +535,8 @@
           border-right: 0px;
         }
         .label {
-          margin-top: 10%;
-          margin-left: 39%;
+          margin-top: 200px;
+          margin-left: 620px;
           font-size: 800%;
           font-family:
             system-ui,
@@ -556,11 +556,10 @@
           -webkit-clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
           padding: 1% 0% 0% 10%;
           background: rgba(255,255,255,0.9);
-		  width: 50%;
-		  height: 70%;
+		  width: 800px;
         }
 		.label-container {
-		  margin-top: -50%;
+		  margin-top: -800px;
 		}
         .hand {
           animation: rotate ease-in-out 0.75s infinite alternate;
@@ -581,7 +580,7 @@
             0 4px 0 rgba(50, 50, 50, 1),
             0 12px 5px rgba(0, 0, 0, 0.75);
           animation: rotate ease-in-out 1s infinite alternate;
-		  padding-bottom: 5%;
+		  padding-bottom: 40px;
         }
         @keyframes rotate {
           0% {
