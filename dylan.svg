@@ -85,12 +85,11 @@
         .dylan {
 		  z-index:1000;
           left: 0px;
-          margin-top: -700px;
+          margin-top: -875px;
 		  width: 50%;
 		  height: 100%;
         }
         .head {
-		  
           border-radius: 50% 50% 50% 50% / 44% 44% 56% 56%;
           background: #FFEFD5;
           height: 400px;
@@ -125,20 +124,19 @@
           border-radius: 50% 50% 50% 50% / 35% 35% 65% 65%;
           height: 450px;
           width: 400px;
-          top: 25px;
-          left: 100px;
+          margin-left: 175px;
         }
         .hair.back-left {
           border-radius: 50%;
-          left: 80px;
-          top: 190px;
+          margin-left: 150px;
+          margin-top: -250px;
           width: 200px;
           height: 350px;
         }
         .hair.back-left-2 {
           border-radius: 50%;
-          left: 80px;
-          top: 120px;
+          margin-left: 160px;
+          margin-top: -475px;
           width: 100px;
           height: 200px;
         }
@@ -613,8 +611,6 @@
 		</div>
         <div class="dylan">
           <div class="hair back">
-          </div>
-          <div class="hair back-2">
           </div>
           <div class="hair back-left">
           </div>
