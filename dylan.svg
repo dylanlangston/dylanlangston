@@ -535,8 +535,7 @@
           border-right: 0px;
         }
         .label {
-          margin-top: 10%;
-          margin-left: 39%;
+		  margin-left: 55%;
           font-size: 800%;
           font-family:
             system-ui,
@@ -554,14 +553,14 @@
           clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
 		  /* webkit syntax */
           -webkit-clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
-          padding: 1% 0% 0% 10%;
+          padding: 1% 0% 0% 11%;
           background: rgba(255,255,255,0.9);
-		  width: 50%;
+		  width: 65%;
         }
 		.label-container {
-		  margin-top: -50%;
-		  width: 100%;
-		  heigh: 100%;
+		  margin-top: -40%;
+		  width: 75%;
+		  height: 25%;
 		}
         .hand {
           animation: rotate ease-in-out 0.75s infinite alternate;
