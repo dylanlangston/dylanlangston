@@ -1,11 +1,11 @@
-<svg fill="none" viewBox="0 0 1600 800" width="1600" height="800" preserveAspectRatio="xMinYMin none" xmlns="http://www.w3.org/2000/svg">
-  <foreignObject width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1600 800" width="1600" height="800" preserveAspectRatio="none">
+  <foreignObject width="1600" height="800">
     <div xmlns="http://www.w3.org/1999/xhtml">
       <style>
-		svg {
-		  width: 100%;
-		  height: auto;
-		  position: relative;
+        svg {
+          width: 100%;
+          height: auto;
+          position: relative;
 		  display: block;
 		  -webkit-user-select: none;
           /* Safari */
@@ -13,74 +13,84 @@
           /* IE 10 and IE 11 */
           user-select: none;
           /* Standard syntax */
+        }
+		foreignObject {
+			position: absolute;
+			top: 0;
+			left: 0;
 		}
 		.container {
-		  position: absolute;
-		  width: 1600px;
 		  height: 800px;
-		  top: 0px;
-		  height: 0px;
+          width: 1600px;
 		}
         .background-v {
+		  z-index:2;
           background-image: linear-gradient(90deg, transparent 0%, transparent 25%, RGBA(152, 205, 141, 0.5) 25%, RGBA(152, 205, 141, 0.5) 50%, transparent 50%, transparent 75%, RGBA(152, 205, 141, 0.5) 75%, RGBA(152, 205, 141, 0.5) 100%);
           background-size: 87.71px 31.93px;
-          height: 800px;
-          width: 1600px;
-          animation: background-change 2s linear 1s infinite alternate;
+          height: 100%;
+          width: 100%;
+          top: 0px;
+          left: 0px;
+          /*animation: background-change-v 2s linear 1s infinite alternate;*/
           animation-fill-mode: both;
           border-radius: 50px;
         }
         .background-h {
+		  z-index:1;
           background-image: linear-gradient(0deg, RGBA(152, 205, 141, 0.5) 25%, transparent 25%, transparent 50%, RGBA(152, 205, 141, 0.5) 50%, RGBA(152, 205, 141, 0.5) 75%, transparent 75%, transparent 100%);
           background-size: 87.71px 31.93px;
-          height: 800px;
-          width: 1600px;
-          animation: background-change-4 linear 6s infinite alternate;
+          height: 100%;
+          width: 100%;
+          top: 0px;
+          left: 0px;
+          /*animation: background-change-h linear 3s infinite alternate;*/
           animation-fill-mode: both;
           border-radius: 50px;
         }
         .background {
+		  z-index:0;
           background-image: radial-gradient(circle at 23%, rgba(0, 0, 128, 0.0), rgba(0, 0, 128, 0.95), #000080, #000080);
-          height: 800px;
-          width: 1600px;
-          left: 0px;
-          position: absolute;
+          height: 100%;
+          width: 100%;
           border-radius: 50px;
         }
-        @keyframes background-change {
+        @keyframes background-change-h {
           0% {
-            width: 100%;
-            left: 0%;
+            width: 99.5%;
+            padding-left: 0%;
           }
           50% {
-            width: 99%;
-            left: 1%;
+            width: 99.5%;
+            padding-left: 0.5%;
           }
           100% {
-            width: 100%;
-            left: 0%;
+            width: 99.5%;
+            padding-left: 0%;
           }
         }
-        @keyframes background-change-4 {
+        @keyframes background-change-v {
           0% {
-            height: 99%;
-            top: 1%;
+            height: 99.5%;
+            padding-top: 0.5%;
           }
           50% {
-            height: 100%;
-            top: 0%;
+            height: 99.5%;
+            padding-top: 0%;
           }
           100% {
-            height: 99%;
-            top: 1%;
+            height: 99.5%;
+            padding-top: 0.5%;
           }
         }
         .dylan {
-          left: 100px;
-          top: 50px;
-          position: absolute;
+		  z-index:1000;
+          left: 0px;
+          margin-top: -700px;
+		  width: 50%;
+		  height: 100%;
         }
         .head {
+		  
           border-radius: 50% 50% 50% 50% / 44% 44% 56% 56%;
           background: #FFEFD5;
           height: 400px;
@@ -96,12 +106,9 @@
           width: 380px;
           top: 50px;
           left: 110px;
-          position: absolute;
         }
         .hair {
           background: #8B4513;
-          position: absolute;
-          position: absolute;
         }
         @keyframes hair-animation {
           0% {
@@ -175,7 +182,6 @@
           height: 70px;
           background: #F8F8FF;
           border-radius: 50%;
-          position: absolute;
           top: 110px;
         }
         .eye.left {
@@ -189,7 +195,6 @@
           height: 40px;
           border: 20px solid #ffebcc;
           border-radius: 50%;
-          position: absolute;
           top: 105px;
         }
         .eyelid.left {
@@ -210,7 +215,6 @@
           background: #ffebcc;
           top: 25px;
           animation: blink-bottomlid 8s infinite;
-          position: absolute;
         }
         @keyframes blink-toplid {
           0% {
@@ -289,10 +293,10 @@
             left: 12.5px}
         }
         .eyebrow {
+		  transform: translateZ(0px);
           border-top: 10px solid #8B4513;
           width: 100px;
           height: 50px;
-          position: absolute;
           top: 100px;
           animation: eyebrow-animation 15s infinite;
         }
@@ -330,7 +334,6 @@
           height: 100px;
           left: 270px;
           top: 180px;
-          position: absolute;
         }
         .nostrils {
           border: 5px #F5DEB3;
@@ -338,7 +341,6 @@
           border-radius: 50% 50% 25% 25%;
           width: 80px;
           height: 30px;
-          position: absolute;
           left: 255px;
           top: 240px;
         }
@@ -348,7 +350,6 @@
           background: radial-gradient(#f08080, #FFE4C4);
           left: 220px;
           top: 327.5px;
-          position: absolute;
           border-radius: 10% 10% 50% 50%;
           animation: mouth-animation-lips 25s infinite;
         }
@@ -377,7 +378,6 @@
           border: 1px solid #f08080;
           left: 225px;
           top: 332.5px;
-          position: absolute;
           border-radius: 10% 10% 50% 50%;
           animation: mouth-animation 25s infinite;
         }
@@ -387,7 +387,6 @@
           border: 1px solid #f08080;
           left: 225px;
           top: 332.5px;
-          position: absolute;
           border-radius: 10% 10% 50% 50%;
           animation: mouth-animation 25s infinite;
         }
@@ -410,20 +409,20 @@
           }
         }
         .mustache {
+		  transform: translateZ(0px);
           border-top: 20px solid #A0522D;
           border-radius: 30% 30% 0% 0%;
           width: 160px;
           height: 70px;
-          position: absolute;
           top: 295px;
           left: 220px;
         }
         .mustache-2 {
+		  transform: translateZ(0px);
           border-top: 20px solid #A0522D;
           border-radius: 25% 25% 0% 0%;
           width: 140px;
           height: 90px;
-          position: absolute;
           top: 290px;
           left: 230px;
         }
@@ -433,7 +432,6 @@
           width: 75px;
           left: 260px;
           top: 440px;
-          position: absolute;
           border-radius: 0% 0% 25% 25%;
         }
         .neck-depth {
@@ -442,7 +440,6 @@
           width: 65px;
           left: 265px;
           top: 440px;
-          position: absolute;
           border-radius: 0% 0% 25% 25%;
         }
         .shirt {
@@ -452,7 +449,6 @@
           border-radius: 25% 25% 0% 0%;
           left: 50px;
           top: 500px;
-          position: absolute;
         }
         .collar {
           background: transparent;
@@ -461,7 +457,6 @@
           border-radius: 50%;
           left: 249.5px;
           top: 455px;
-          position: absolute;
           border-bottom: 3px solid black;
         }
         .shirt-sleeve {
@@ -469,7 +464,6 @@
           height: 210px;
           width: 80px;
           top: 540px;
-          position: absolute;
           border-top: 0px;
         }
         .shirt-sleeve.left {
@@ -482,7 +476,6 @@
           top: 75px;
           left: 100%;
           border-right: 3px solid black;
-          position: absolute;
         }
         .shirt-sleeve.right {
           left: 485px;
@@ -493,7 +486,6 @@
           height: 135px;
           top: 75px;
           border-left: 3px solid black;
-          position: absolute;
         }
         table {
           border-collapse: collapse;
@@ -501,6 +493,8 @@
           height: 100%;
           animation: mouth-animation-teeth 25s infinite;
           clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 80% 93%, 50% 105%, 20% 93%, 0% 60%);
+		  /* webkit syntax */
+          -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 80% 93%, 50% 105%, 20% 93%, 0% 60%);
         }
         @keyframes mouth-animation-teeth {
           30% {
@@ -543,9 +537,8 @@
           border-right: 0px;
         }
         .label {
-          position: absolute;
-          top: 150px;
-          left: 640px;
+          margin-top: 50px;
+          margin-left: 600px;
           font-size: 150px;
           font-family:
             system-ui,
@@ -559,17 +552,21 @@
             'Segoe UI Emoji';
           color: rgba(50, 50, 180, 1);
           text-align: center;
-          -webkit-user-select: none;
-          /* Safari */
-          -ms-user-select: none;
-          /* IE 10 and IE 11 */
-          user-select: none;
           /* Standard syntax */
           clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
-          padding: 1% 1% 1% 10%;
+		  /* webkit syntax */
+          -webkit-clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
+          padding: 1% 0.5% 0% 10%;
           background: rgba(255,255,255,0.9);
-          height: 555px;
+		  width: 800px;
+		  height: 555px;
         }
+		.label-container {
+		  width: 100%;
+		  height: 100%;
+		  margin-top: -800px;
+		  left: 0px;
+		}
         .hand {
           animation: rotate ease-in-out 0.75s infinite alternate;
           text-shadow:
@@ -601,13 +598,12 @@
       </style>
       <div class="container">
         <div class="background">
-		<div class="background-v">
-		<div class="background-h">
+		  <div class="background-v">
+		  	<div class="background-h">
+		    </div>
+		  </div>
         </div>
-        </div>
-        </div>
-        
-        
+		<div class="label-container">
         <div class="label">
           <div class="hand">👋🏻
           </div>
@@ -615,6 +611,7 @@
             <br/> I'm Dylan
           </h1>
         </div>
+		</div>
         <div class="dylan">
           <div class="hair back">
           </div>
