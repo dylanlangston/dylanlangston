@@ -85,7 +85,7 @@
         .dylan {
 		  z-index:1000;
           left: 0px;
-          margin-top: -875px;
+          margin-top: -725px;
 		  width: 50%;
 		  height: 100%;
         }
@@ -599,8 +599,7 @@
 		  	<div class="background-h">
 		    </div>
 		  </div>
-        </div>
-		<div class="label-container">
+		  <div class="label-container">
         <div class="label">
           <div class="hand">👋🏻
           </div>
@@ -609,6 +608,8 @@
           </h1>
         </div>
 		</div>
+        </div>
+		
         <div class="dylan">
           <div class="hair back">
           </div>
