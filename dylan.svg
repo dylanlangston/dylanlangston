@@ -557,6 +557,7 @@
           padding: 1% 0% 0% 10%;
           background: rgba(255,255,255,0.9);
 		  width: 800px;
+		  position: relative;
         }
 		.label-container {
 		  margin-top: -800px;
