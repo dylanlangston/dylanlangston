@@ -15,7 +15,7 @@
           /* Standard syntax */
 		}
 		_::-webkit-full-page-media, _:future, :root, .container {
-		  transform: scale(0.6125,0.6125) translate(-31.6%, -31.6%);
+		  transform: scale(0.784) translate(-13.8%, -13.8%);
 		}
 		.container {
 		  position: absolute;
