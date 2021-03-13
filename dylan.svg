@@ -13,6 +13,11 @@
           /* IE 10 and IE 11 */
           user-select: none;
           /* Standard syntax */
+		  
+		}
+		/* rescale on ios because apple broke */
+		_::-webkit-full-page-media, _:future, :root, svg {
+		  transform: scale(0.6125,0.6125) translate(-31.6%, -31.6%);
 		}
 		.container {
 		  position: absolute;
