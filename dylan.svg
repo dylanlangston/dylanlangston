@@ -29,8 +29,6 @@
           background-size: 87.71px 31.93px;
           height: 800px;
           width: 1600px;
-          animation: background-change 2s linear 1s infinite alternate;
-          animation-fill-mode: both;
           border-radius: 50px;
         }
         .background-h {
@@ -38,8 +36,6 @@
           background-size: 87.71px 31.93px;
           height: 800px;
           width: 1600px;
-          animation: background-change-4 linear 6s infinite alternate;
-          animation-fill-mode: both;
           border-radius: 50px;
         }
         .background {
@@ -49,34 +45,6 @@
           left: 0px;
           position: absolute;
           border-radius: 50px;
-        }
-        @keyframes background-change {
-          0% {
-            width: 100%;
-            left: 0%;
-          }
-          50% {
-            width: 99%;
-            left: 1%;
-          }
-          100% {
-            width: 100%;
-            left: 0%;
-          }
-        }
-        @keyframes background-change-4 {
-          0% {
-            height: 99%;
-            top: 1%;
-          }
-          50% {
-            height: 100%;
-            top: 0%;
-          }
-          100% {
-            height: 99%;
-            top: 1%;
-          }
         }
         .dylan {
           left: 100px;
