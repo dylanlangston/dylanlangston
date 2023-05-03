@@ -25,21 +25,19 @@
 		  height: 0px;
 		}
         .background-v {
-          background-image: linear-gradient(90deg, transparent 0%, transparent 25%, RGBA(152, 205, 141, 0.5) 25%, RGBA(152, 205, 141, 0.5) 50%, transparent 50%, transparent 75%, RGBA(152, 205, 141, 0.5) 75%, RGBA(152, 205, 141, 0.5) 100%);
-          background-size: 87.71px 31.93px;
+          background: transparent;
           height: 800px;
           width: 1600px;
           border-radius: 50px;
         }
         .background-h {
-          background-image: linear-gradient(0deg, RGBA(152, 205, 141, 0.5) 25%, transparent 25%, transparent 50%, RGBA(152, 205, 141, 0.5) 50%, RGBA(152, 205, 141, 0.5) 75%, transparent 75%, transparent 100%);
-          background-size: 87.71px 31.93px;
+          background: transparent;
           height: 800px;
           width: 1600px;
           border-radius: 50px;
         }
         .background {
-          background-image: radial-gradient(circle at 23%, rgba(0, 0, 128, 0.0), rgba(0, 0, 128, 0.95), #000080, #000080);
+          background: transparent;
           height: 800px;
           width: 1600px;
           left: 0px;
@@ -539,7 +537,7 @@
           clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
           padding: 1% 1% 1% 10%;
           background: rgba(255,255,255,0.9);
-          height: 555px;
+          height: 455px;
         }
         .hand {
           animation: rotate ease-in-out 0.75s infinite alternate;
@@ -582,9 +580,7 @@
         <div class="label">
           <div class="hand">👋🏻
           </div>
-          <h1>Hello World
-            <br/> I'm Dylan
-          </h1>
+          <h1>Hello World</h1>
         </div>
         <div class="dylan">
           <div class="hair back">
