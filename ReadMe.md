@@ -11,5 +11,5 @@
   
 <div align="center">
 
-  [![website badge](https://img.shields.io/badge/dylanlangston.com-073642?style=for-the-badge&logo=html5&logoColor=b58900)](https://dylanlangston.com) [![linkedin badge](https://img.shields.io/badge/LinkedIn-073642?style=for-the-badge&logo=linkedin&logoColor=b58900)](https://www.linkedin.com/in/dylan-langston/) [![email badge](https://img.shields.io/badge/Email-073642?style=for-the-badge&logo=mail.ru&logoColor=b58900)](mailto:mail@dylanlangston.com) [![gist badge](https://img.shields.io/badge/Gist-073642?style=for-the-badge&logo=github&logoColor=b58900)](https://gist.github.com/dylanlangston)
+  [![website badge](https://img.shields.io/badge/dylanlangston.com-073642?style=social&logo=html5)](https://dylanlangston.com) [![linkedin badge](https://img.shields.io/badge/LinkedIn-073642?style=social&logo=linkedin)](https://www.linkedin.com/in/dylan-langston/) [![gist badge](https://img.shields.io/badge/Gist-073642?style=social&logo=github)](https://gist.github.com/dylanlangston)
 </div>
