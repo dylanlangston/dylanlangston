@@ -1,0 +1,23 @@
+{
+	"name": "dylanlangston",
+	"build": { 
+		"dockerfile": "devcontainer.Dockerfile",
+		"target": "base",
+		"context": ".."
+	},
+	"containerUser": "vscode",
+	"postCreateCommand": "",
+	"runArgs": ["--volume=/var/lib/docker", "--privileged"],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+                "SimonSiefke.svg-preview",
+                "ms-azuretools.vscode-docker",
+                "bierner.markdown-preview-github-styles",
+                "ms-vscode-remote.remote-containers"
+			],
+			"settings": {
+			}
+		}
+	}
+}

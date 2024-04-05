@@ -1,0 +1,23 @@
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    open-pull-requests-limit: 50
+    commit-message:
+      prefix: "Node - "
+    directory: "/src"
+    schedule:
+      interval: "weekly"
+    labels:
+      - ":label: Dependencies"
+      - ":technologist:TypeScript/JavaScript :green_circle:"
+  - package-ecosystem: "github-actions"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "Github Actions - "
+    directory: ./.github/workflows/
+    schedule:
+      interval: "weekly"
+    labels:
+      - ":label: Dependencies"
+      - ":technologist: Github Actions :brown_circle:"

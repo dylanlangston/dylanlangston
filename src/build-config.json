@@ -1,0 +1,17 @@
+[
+  {
+    "in": "dylan.svg.hbs",
+    "out": "dylan.svg",
+    "type": "SVG",
+    "data": {}
+  },
+  {
+    "in": "readme.md.hbs",
+    "out": "readme.md",
+    "type": "Markdown",
+    "data": {
+      "image": "dylan.svg",
+      "imageAlt": "Dylan"
+    }
+  }
+]
