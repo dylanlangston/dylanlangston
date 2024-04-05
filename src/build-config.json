@@ -7,7 +7,7 @@
   },
   {
     "in": "readme.md.hbs",
-    "out": "readme.md",
+    "out": "ReadMe.md",
     "type": "Markdown",
     "data": {
       "image": "dylan.svg",
