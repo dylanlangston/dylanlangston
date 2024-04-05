@@ -20,7 +20,7 @@ jobs:
 
       - name: Enable auto-merge for Dependabot PRs
         run: |
-          COMMAND='gh pr merge --auto --merge "$PR_URL"'
+          COMMAND='gh pr merge --auto --merge "${{github.event.pull_request.html_url}}"'
           MAX_TRIES=5
           INITIAL_SLEEP=5
           MAX_SLEEP=30
@@ -55,5 +55,4 @@ jobs:
               fi
           done
         env:
-          PR_URL: ${{github.event.pull_request.html_url}}
           GH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
