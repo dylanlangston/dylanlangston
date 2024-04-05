@@ -1,9 +1,9 @@
-<!-- Version 1.0.3 -->
+<!-- Version 1.0.4 -->
 
-<!-- Built Fri Apr 05 2024 18:33:33 GMT+0000 (Coordinated Universal Time) -->
+<!-- Built Fri Apr 05 2024 18:35:38 GMT+0000 (Coordinated Universal Time) -->
 
 <div align="center">
-  <a href="./blob/master/dylan.svg?short_path=0" title="Click to View Source">
+  <a href="./dylan.svg?short_path=0" title="Click to View Source">
     <object>
       <img src="dylan.svg" alt="Dylan">
     </object>
