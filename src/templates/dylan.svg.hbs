@@ -4,16 +4,11 @@
     <div xmlns="http://www.w3.org/1999/xhtml">
       <style>
         svg {
-          width: 100%;
-          height: auto;
           position: relative;
           display: block;
           -webkit-user-select: none;
-          /* Safari */
           -ms-user-select: none;
-          /* IE 10 and IE 11 */
           user-select: none;
-          /* Standard syntax */
         }
 
         .container {
@@ -74,23 +69,9 @@
         }
 
         .hair {
-          background: #8B4513;
+          background: radial-gradient(#6e3710, #8B4513);
           position: absolute;
           position: absolute;
-        }
-
-        @keyframes hair-animation {
-          0% {
-            background: #8B4513;
-          }
-
-          50% {
-            background: #A0522D;
-          }
-
-          100% {
-            background: #8B4513;
-          }
         }
 
         .hair.back {
@@ -135,10 +116,10 @@
         }
 
         .hair.left {
-          left: 100px;
-          top: 150px;
-          width: 10px;
-          height: 200px;
+          left: 98px;
+          top: 160px;
+          width: 12px;
+          height: 150px;
           border-radius: 25%;
         }
 
@@ -147,13 +128,14 @@
           top: 47px;
           width: 200px;
           height: 13px;
+          border-radius: 25%;
         }
 
         .hair.right {
           left: 490px;
-          top: 150px;
-          width: 10px;
-          height: 200px;
+          top: 160px;
+          width: 12px;
+          height: 150px;
           border-radius: 25%;
         }
 
@@ -306,7 +288,7 @@
         }
 
         .eyebrow {
-          border-top: 10px solid #8B4513;
+          border-top: 10px solid #6e3710;
           width: 100px;
           height: 50px;
           position: absolute;
@@ -448,7 +430,7 @@
         }
 
         .mustache {
-          border-top: 20px solid #A0522D;
+          border-top: 20px solid #a0782d;
           border-radius: 30% 30% 0% 0%;
           width: 160px;
           height: 70px;
@@ -458,7 +440,7 @@
         }
 
         .mustache-2 {
-          border-top: 20px solid #A0522D;
+          border-top: 20px solid #a0782d;
           border-radius: 25% 25% 0% 0%;
           width: 140px;
           height: 90px;
@@ -628,12 +610,21 @@
           user-select: none;
           /* Standard syntax */
           clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 15% 20%, 0% 30%, 15% 10%);
-          padding: 1% 1% 1% 10%;
-          background: rgba(255, 255, 255, 0.9);
+          padding: 1% 1% 1% 1%;
+          background: rgba(0, 0, 0, 0.25);
           height: 455px;
+          width: 900px;
+        }
+
+
+        @media (prefers-color-scheme: dark) {
+          .label {
+            background: rgba(255, 255, 255, 0.9);
+          }
         }
 
         .hand {
+          margin-left: 16%;
           animation: rotate ease-in-out 0.75s infinite alternate;
           text-shadow:
             0 1px 0 #efefef,
@@ -642,6 +633,7 @@
         }
 
         h1 {
+          margin-left: 16%;
           font-size: 100px;
           line-height: 1.3;
           letter-spacing: 5px;
