@@ -1,25 +1,27 @@
-<!-- Version 1.0.14 -->
+<!-- Version 1.0.15 -->
 
-<!-- Built Fri Apr 05 2024 20:15:52 GMT+0000 (Coordinated Universal Time) -->
+<!-- Built Fri Apr 05 2024 20:46:11 GMT+0000 (Coordinated Universal Time) -->
 
-<details align="right">
-  <summary>
-    <div align="center">
-      <a href="./dylan.svg?short_path=0" title="Click to View Source">
-        <object>
-          <img src="dylan.svg" alt="Dylan">
-        </object>
-      </a>
-      <br />
-    </div>
-  </summary>
-  <a href="https://github.dev/dylanlangston/dylanlangston"><img
-      src="https://img.shields.io/static/v1?style=for-the-badge&label=&message=View+on+GitHub.dev&color=lightgrey&logo=github"
-      alt="Edit on GitHub.dev"></a>
-  <a href="https://vscode.dev/github/dylanlangston/dylanlangston"><img
-      src="https://img.shields.io/static/v1?style=for-the-badge&label=&message=View+on+VSCode.dev&color=blue&logo=visualstudiocode"
-      alt="Open in vscode.dev"></a>
-</details>
+<div align="right">
+  <details>
+    <summary>
+      <div align="center">
+        <a href="./dylan.svg?short_path=0" title="Click to View Source">
+          <object>
+            <img src="dylan.svg" alt="Dylan">
+          </object>
+        </a>
+        <br />
+      </div>
+    </summary>
+    <a href="https://github.dev/dylanlangston/dylanlangston"><img
+        src="https://img.shields.io/static/v1?style=for-the-badge&label=&message=View+on+GitHub.dev&color=lightgrey&logo=github"
+        alt="Edit on GitHub.dev"></a>
+    <a href="https://vscode.dev/github/dylanlangston/dylanlangston"><img
+        src="https://img.shields.io/static/v1?style=for-the-badge&label=&message=View+on+VSCode.dev&color=blue&logo=visualstudiocode"
+        alt="Open in vscode.dev"></a>
+  </details>
+</div>
 
 <div align="center">
 
