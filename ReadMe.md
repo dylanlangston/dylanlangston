@@ -1,6 +1,6 @@
-<!-- Version 1.0.8 -->
+<!-- Version 1.0.9 -->
 
-<!-- Built Fri Apr 05 2024 19:50:40 GMT+0000 (Coordinated Universal Time) -->
+<!-- Built Fri Apr 05 2024 19:55:21 GMT+0000 (Coordinated Universal Time) -->
 
 <details align="right">
   <summary>
@@ -21,15 +21,12 @@
       alt="Open in vscode.dev"></a>
 </details>
 
-<br />
-
 <div align="center">
-
-[![website badge](https://img.shields.io/badge/dylanlangston.com-073642?style=social\&logo=html5)](https://dylanlangston.com)
-[![linkedin badge](https://img.shields.io/badge/LinkedIn-073642?style=social\&logo=linkedin)](https://www.linkedin.com/in/dylan-langston/)
-[![gist badge](https://img.shields.io/badge/Gist-073642?style=social\&logo=github)](https://gist.github.com/dylanlangston) <br />
-![Visits Badge](https://badges.pufler.dev/visits/dylanlangston/dylanlangston)
-![Repos Badge](https://badges.pufler.dev/repos/dylanlangston)
-![Years Badge](https://badges.pufler.dev/years/dylanlangston)
-
+  [![website badge](https://img.shields.io/badge/dylanlangston.com-073642?style=social&logo=html5)](https://dylanlangston.com)
+  [![linkedin badge](https://img.shields.io/badge/LinkedIn-073642?style=social&logo=linkedin)](https://www.linkedin.com/in/dylan-langston/)
+  [![gist badge](https://img.shields.io/badge/Gist-073642?style=social&logo=github)](https://gist.github.com/dylanlangston)
+  <br />
+  ![Visits Badge](https://badges.pufler.dev/visits/dylanlangston/dylanlangston)
+  ![Repos Badge](https://badges.pufler.dev/repos/dylanlangston)
+  ![Years Badge](https://badges.pufler.dev/years/dylanlangston)
 </div>
