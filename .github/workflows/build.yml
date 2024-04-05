@@ -1,4 +1,4 @@
-name: Update README
+name: 🔄 Update README
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 
 jobs:
   update-readme:
+    name: "Build ReadMe and Commit"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
