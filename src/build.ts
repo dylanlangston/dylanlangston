@@ -79,6 +79,7 @@ build(templates).then((result) => {
     }
     else {
         console.log(`Build Failed ⚠️`);
+        process.exit(1);
     }
 }, error => {
     console.error('Unknown Error:', error);
