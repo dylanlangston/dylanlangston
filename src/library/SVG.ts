@@ -1,6 +1,5 @@
-import * as fs from 'fs';
 import * as SVGO from 'svgo';
-import { DOMParser, XMLSerializer } from 'xmldom';
+import { DOMParser } from '@xmldom/xmldom';
 import postcss from 'postcss';
 import postcssrc from 'postcss-load-config';
 import * as cheerio from 'cheerio';
