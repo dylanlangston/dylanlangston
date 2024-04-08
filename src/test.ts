@@ -5,6 +5,7 @@ import { build, default_templates, outDir } from './library/Builder';
 import { Markdown } from './library/Markdown';
 import { NullLogger } from './library/NullLogger';
 
+const port = 8080;
 
 async function startServer() {
     let server: http.Server | undefined;
@@ -24,26 +25,27 @@ async function startServer() {
                         const filename = req.url == "/" ? "/ReadMe.md" : req.url;
                         const matchingTemplates = default_templates.filter(t => '/' + t.out == filename);
                         if (matchingTemplates.length == 1) {
-                            const isMarkdown = matchingTemplates[0].type == "Markdown";
-                            const file = fs.readFileSync(path.join(outDir, matchingTemplates[0].out!), 'utf8');
-                            switch (matchingTemplates[0].type) {
-                                case "Markdown":
-                                    res.writeHead(200, { 'Content-Type':'text/html' });
-                                    res.end(await await Markdown.Instance.toHtml(file))
-                                    return;
-                                case "SVG":
-                                    res.writeHead(200, { 'Content-Type':'image/svg+xml'});
-                                    res.end(file);
-                                    return;
+                            const filename = path.join(outDir, matchingTemplates[0].out!);
+                            if (fs.existsSync(filename)) {
+                                const file = fs.readFileSync(filename, 'utf8');
+                                switch (matchingTemplates[0].type) {
+                                    case "Markdown":
+                                        res.writeHead(200, { 'Content-Type': 'text/html' });
+                                        res.end(await await Markdown.Instance.toHtml(file))
+                                        return;
+                                    case "SVG":
+                                        res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
+                                        res.end(file);
+                                        return;
+                                }
                             }
                         }
                     }
                     res.writeHead(404, 'File Not Found');
                     res.end();
                 });
-                server.listen(8080, () => {
-                    console.log('Server is running on port 8080');
-                    console.log('Open http://localhost:8080/');
+                server.listen(port, () => {
+                    console.log(`Server is running on 'http://localhost:${port}/'`);
                 });
             }
         } catch (error) {
