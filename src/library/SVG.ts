@@ -29,23 +29,23 @@ export class SVG {
     }
 
     // Function to validate SVG file
-    validate(svgString: string): boolean {
+    validate(svgString: string, con?: typeof console): boolean {
         try {
             this.parser.parseFromString(svgString, 'image/svg+xml');
             return true;
         } catch (error) {
-            console.error('Invalid SVG:', error);
+            (con ?? console).error('Invalid SVG:', error);
             return false;
         }
     }
 
     // Function to minify SVG file
-    async minify(svgString: string): Promise<string> {
+    async minify(svgString: string, con?: typeof console): Promise<string> {
         try {
             const result = SVGO.optimize(await this.processCSS(svgString));
             return result.data;
         } catch (error) {
-            console.error('Error while minifying SVG:', error);
+            (con ?? console).error('Error while minifying SVG:', error);
             return svgString;
         }
     }
