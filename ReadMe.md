@@ -1,6 +1,6 @@
-<!-- Version 1.0.33 -->
+<!-- Version 1.0.34 -->
 
-<!-- Built Tue Apr 09 2024 00:20:01 GMT+0000 (Coordinated Universal Time) -->
+<!-- Built Tue Apr 09 2024 03:29:08 GMT+0000 (Coordinated Universal Time) -->
 
 <div align="right">
   <details>
@@ -8,7 +8,7 @@
       <div align="center">
         <a href="./dylan.svg?short_path=0" title="Click to View Source">
           <object>
-            <img src="dylan.svg" alt="Dylan">
+            <img width="100%" src="dylan.svg" alt="Dylan">
           </object>
         </a>
         <br />
