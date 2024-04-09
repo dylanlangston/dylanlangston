@@ -14,11 +14,14 @@ async function startServer() {
 
     const rebuildAndStartServer = async () => {
         const default_templates = get_default_templates();
-        const result = await build(default_templates, new NullLogger());
-        if (!result) {
-            console.error("Build Failed ⚠️");
+        try {
+            const result = await build(default_templates, new NullLogger());
+        }
+        catch (err) {
+            console.error("Build Failed ⚠️\n", err);
             return;
         }
+        
         console.log(`Build Successful ✨`);
         
         if (wss) {

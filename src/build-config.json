@@ -8,7 +8,7 @@
     }
   },
   {
-    "in": "readme.md",
+    "in": "readme.md.hbs",
     "out": "ReadMe.md",
     "type": "Markdown",
     "data": {
