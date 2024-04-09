@@ -6,7 +6,7 @@
       <div align="center">
         <a href="./{{image}}?short_path=0" title="Click to View Source">
           <object>
-            <img src="{{image}}" alt="{{imageAlt}}">
+            <img width="100%" src="{{image}}" alt="{{imageAlt}}">
           </object>
         </a>
         <br />

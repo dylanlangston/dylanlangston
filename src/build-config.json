@@ -1,12 +1,14 @@
 [
   {
-    "in": "dylan.svg.hbs",
+    "in": "dylan.yaml",
     "out": "dylan.svg",
     "type": "SVG",
-    "data": {}
+    "data": {
+      
+    }
   },
   {
-    "in": "readme.md.hbs",
+    "in": "readme.md",
     "out": "ReadMe.md",
     "type": "Markdown",
     "data": {

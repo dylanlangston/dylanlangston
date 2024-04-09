@@ -4,12 +4,16 @@ import * as Handlebars from 'handlebars';
 import { TemplateType, Template } from './Template';
 import { SVG } from './SVG';
 import { Markdown } from './Markdown';
+import * as yaml from 'js-yaml';
 const packageJson = require('../package.json');
 
 export const outDir = path.join(__dirname, '..', 'out');
 
 const templatesFilePath = path.join(__dirname, '..', 'build-config.json');
-export const default_templates: Template[] = JSON.parse(fs.readFileSync(templatesFilePath, 'utf8'));
+
+export function get_default_templates(): Template[] {
+    return JSON.parse(fs.readFileSync(templatesFilePath, 'utf8'));
+}
 
 export async function build(templates: Template[], con?: typeof console): Promise<boolean> {
     if (!fs.existsSync(outDir)) {
@@ -18,9 +22,9 @@ export async function build(templates: Template[], con?: typeof console): Promis
 
     function populateTemplate(template: string, input: any): any {
         switch (template) {
-            case "dylan.svg.hbs":
+            case "dylan.yaml":
                 return input;
-            case "readme.md.hbs":
+            case "readme.md":
                 input.time = new Date();
                 input.version = packageJson.version;
                 return input;
@@ -54,11 +58,23 @@ export async function build(templates: Template[], con?: typeof console): Promis
             const templateSource = fs.readFileSync(path.join(__dirname, '..', 'templates', template.in), 'utf8');
             const handlebars = Handlebars.compile(templateSource);
             const data = populateTemplate(template.in, template.data);
-            const output = handlebars(data);
-            
-            if (!(await validate(template.type, output))) return false;
+            let file: string;
 
-            const minifiedOutput = await minify(template.type, output);
+            switch (template.type) {
+                case TemplateType.SVG:
+                    const config: any = yaml.load(handlebars(data));
+                    file = await SVG.Instance.generateSVGFromConfig(config);
+                    break;
+                case TemplateType.Markdown:
+                    file = handlebars(data);
+                    break;
+                default:
+                    throw `Not Implemented: ${template.type}`;
+            }
+            
+            if (!(await validate(template.type, file))) return false;
+
+            const minifiedOutput = await minify(template.type, file);
 
             if (template.out != null) {
                 const outFile = path.join(outDir, template.out);

@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as http from 'http';
 import * as path from 'path';
 import * as WebSocket from 'ws'; // Import WebSocket module
-import { build, default_templates, outDir } from './library/Builder';
+import { build, get_default_templates, outDir } from './library/Builder';
 import { Markdown } from './library/Markdown';
 import { NullLogger } from './library/NullLogger';
 
@@ -13,6 +13,7 @@ async function startServer() {
     let wss: WebSocket.Server | undefined;
 
     const rebuildAndStartServer = async () => {
+        const default_templates = get_default_templates();
         const result = await build(default_templates, new NullLogger());
         if (!result) {
             console.error("Build Failed ⚠️");
@@ -78,7 +79,7 @@ async function startServer() {
     await rebuildAndStartServer();
 
     let debounce: NodeJS.Timeout | undefined;
-    fs.watch(path.resolve(__dirname, 'templates'), (eventType, filename) => {
+    const watcher: fs.WatchListener<string> = (eventType, filename) => {
         if (debounce) {
             clearTimeout(debounce);
         }
@@ -90,7 +91,9 @@ async function startServer() {
 
             debounce = undefined;
         }, 500);
-    });
+    };
+    fs.watch(path.resolve(__dirname, 'build-config.json'), watcher);
+    fs.watch(path.resolve(__dirname, 'templates'), watcher);
 }
 
 startServer().catch(err => {

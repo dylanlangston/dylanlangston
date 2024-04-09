@@ -1,6 +1,6 @@
-import { build, default_templates } from './library/Builder';
+import { build, get_default_templates } from './library/Builder';
 
-build(default_templates).then((result) => {
+build(get_default_templates()).then((result) => {
     if (result) {
         console.log(`Build Successful ✨`);
     }
