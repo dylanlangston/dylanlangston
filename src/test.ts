@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as http from 'http';
 import * as path from 'path';
+import * as WebSocket from 'ws'; // Import WebSocket module
 import { build, default_templates, outDir } from './library/Builder';
 import { Markdown } from './library/Markdown';
 import { NullLogger } from './library/NullLogger';
@@ -9,6 +10,7 @@ const port = 8080;
 
 async function startServer() {
     let server: http.Server | undefined;
+    let wss: WebSocket.Server | undefined;
 
     const rebuildAndStartServer = async () => {
         const result = await build(default_templates, new NullLogger());
@@ -17,6 +19,14 @@ async function startServer() {
             return;
         }
         console.log(`Build Successful ✨`);
+        
+        if (wss) {
+            wss.clients.forEach(client => {
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send('reload');
+                }
+            });
+        }
 
         try {
             if (server == undefined) {
@@ -31,7 +41,17 @@ async function startServer() {
                                 switch (matchingTemplates[0].type) {
                                     case "Markdown":
                                         res.writeHead(200, { 'Content-Type': 'text/html' });
-                                        res.end(await await Markdown.Instance.toHtml(file))
+                                        res.write(await Markdown.Instance.toHtml(file));
+                                        res.end(`
+                                            <script>
+                                                const socket = new WebSocket('ws://localhost:${port}');
+                                                socket.onmessage = (event) => {
+                                                    if (event.data === 'reload') {
+                                                        window.location.reload();
+                                                    }
+                                                };
+                                            </script>
+                                        `);
                                         return;
                                     case "SVG":
                                         res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
@@ -44,6 +64,8 @@ async function startServer() {
                     res.writeHead(404, 'File Not Found');
                     res.end();
                 });
+
+                wss = new WebSocket.Server({ server });
                 server.listen(port, () => {
                     console.log(`Server is running on 'http://localhost:${port}/'`);
                 });
