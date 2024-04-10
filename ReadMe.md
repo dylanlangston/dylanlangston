@@ -1,9 +1,9 @@
-<!-- Version 1.0.35 -->
+<!-- Version 1.0.36 -->
 
-<!-- Built Wed Apr 10 2024 02:20:12 GMT+0000 (Coordinated Universal Time) -->
+<!-- Built Wed Apr 10 2024 03:52:35 GMT+0000 (Coordinated Universal Time) -->
 
 <div align="center">
-  <a href="./src/templates/dylan.svg.yaml" title="Click to View Source">
+  <a href="./src/templates/dylan.svg.hbs.yaml" title="Click to View Source">
     <img src="dylan.svg" alt="Dylan" width="100%">
   </a>
   <br />
