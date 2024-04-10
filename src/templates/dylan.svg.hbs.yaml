@@ -341,7 +341,7 @@ Eyelid Animation:
       }
     }  
 
-# Style applies the eyelied closing animation to the top eyelids
+# Style applies the eyelid closing animation to the top eyelids
 Eyelid Top Style:
   style: [
     '.eyelid-top',
@@ -365,7 +365,7 @@ Eyelid Right Top:
     y: 105
     addClass: eyelid-top
 
-# Style applies the eyelied closing animation to the bottom eyelids
+# Style applies the eyelid closing animation to the bottom eyelids
 Eyelid Bottom Style:
   style: [
     '.eyelid-bottom',
