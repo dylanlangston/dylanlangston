@@ -1,6 +1,6 @@
 [
   {
-    "in": "dylan.svg.yaml",
+    "in": "dylan.svg.hbs.yaml",
     "out": "dylan.svg",
     "type": "SVG",
     "data": {
@@ -9,7 +9,6 @@
       ],
       "width": 1600,
       "height": 800,
-      "message": "Hello World! 👋🏻",
       "hair1": "#6e3710",
       "hair2": "#8B4513",
       "shirt": "#bdb76b",
@@ -29,7 +28,8 @@
     "type": "Markdown",
     "data": {
       "image": "dylan.svg",
-      "imageAlt": "Dylan"
+      "imageAlt": "Dylan",
+      "imageTemplate": "dylan.svg.hbs.yaml"
     }
   }
 ]
