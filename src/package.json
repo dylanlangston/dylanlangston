@@ -21,6 +21,7 @@
     "@xmldom/xmldom": "^0.8.10",
     "cheerio": "^1.0.0-rc.12",
     "cssnano": "^6.1.2",
+    "github-markdown-css": "^5.5.1",
     "handlebars": "^4.7.8",
     "js-yaml": "^4.1.0",
     "mime": "^4.0.1",

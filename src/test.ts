@@ -47,8 +47,12 @@ async function startServer() {
                                 switch (matchingTemplates[0].type) {
                                     case "Markdown":
                                         res.writeHead(200, { 'Content-Type': 'text/html' });
-                                        res.write(await Markdown.Instance.toHtml(file));
-                                        res.end(`
+                                        res.write(`
+                                            <html>
+                                            <head>
+                                                <style>
+                                                   ${fs.readFileSync('node_modules/github-markdown-css/github-markdown.css', 'utf8')}
+                                                </style>
                                                 <script>
                                                     const socket = new WebSocket('ws://' + window.location.hostname + ':${port}');
                                                     socket.onmessage = (event) => {
@@ -57,6 +61,13 @@ async function startServer() {
                                                         }
                                                     };
                                                 </script>
+                                            </head>
+                                            <body class="markdown-body">`)
+                                        res.write(``)
+                                        res.write(await Markdown.Instance.toHtml(file));
+                                        res.end(`
+                                            </body>
+                                            </html>
                                             `);
                                         return;
                                     case "SVG":
