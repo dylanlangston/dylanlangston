@@ -1,13 +1,15 @@
 #
-# This file defines the markup for the 'dylan.svg' file using a novel approach.
-# It uses YAML for markup instead of XML! How does this work, we to parse this 
-# file using js-yaml, then use that object to call the methods for SVG.js. 
-# (See https://svgjs.dev/docs/3.0/ for available methods.)
-# It also uses Handlebars to populate variables defined in build-config.js.
-# This approach of YAML+SVG allows for greater legibility and additional post 
-# processing techniques to improve the size of the final SVG. This is entirely 
-# bespoke and likely to have lots of issues but feel free to give it a try if 
-# you're interested by downloading the source code and running:
+# This file defines the markup used to create the 'dylan.svg' file. It uses 
+# YAML instead of XML to define the structure of the SVG. How does this work?
+# First we parse this file using 'js-yaml', then use the resulting object to 
+# invoke methods for 'SVG.js'. (See https://svgjs.dev/docs/3.0/ for more.)
+# We also use 'Handlebars' to populate variables at build time.
+
+# This use of SVG+YAML allows for greater legibility and additional post-
+# processing techniques to improve the size of the final SVG. This approach is 
+# entirely bespoke and while novel likely to have unforseen pitfalls. That said
+# please feel free to give it a try if you're interested by downloading the 
+# source code and running:
 #   npm install
 #   npm run test
 #
@@ -18,7 +20,8 @@ height: {{height}}
 viewBox: 0 0 {{width}} {{height}}
 preserveAspectRatio: xMinYMin none
 
-# This style ensures that foreignObjects inherit their parent element 
+# Style to ensure foreignObjects inherit their parent element style
+# This is necessary for Firefox but not Chrome or Safari
 ForeignObject Style:
   style: [
     '.foInherit',
@@ -30,7 +33,7 @@ ForeignObject Style:
     }
   ]
 
-# This style defines the background image and it's blur filter
+# Style defines the background image and it's associated blur filter
 Background style:
   defs:
     defs:
@@ -57,11 +60,11 @@ Background:
     foreignObject: [{{width}}, {{height}}]
     attr: [ "filter", "url(#blur_filter)"]
     addClass: background
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
     css: 
       border-radius: 75px 75px 15px 15px;
 
-# This style defines the hair color, a gradient
+# Style defines the hair background gradient
 Hair Style:
   defs:
     defs: 
@@ -86,7 +89,7 @@ Hair Back:
     addClass: 'hair'
     css:
       border-radius: 50% 50% 50% 50%/35% 35% 65% 65%;
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
 
 Hair Back Left:
   ellipse: 
@@ -117,7 +120,7 @@ Shirt:
     css:
       border-radius: 25% 25% 0 0;
       background: '{{shirt}}'
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
 
 Collar:
   path:
@@ -142,7 +145,7 @@ Hair Front Right:
     attr: [ 'transform', 'rotate(20, 380, 360)' ]
     css: 
       border-radius: 50% 50% 37% 50%;
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
 
 Head:
   foreignObject: 
@@ -152,7 +155,7 @@ Head:
     css:
       border-radius: 50% 50% 50% 50%/44% 44% 56% 56%;
       background: '{{skin1}}'
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
 
 Neck:
   foreignObject: 
@@ -162,7 +165,7 @@ Neck:
     css:
       border-radius: 0 0 25% 25%;
       background: '{{skin1}}'
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
 
 Head Depth:
   foreignObject: 
@@ -172,7 +175,7 @@ Head Depth:
     css:
       border-radius: 50% 50% 50% 50%/44% 44% 56% 56%;
       background: '{{skin2}}'
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
 
 Neck Depth:
   foreignObject: 
@@ -182,7 +185,7 @@ Neck Depth:
     css:
       border-radius: 0 0 25% 25%;
       background: '{{skin2}}'
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
 
 Hair Front Left:
   ellipse: 
@@ -219,7 +222,7 @@ Eye Right:
     x: 350
     y: 110
 
-# This style defines the iris background, a gradient
+# Style defines the iris background gradient
 Iris Style:
   defs:
     defs: 
@@ -252,7 +255,7 @@ Iris Right:
     y: 120
     addClass: iris
 
-# Animation of the pupil moving and increasing in size
+# Animation of the pupil moving left/right and increasing in size
 Pupil Animation:
   style: |
     @keyframes pupil-animation {
@@ -269,7 +272,7 @@ Pupil Animation:
       }
     }  
 
-# This animation applies the pupil animation
+# Style applies the pupil animation
 Pupil Style:
   style: [
     '.pupil',
@@ -318,7 +321,7 @@ Eyelid Right:
       linecap: round
     }
 
-# Eyelid closing animation
+# Eyelid closing animations
 Eyelid Animation:
   style: |
     @keyframes eyelid-top-animation {
@@ -338,7 +341,7 @@ Eyelid Animation:
       }
     }  
 
-# Applies the eyelied closing animation to the top eyelids
+# Style applies the eyelied closing animation to the top eyelids
 Eyelid Top Style:
   style: [
     '.eyelid-top',
@@ -362,7 +365,7 @@ Eyelid Right Top:
     y: 105
     addClass: eyelid-top
 
-# Applies the eyelied closing animation to the bottom eyelids
+# Style applies the eyelied closing animation to the bottom eyelids
 Eyelid Bottom Style:
   style: [
     '.eyelid-bottom',
