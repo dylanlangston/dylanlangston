@@ -3,59 +3,6 @@ height: {{height}}
 viewBox: 0 0 {{width}} {{height}}
 preserveAspectRatio: xMinYMin none
 
-# styles:
-#   style: [
-#     '.test',
-#     {
-#       opacity: 0.75
-#     }
-#   ]
-# styles2:
-#   style: [
-#     '.foobar',
-#     {
-#       stroke: black,
-#       strokeWidth: '20px'
-#     }
-#   ]
-
-# Test1:
-#   rect: 
-#     rect: [
-#       300, 
-#       500
-#     ]
-#     x: 100
-#     y: 50
-#     fill: red
-#     addClass: 'test'
-
-# Test2:
-#   rect: 
-#     rect: [
-#       1400, 
-#       100
-#     ]
-#     fill: 'yellow'
-#     addClass: 'test foobar'
-
-# Test3:
-#   circle:
-#     circle: 1000
-#     css:
-#       fill: 'blue'
-#       opacity: 0.5
-
-# Label:
-#   text: 
-#     text: '{{message}}'
-#     y: 400
-#     x: 200
-#     fill: 'white'
-#     css:
-#       font: italic 48px serif
-#       line-height: 48px
-
 Bliss background style:
   defs:
     defs:
@@ -347,30 +294,71 @@ Eyelid Right:
       linecap: round
     }
 
+Eyelid Top Animation:
+  style: |
+    @keyframes eyelid-top-animation {
+      0%, 90%, 100% {
+        transform: translateY(0px);
+      }
+      92% {
+        transform: translateY(20px);
+      }
+    }  
+
+Eyelid Top Style:
+  style: [
+    '.eyelid-top',
+    {
+      animation: 'eyelid-top-animation 8s infinite;',
+      fill: '{{skin2}}'
+    }
+  ]
+
 Eyelid Left Top:
   rect:
-    rect: [100, 1]
-    fill: '{{skin2}}'
+    rect: [100, 20]
     x: 160
-    y: 125
+    y: 105
+    addClass: eyelid-top
 
 Eyelid Right Top:
   rect:
-    rect: [100, 1]
-    fill: '{{skin2}}'
+    rect: [100, 20]
     x: 335
-    y: 125
+    y: 105
+    addClass: eyelid-top
+
+Eyelid Bottom Animation:
+  style: |
+    @keyframes eyelid-bottom-animation {
+      0%, 90%, 100% {
+        transform: translateY(0px);
+      }
+      92% {
+        transform: translateY(-20px);
+      }
+    }  
+
+Eyelid Bottom Style:
+  style: [
+    '.eyelid-bottom',
+    {
+      animation: 'eyelid-bottom-animation 8s infinite;',
+      fill: '{{skin2}}',
+      transform: 'translateY(0px)'
+    }
+  ]
 
 Eyelid Left Bottom:
   rect:
-    rect: [100, 1]
-    fill: '{{skin2}}'
+    rect: [100, 20]
     x: 160
     y: 165
+    addClass: eyelid-bottom
 
 Eyelid Right Bottom:
   rect:
-    rect: [100, 1]
-    fill: '{{skin2}}'
+    rect: [100, 20]
     x: 335
     y: 165
+    addClass: eyelid-bottom
