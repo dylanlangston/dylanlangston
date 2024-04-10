@@ -29,7 +29,13 @@ ForeignObject Style:
       width: inherit,
       height: inherit,
       background: inherit,
-      border-radius: inherit
+      border-radius: inherit,
+      border-color: inherit,
+      border-width: inherit,
+      border-style: inherit,
+      padding: inherit,
+      margin: inherit,
+      animation: inherit,
     }
   ]
 
@@ -341,15 +347,22 @@ Eyelid Animation:
       }
     }  
 
-# Style applies the eyelid closing animation to the top eyelids
-Eyelid Top Style:
-  style: [
-    '.eyelid-top',
-    {
-      animation: 'eyelid-top-animation 8s infinite;',
-      fill: '{{skin2}}'
-    }
-  ]
+# Style applies the eyelid closing animation
+Eyelid Styles:
+  style: 
+    style: |
+      .eyelid-top
+      {
+        animation: eyelid-top-animation 8s infinite;
+        fill: {{skin2}};
+        transform: translateY(0);
+      }
+      .eyelid-bottom
+      {
+        animation: eyelid-bottom-animation 8s infinite;
+        fill: {{skin2}};
+        transform: translateY(0);
+      }
 
 Eyelid Left Top:
   rect:
@@ -365,17 +378,6 @@ Eyelid Right Top:
     y: 105
     addClass: eyelid-top
 
-# Style applies the eyelid closing animation to the bottom eyelids
-Eyelid Bottom Style:
-  style: [
-    '.eyelid-bottom',
-    {
-      animation: 'eyelid-bottom-animation 8s infinite;',
-      fill: '{{skin2}}',
-      transform: 'translateY(0px)'
-    }
-  ]
-
 Eyelid Left Bottom:
   rect:
     rect: [100, 20]
@@ -389,3 +391,62 @@ Eyelid Right Bottom:
     x: 335
     y: 165
     addClass: eyelid-bottom
+
+# Eyebrow closing and raising animations
+Eyebrow Animation:
+  style: |
+    @keyframes eyebrow-close-animation {
+      0%, 90%, 100% {
+        padding-top: 0px;
+        margin-top: 0px;
+      }
+      92% {
+        padding-top: 10px;
+        margin-top: 10px; 
+      }
+    }
+
+# Style applies the eyebrow closing and raising animations
+Eyebrow Style:
+  style: [
+    '.eyebrow',
+    {
+      animation: 'eyebrow-close-animation 8s infinite;',
+      color: '{{hair1}}',
+      padding-top: 0px;
+    }
+  ]
+
+Eyebrow Left:
+  foreignObject: 
+    foreignObject: [ 100, 50 ]
+    x: 155
+    y: 100
+    css:
+      border-radius: 45% 30% 0 0;
+    addClass: eyebrow
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="border-top: 10px solid {{hair1}}" class="foInherit"/>'
+
+Eyebrow Right:
+  foreignObject: 
+    foreignObject: [ 100, 50 ]
+    x: 335
+    y: 100
+    css:
+      border-radius: 30% 45% 0 0;
+    addClass: eyebrow
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="border-top: 10px solid {{hair1}}" class="foInherit"/>'
+
+Nostrils:
+  foreignObject: 
+    foreignObject: [ 90, 40 ]
+    x: 250
+    y: 235
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="width: 80px; height: 30px;border-radius: 50% 50% 25% 25%;border: 5px {{nose}} solid; border-style: ridge groove groove ridge"/>'
+
+Nose:
+  foreignObject: 
+    foreignObject: [ 60, 105 ]
+    x: 265
+    y: 180
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="width: 50px; height: 100px;border-radius: 0 0 35% 35%;border: 5px {{nose}} solid; border-style: none groove groove ridge;background: {{skin2}}"/>'
