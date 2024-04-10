@@ -6,6 +6,8 @@ import { SVG } from './SVG';
 import { Markdown } from './Markdown';
 import * as yaml from 'js-yaml';
 const packageJson = require('../package.json');
+const mime = import('mime');
+
 
 export const outDir = path.join(__dirname, '..', 'out');
 
@@ -20,9 +22,20 @@ export async function build(templates: Template[], debug: boolean = false, con?:
         fs.mkdirSync(outDir);
     }
 
-    function populateTemplate(template: string, input: any): any {
+    async function populateTemplate(template: string, input: any): Promise<any> {
         input.build_time = new Date();
         input.build_version = packageJson.version;
+        if (input.files && Array.isArray(input.files)) {
+            const newFilesObj: any = {};
+            for (let i = 0; i < input.files.length; i++) {
+                const file: string = input.files[i];
+                const contentType = (await mime).default.getType(file) || 'application/octet-stream';
+                const fileContent = fs.readFileSync(path.join(__dirname, '..', 'static', file), { encoding: 'base64' });
+
+                newFilesObj[file.replace('.', '_')] = `data:${contentType};base64,${fileContent}`;
+            }
+            input.files = newFilesObj;
+        }
         return input;
     }
     async function validate(type: TemplateType, input: string): Promise<boolean> {
@@ -49,7 +62,7 @@ export async function build(templates: Template[], debug: boolean = false, con?:
     for (let template of templates) {
         const templateSource = fs.readFileSync(path.join(__dirname, '..', 'templates', template.in), 'utf8');
         const handlebars = Handlebars.compile(templateSource);
-        const data = populateTemplate(template.in, template.data);
+        const data = await populateTemplate(template.in, template.data);
         let file: string;
 
         switch (template.type) {

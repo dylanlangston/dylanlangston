@@ -7,7 +7,7 @@ Bliss background style:
   defs:
     defs:
     addDef: |
-      <filter id="blur_filter" x="-5%" y="-5%" width="110%" height="110%" xmlns="http://www.w3.org/2000/svg">
+      <filter id="blur_filter" x="0%" y="0%" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
         <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
       </filter>
   style: |
@@ -16,18 +16,18 @@ Bliss background style:
       height: inherit;
       background-size: cover;
       background-repeat: no-repeat;
-      background-image: url("{{blissWallpaper}}");
+      background-image: url("{{files.bliss_png}}");
       background-position: center;
     }
 
 Bliss background:
   foreignObject:
-    foreignObject: [1600, 800]
+    foreignObject: [{{width}}, {{height}}]
     attr: [ "filter", "url(#blur_filter)"]
     addClass: background
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
     css: 
-      border-radius: 75px;
+      border-radius: 75px 75px 15px 15px;
 
 # This style ensures that foreignObjects inherit their parent element 
 ForeignObject Style:
@@ -133,16 +133,6 @@ Head:
       background: '{{skin1}}'
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
 
-Head Depth:
-  foreignObject: 
-    foreignObject: [ 380, 400 ]
-    x: 110
-    y: 50
-    css:
-      border-radius: 50% 50% 50% 50%/44% 44% 56% 56%;
-      background: '{{skin2}}'
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
-
 Neck:
   foreignObject: 
     foreignObject: [ 75, 80 ]
@@ -151,6 +141,16 @@ Neck:
     css:
       border-radius: 0 0 25% 25%;
       background: '{{skin1}}'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+
+Head Depth:
+  foreignObject: 
+    foreignObject: [ 380, 400 ]
+    x: 110
+    y: 50
+    css:
+      border-radius: 50% 50% 50% 50%/44% 44% 56% 56%;
+      background: '{{skin2}}'
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
 
 Neck Depth:
