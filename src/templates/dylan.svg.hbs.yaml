@@ -7,9 +7,9 @@
 
 # This use of SVG+YAML allows for greater legibility and additional post-
 # processing techniques to improve the size of the final SVG. This approach is 
-# entirely bespoke and while novel likely to have unforseen pitfalls. That said
-# please feel free to give it a try if you're interested by downloading the 
-# source code and running:
+# entirely bespoke and while novel is likely to have unforseen pitfalls. That 
+# said please feel free to give it a try if you're interested by downloading
+# the source code and running:
 #   npm install
 #   npm run test
 #
