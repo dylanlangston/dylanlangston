@@ -4,7 +4,7 @@
 # First we parse this file using 'js-yaml', then use the resulting object to 
 # invoke methods for 'SVG.js'. (See https://svgjs.dev/docs/3.0/ for more.)
 # We also use 'Handlebars' to populate variables at build time.
-
+#
 # This use of SVG+YAML allows for greater legibility and additional post-
 # processing techniques to improve the size of the final SVG. This approach is 
 # entirely bespoke and while novel is likely to have unforseen pitfalls. That 
