@@ -9,7 +9,7 @@
 # processing techniques to improve the size of the final SVG. This approach is 
 # entirely bespoke and while novel is likely to have unforseen pitfalls. That 
 # said please feel free to give it a try if you're interested by downloading
-# the source code and running:
+# the source code, navigating to the "src" directory and running:
 #   npm install
 #   npm run test
 #
