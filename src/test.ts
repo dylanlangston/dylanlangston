@@ -12,18 +12,20 @@ async function startServer() {
     let server: http.Server | undefined;
     let wss: WebSocket.Server | undefined;
 
+    const mime = import('mime');
+
     const rebuildAndStartServer = async () => {
         const default_templates = get_default_templates();
         try {
-            const result = await build(default_templates, new NullLogger());
+            const result = await build(default_templates, true, new NullLogger());
         }
         catch (err) {
             console.error("Build Failed ⚠️\n", err);
             return;
         }
-        
+
         console.log(`Build Successful ✨`);
-        
+
         if (wss) {
             wss.clients.forEach(client => {
                 if (client.readyState === WebSocket.OPEN) {
@@ -36,33 +38,40 @@ async function startServer() {
             if (server == undefined) {
                 server = http.createServer(async (req, res) => {
                     if (req.url) {
-                        const filename = req.url == "/" ? "/ReadMe.md" : req.url;
-                        const matchingTemplates = default_templates.filter(t => '/' + t.out == filename);
-                        if (matchingTemplates.length == 1) {
-                            const filename = path.join(outDir, matchingTemplates[0].out!);
-                            if (fs.existsSync(filename)) {
+                        const requestedFile = req.url == "/" ? "/ReadMe.md" : req.url;
+                        const matchingTemplates = default_templates.filter(t => '/' + t.out == requestedFile);
+                        const filename = path.join(outDir, requestedFile);
+                        if (fs.existsSync(filename)) {
+                            if (matchingTemplates.length == 1) {
                                 const file = fs.readFileSync(filename, 'utf8');
                                 switch (matchingTemplates[0].type) {
                                     case "Markdown":
                                         res.writeHead(200, { 'Content-Type': 'text/html' });
                                         res.write(await Markdown.Instance.toHtml(file));
                                         res.end(`
-                                            <script>
-                                                const socket = new WebSocket('ws://localhost:${port}');
-                                                socket.onmessage = (event) => {
-                                                    if (event.data === 'reload') {
-                                                        window.location.reload();
-                                                    }
-                                                };
-                                            </script>
-                                        `);
+                                                <script>
+                                                    const socket = new WebSocket('ws://' + window.location.hostname + ':${port}');
+                                                    socket.onmessage = (event) => {
+                                                        if (event.data === 'reload') {
+                                                            window.location.reload();
+                                                        }
+                                                    };
+                                                </script>
+                                            `);
                                         return;
                                     case "SVG":
                                         res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
                                         res.end(file);
                                         return;
+                                    default:
+                                        throw "Not Implemented!";
                                 }
                             }
+                            const file = fs.readFileSync(filename);
+                            const contentType = (await mime).default.getType(filename) || 'application/octet-stream';
+                            res.writeHead(200, { 'Content-Type': contentType});
+                            res.end(file);
+                            return;
                         }
                     }
                     res.writeHead(404, 'File Not Found');

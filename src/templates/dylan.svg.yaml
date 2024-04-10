@@ -1,0 +1,376 @@
+width: {{width}}
+height: {{height}}
+viewBox: 0 0 {{width}} {{height}}
+preserveAspectRatio: xMinYMin none
+
+# styles:
+#   style: [
+#     '.test',
+#     {
+#       opacity: 0.75
+#     }
+#   ]
+# styles2:
+#   style: [
+#     '.foobar',
+#     {
+#       stroke: black,
+#       strokeWidth: '20px'
+#     }
+#   ]
+
+# Test1:
+#   rect: 
+#     rect: [
+#       300, 
+#       500
+#     ]
+#     x: 100
+#     y: 50
+#     fill: red
+#     addClass: 'test'
+
+# Test2:
+#   rect: 
+#     rect: [
+#       1400, 
+#       100
+#     ]
+#     fill: 'yellow'
+#     addClass: 'test foobar'
+
+# Test3:
+#   circle:
+#     circle: 1000
+#     css:
+#       fill: 'blue'
+#       opacity: 0.5
+
+# Label:
+#   text: 
+#     text: '{{message}}'
+#     y: 400
+#     x: 200
+#     fill: 'white'
+#     css:
+#       font: italic 48px serif
+#       line-height: 48px
+
+Bliss background style:
+  defs:
+    defs:
+    addDef: |
+      <filter id="blur_filter" x="-5%" y="-5%" width="110%" height="110%" xmlns="http://www.w3.org/2000/svg">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+      </filter>
+  style: |
+    .background {
+      width: inherit;
+      height: inherit;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-image: url("{{blissWallpaper}}");
+      background-position: center;
+    }
+
+Bliss background:
+  foreignObject:
+    foreignObject: [1600, 800]
+    attr: [ "filter", "url(#blur_filter)"]
+    addClass: background
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+    css: 
+      border-radius: 75px;
+
+# This style ensures that foreignObjects inherit their parent element 
+ForeignObject Style:
+  style: [
+    '.foInherit',
+    {
+      width: inherit,
+      height: inherit,
+      background: inherit,
+      border-radius: inherit
+    }
+  ]
+
+Hair Style:
+  defs:
+    defs: 
+    addDef: |
+      <radialGradient id="hair_gradient" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+        <stop offset="0%" stop-color="{{hair1}}" />
+        <stop offset="100%" stop-color="{{hair2}}" />
+      </radialGradient>
+  style: [
+    '.hair',
+    {
+      fill: url(#hair_gradient),
+      background: 'radial-gradient({{hair1}}, {{hair2}})'
+    }
+  ]
+
+Hair Back:
+  foreignObject: 
+    foreignObject: [ 400, 450 ]
+    x: 100
+    y: 25
+    addClass: 'hair'
+    css:
+      border-radius: 50% 50% 50% 50%/35% 35% 65% 65%;
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+
+Hair Back Left:
+  ellipse: 
+    ellipse: [ 200, 350 ]
+    x: 80
+    y: 190
+    addClass: 'hair'
+
+Hair Back Left 2:
+  ellipse: 
+    ellipse: [ 100, 200 ]
+    x: 80
+    y: 120
+    addClass: 'hair'
+
+Hair Back Right:
+  ellipse: 
+    ellipse: [ 150, 350 ]
+    x: 380
+    y: 120
+    addClass: 'hair'
+
+Shirt:
+  foreignObject: 
+    foreignObject: [ 500, 300 ]
+    x: 50
+    y: 500
+    css:
+      border-radius: 25% 25% 0 0;
+      background: '{{shirt}}'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+
+Collar:
+  path:
+    path: 'M 0,50 A 50,50 0 0 0 100,50'
+    fill: none
+    stroke: {
+      color: black,
+      width: 2,
+      linecap: round
+    }
+    height: 35
+    width: 95
+    x: 249.5
+    y: 501
+
+Hair Front Right:
+  foreignObject: 
+    foreignObject: [ 160, 150 ]
+    x: 380
+    y: 360
+    addClass: 'hair'
+    attr: [ 'transform', 'rotate(20, 380, 360)' ]
+    css: 
+      border-radius: 50% 50% 37% 50%;
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+
+Head:
+  foreignObject: 
+    foreignObject: [ 400, 400 ]
+    x: 100
+    y: 50
+    css:
+      border-radius: 50% 50% 50% 50%/44% 44% 56% 56%;
+      background: '{{skin1}}'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+
+Head Depth:
+  foreignObject: 
+    foreignObject: [ 380, 400 ]
+    x: 110
+    y: 50
+    css:
+      border-radius: 50% 50% 50% 50%/44% 44% 56% 56%;
+      background: '{{skin2}}'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+
+Neck:
+  foreignObject: 
+    foreignObject: [ 75, 80 ]
+    x: 260
+    y: 440
+    css:
+      border-radius: 0 0 25% 25%;
+      background: '{{skin1}}'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+
+Neck Depth:
+  foreignObject: 
+    foreignObject: [ 65, 80 ]
+    x: 265
+    y: 440
+    css:
+      border-radius: 0 0 25% 25%;
+      background: '{{skin2}}'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>'
+
+Hair Front Left:
+  ellipse: 
+    ellipse: [ 12, 150 ]
+    x: 98
+    y: 160
+    addClass: 'hair'
+
+Hair Front Right 2:
+  ellipse: 
+    ellipse: [ 12, 150 ]
+    x: 490
+    y: 160
+    addClass: 'hair'
+
+Hair Front Middle:
+  ellipse: 
+    ellipse: [ 200, 13 ]
+    x: 200
+    y: 47
+    addClass: 'hair'
+
+Eye Left:
+  circle:
+    circle: 70
+    fill: '{{eye}}'
+    x: 175
+    y: 110
+
+Eye Right:
+  circle:
+    circle: 70
+    fill: '{{eye}}'
+    x: 350
+    y: 110
+
+Iris Style:
+  defs:
+    defs: 
+    addDef: |
+      <radialGradient id="iris_gradient" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+        <stop offset="0%" stop-color="{{iris1}}" />
+        <stop offset="20%" stop-color="{{iris2}}" />
+        <stop offset="85%" stop-color="{{iris3}}" />
+        <stop offset="100%" stop-color="{{iris4}}" />
+      </radialGradient>
+  style: [
+    '.iris',
+    {
+      fill: url(#iris_gradient),
+      background: 'radial-gradient({{iris1}},{{iris2}},{{iris3}},{{iris4}})'
+    }
+  ]
+
+Iris Left:
+  circle:
+    circle: 50
+    x: 185
+    y: 120
+    addClass: iris
+
+Iris Right:
+  circle:
+    circle: 50
+    x: 360
+    y: 120
+    addClass: iris
+
+Pupil Animation:
+  style: |
+    @keyframes pupil-animation {
+      0%, 10%, 39%, 100% {
+        transform: translate(0px, 0px);
+      },
+      2%, 33% {
+        transform: translate(-1.5px, 0px);
+        stroke: {{pupil}};
+        stroke-width: 3px;
+      },
+      7%, 36% {
+        transform: translate(1.5px, 0px);
+      }
+    }  
+
+Pupil Style:
+  style: [
+    '.pupil',
+    {
+      animation: 'pupil-animation 10s infinite;',
+      stroke: transparent,
+      fill: '{{pupil}}'
+    }
+  ]
+
+Pupil Left:
+  circle:
+    circle: 25
+    x: 197.5
+    y: 132.5
+    addClass: pupil
+
+Pupil Right:
+  circle:
+    circle: 25
+    x: 372.5
+    y: 132.5
+    addClass: pupil
+
+Eyelid Left: 
+  ellipse:
+    ellipse: [120, 60]
+    fill: transparent
+    x: 150
+    y: 115
+    stroke: {
+      color: '{{skin2}}',
+      width: 20,
+      linecap: round
+    }
+
+Eyelid Right: 
+  ellipse:
+    ellipse: [120, 60]
+    fill: transparent
+    x: 325
+    y: 115
+    stroke: {
+      color: '{{skin2}}',
+      width: 20,
+      linecap: round
+    }
+
+Eyelid Left Top:
+  rect:
+    rect: [100, 1]
+    fill: '{{skin2}}'
+    x: 160
+    y: 125
+
+Eyelid Right Top:
+  rect:
+    rect: [100, 1]
+    fill: '{{skin2}}'
+    x: 335
+    y: 125
+
+Eyelid Left Bottom:
+  rect:
+    rect: [100, 1]
+    fill: '{{skin2}}'
+    x: 160
+    y: 165
+
+Eyelid Right Bottom:
+  rect:
+    rect: [100, 1]
+    fill: '{{skin2}}'
+    x: 335
+    y: 165

@@ -15,7 +15,7 @@ export function get_default_templates(): Template[] {
     return JSON.parse(fs.readFileSync(templatesFilePath, 'utf8'));
 }
 
-export async function build(templates: Template[], con?: typeof console): Promise<void> {
+export async function build(templates: Template[], debug: boolean = false, con?: typeof console): Promise<void> {
     if (!fs.existsSync(outDir)) {
         fs.mkdirSync(outDir);
     }
@@ -38,7 +38,7 @@ export async function build(templates: Template[], con?: typeof console): Promis
     async function minify(type: TemplateType, input: string): Promise<string> {
         switch (type) {
             case TemplateType.SVG:
-                return await SVG.Instance.minify(input, con)
+                return await SVG.Instance.minify(input, debug, con)
             case TemplateType.Markdown:
                 return await Markdown.Instance.minify(input, con);
             default:
