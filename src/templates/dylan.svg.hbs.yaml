@@ -51,7 +51,7 @@ Background style:
       height: inherit;
       background-size: cover;
       background-repeat: no-repeat;
-      background-image: url("{{files.bliss_png}}");
+      background-image: url("{{files.bliss_webp}}");
       background-position: center;
     }
 
