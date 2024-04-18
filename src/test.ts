@@ -24,6 +24,7 @@ async function startServer() {
             return;
         }
 
+        console.clear();
         console.log(`Build Successful ✨`);
 
         if (wss) {
@@ -47,26 +48,21 @@ async function startServer() {
                                 switch (matchingTemplates[0].type) {
                                     case "Markdown":
                                         res.writeHead(200, { 'Content-Type': 'text/html' });
-                                        res.write(`
-                                            <html>
-                                            <head>
-                                                <style>
-                                                   ${fs.readFileSync('node_modules/github-markdown-css/github-markdown.css', 'utf8')}
-                                                </style>
-                                                <script>
-                                                    const socket = new WebSocket('ws://' + window.location.hostname + ':${port}');
-                                                    socket.onmessage = (event) => {
-                                                        if (event.data === 'reload') {
-                                                            window.location.reload();
-                                                        }
-                                                    };
-                                                </script>
-                                            </head>
-                                            <body class="markdown-body">`)
-                                        res.write(``)
-                                        res.write(await Markdown.Instance.toHtml(file));
                                         res.end(`
-                                            </body>
+                                            <html>
+                                                <head>
+                                                    <title>${requestedFile}</title>
+                                                    <style>
+                                                        ${fs.readFileSync('node_modules/github-markdown-css/github-markdown.css', 'utf8')}
+                                                    </style>
+                                                    <script>
+                                                        const socket = new WebSocket((window.location.protocol == 'https:' ? 'wss://' : 'ws://') + window.location.hostname + ':' + window.location.port);
+                                                        socket.onmessage = (event) => event.data === 'reload' ? window.location.reload() : null;
+                                                    </script>
+                                                </head>
+                                                <body class="markdown-body">
+                                                    ${await Markdown.Instance.toHtml(file)}
+                                                </body>
                                             </html>
                                             `);
                                         return;
@@ -80,7 +76,7 @@ async function startServer() {
                             }
                             const file = fs.readFileSync(filename);
                             const contentType = (await mime).default.getType(filename) || 'application/octet-stream';
-                            res.writeHead(200, { 'Content-Type': contentType});
+                            res.writeHead(200, { 'Content-Type': contentType });
                             res.end(file);
                             return;
                         }
@@ -91,7 +87,7 @@ async function startServer() {
 
                 wss = new WebSocket.Server({ server });
                 server.listen(port, () => {
-                    console.log(`Server is running on 'http://localhost:${port}/'`);
+                    console.log(`Server is running on 'http://localhost:${port}/'\nPress any key to exit...`);
                 });
             }
         } catch (error) {
@@ -101,6 +97,13 @@ async function startServer() {
 
     await rebuildAndStartServer();
 
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+    process.stdin.on('data', () => {
+        console.log('Exiting ❌');
+        process.exit();
+    });
+
     let debounce: NodeJS.Timeout | undefined;
     const watcher: fs.WatchListener<string> = (eventType, filename) => {
         if (debounce) {
@@ -109,7 +112,11 @@ async function startServer() {
         debounce = setTimeout(async () => {
             if (filename && eventType === 'change') {
                 console.log(`File ${filename} changed`);
-                await rebuildAndStartServer();
+                try {
+                    await rebuildAndStartServer();
+                } catch (err) {
+                    console.error(err);
+                }
             }
 
             debounce = undefined;
