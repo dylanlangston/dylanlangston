@@ -5,22 +5,29 @@
     "type": "SVG",
     "data": {
       "files": [
-        "bliss.webp"
+        "bliss.webp",
+        "solo.webp"
       ],
       "width": 1600,
       "height": 800,
       "hair1": "#6e3710",
       "hair2": "#8B4513",
-      "shirt": "#bdb76b",
+      "shirt": "white",
+      "collar": "#696969",
       "skin1": "#ffefd5",
       "skin2": "#ffebcc",
+      "lips1": "#f08080",
+      "lips2": "bisque",
       "nose": "wheat",
       "eye": "#f8f8ff",
+      "tearDuct": "RGBA(240, 128, 128, 0.4)",
       "iris1": "#fff",
       "iris2": "#87cefa",
       "iris3": "#b0c4de",
       "iris4": "#fff",
-      "pupil": "#000"
+      "pupil": "#000",
+      "teeth": "#FFFAF0",
+      "teethOutline": "#dddddd"
     }
   },
   {

@@ -21,7 +21,6 @@ viewBox: 0 0 {{width}} {{height}}
 preserveAspectRatio: xMinYMin none
 
 # Style to ensure foreignObjects inherit their parent element style
-# This is necessary for Firefox but not Chrome or Safari
 ForeignObject Style:
   style: [
     '.foInherit',
@@ -46,8 +45,8 @@ Background style:
     addDef: |
       <filter 
         id="blur_filter" 
-        x="0%" y="0%" 
-        width="100%" height="100%" 
+        x="0" y="0" 
+        width="{{width}}" height="{{height}}" 
         xmlns="http://www.w3.org/2000/svg">
         <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
       </filter>
@@ -55,10 +54,11 @@ Background style:
     .background {
       width: inherit;
       height: inherit;
-      background-size: cover;
+      background-size: calc({{width}}px - 10px) calc({{height}}px - 10px);
       background-repeat: no-repeat;
       background-image: url("{{{files.bliss_webp}}}");
       background-position: center;
+      border: 5px solid {{grey}};
     }
 
 Background:
@@ -66,7 +66,7 @@ Background:
     foreignObject: [{{width}}, {{height}}]
     attr: [ "filter", "url(#blur_filter)"]
     addClass: background
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' 
     css: 
       border-radius: 75px 75px 15px 15px;
 
@@ -95,7 +95,7 @@ Hair Back:
     addClass: 'hair'
     css:
       border-radius: 50% 50% 50% 50%/35% 35% 65% 65%;
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' 
 
 Hair Back Left:
   ellipse: 
@@ -118,6 +118,55 @@ Hair Back Right:
     y: 120
     addClass: 'hair'
 
+# Style defines the shirt image 
+Shirt style:
+  style: |
+    .shirt-background {
+      background-color: {{shirt}};
+      background-size: 560px;
+      background-repeat: no-repeat;
+      background-image: url("{{{files.solo_webp}}}");
+    }
+    .shirt-body {
+      background-position: bottom center;
+      clip-path: polygon(0 0, 100% 0, 100% 30%, 88% 45%, 88% 100%, 12% 100%, 12% 45%, 0% 30%);
+    }
+
+Arm style:
+  style: |
+    .arm-left {
+      background-position: bottom 20px left;
+      border-radius: 50% 50% 0 0;
+    }
+    .arm-right {
+      animation: arm-right-radius-animation 6s infinite;
+      background-position: bottom right;
+    }
+    @keyframes arm-right-radius-animation {
+      0%, 50%, 100% {
+        border-radius: 30% 50% 25% 25%;
+      }
+      25%, 75% {
+        border-radius: 30% 50% 25% 35%;
+      }
+    } 
+    .move-left-arm {
+      transform-origin: 100px 590px;
+      transform: rotate(4deg);
+    }
+    .move-right-arm {
+      transform-origin: 485px 590px;
+      animation: right-arm-animation 6s infinite;
+    }
+    @keyframes right-arm-animation {
+      0%, 50%, 100% {
+        transform: rotate(-25deg);
+      }
+      25%, 75% {
+        transform: rotate(-75deg);
+      }
+    }  
+
 Shirt:
   foreignObject: 
     foreignObject: [ 500, 300 ]
@@ -125,22 +174,93 @@ Shirt:
     y: 500
     css:
       border-radius: 25% 25% 0 0;
-      background: '{{shirt}}'
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
+    addClass: 'shirt-background shirt-body'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' 
+
+Arm Left:
+  foreignObject: 
+    foreignObject: [ 100, 280 ]
+    x: 20
+    y: 540
+    addClass: 'move-left-arm'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit shirt-background arm-left"/>' 
+
+Forearm style:
+  style: |
+    .forearm {
+      background: {{shirt}};
+      animation: forearm-radius-animation 6s infinite;
+    }
+    @keyframes forearm-radius-animation {
+      0%, 50%, 100% {
+        border-radius: 25% 25% 30% 10px;
+      }
+      25%, 75% {
+        border-radius: 25% 25% 50% 10px;
+      }
+    } 
+    .forearm-wave {
+      transform-origin: 595px 735px;
+      
+      animation: forearm-animation 6s infinite;
+    }
+    @keyframes forearm-animation {
+      0%, 50%, 100% {
+        transform: rotate(80deg) translate(0px, 0px);
+      }
+      25%, 75% {
+        transform: rotate(20deg) translate(30px, -145px);
+      }
+    }  
+
+Forearm Right:
+  foreignObject: 
+    foreignObject: [ 90, 225 ]
+    x: 550
+    y: 540
+    addClass: 'forearm-wave'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit forearm"/>'
+
+Arm Right:
+  foreignObject: 
+    foreignObject: [ 100, 260 ]
+    x: 475
+    y: 540
+    addClass: 'move-right-arm'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit shirt-background arm-right"/>'
+
+Arm Pit Left:
+  foreignObject: 
+    foreignObject: [ 102, 280 ]
+    x: 20
+    y: 540
+    addClass: 'move-left-arm'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit" style="margin-top: 110px; height: 170px; width: 100px;border-right: 2px solid {{collar}};animation: unset"/>'
+
+# Hand: 
+#   foreignObject: 
+#     foreignObject: [ 200, 200 ]
+#     x: 20
+#     y: 540
+#     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit" style="font-size: 100px">🖐🏻</html>'
+
+Collar style:
+  style: |
+    .collar {
+      background: transparent;
+      height: 75px;
+      width: 95px;
+      border-radius: 50%;
+      border-bottom: 3px solid {{collar}};
+    }
 
 Collar:
-  path:
-    path: 'M 0,50 A 50,50 0 0 0 100,50'
-    fill: none
-    stroke: {
-      color: black,
-      width: 2,
-      linecap: round
-    }
-    height: 35
-    width: 95
+  foreignObject: 
+    foreignObject: [ 95, 35 ]
     x: 249.5
-    y: 501
+    y: 460
+    addClass: 'collar'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' 
 
 Hair Front Right:
   foreignObject: 
@@ -151,7 +271,7 @@ Hair Front Right:
     attr: [ 'transform', 'rotate(20, 380, 360)' ]
     css: 
       border-radius: 50% 50% 37% 50%;
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' 
 
 Head:
   foreignObject: 
@@ -161,7 +281,7 @@ Head:
     css:
       border-radius: 50% 50% 50% 50%/44% 44% 56% 56%;
       background: '{{skin1}}'
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' 
 
 Neck:
   foreignObject: 
@@ -171,7 +291,7 @@ Neck:
     css:
       border-radius: 0 0 25% 25%;
       background: '{{skin1}}'
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' 
 
 Head Depth:
   foreignObject: 
@@ -181,7 +301,7 @@ Head Depth:
     css:
       border-radius: 50% 50% 50% 50%/44% 44% 56% 56%;
       background: '{{skin2}}'
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' 
 
 Neck Depth:
   foreignObject: 
@@ -191,7 +311,7 @@ Neck Depth:
     css:
       border-radius: 0 0 25% 25%;
       background: '{{skin2}}'
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' # This is necessary for Firefox but not Chrome or Safari
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit"/>' 
 
 Hair Front Left:
   ellipse: 
@@ -227,6 +347,20 @@ Eye Right:
     fill: '{{eye}}'
     x: 350
     y: 110
+
+Tear Duct Left:
+  ellipse:
+    ellipse: [7, 5]
+    fill: '{{tearDuct}}'
+    x: 236
+    y: 158
+
+Tear Duct Right:
+  ellipse:
+    ellipse: [7, 5]
+    fill: '{{tearDuct}}'
+    x: 352
+    y: 158
 
 # Style defines the iris background gradient
 Iris Style:
@@ -397,12 +531,19 @@ Eyebrow Animation:
   style: |
     @keyframes eyebrow-close-animation {
       0%, 90%, 100% {
-        padding-top: 0px;
         margin-top: 0px;
       }
       92% {
+        margin-top: 10px;
+        padding-top: 0px;
+      }
+    }
+    @keyframes eyebrow-raise-animation {
+      0%, 87.5%, 92.5%, 100% {
         padding-top: 10px;
-        margin-top: 10px; 
+      }
+      90%, 95% {
+        padding-top: 0px;
       }
     }
 
@@ -411,31 +552,31 @@ Eyebrow Style:
   style: [
     '.eyebrow',
     {
-      animation: 'eyebrow-close-animation 8s infinite;',
+      animation: 'eyebrow-close-animation 8s infinite, eyebrow-raise-animation 15s infinite',
       color: '{{hair1}}',
-      padding-top: 0px;
-    }
+      padding-top: 0px;,
+    },
   ]
 
 Eyebrow Left:
   foreignObject: 
     foreignObject: [ 100, 50 ]
     x: 155
-    y: 100
+    y: 90
     css:
       border-radius: 45% 30% 0 0;
     addClass: eyebrow
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="border-top: 10px solid {{hair1}}" class="foInherit"/>'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="border-top: 10px solid {{hair1}};padding: 0" class="foInherit"/>'
 
 Eyebrow Right:
   foreignObject: 
     foreignObject: [ 100, 50 ]
     x: 335
-    y: 100
+    y: 90
     css:
       border-radius: 30% 45% 0 0;
     addClass: eyebrow
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="border-top: 10px solid {{hair1}}" class="foInherit"/>'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="border-top: 10px solid {{hair1}};padding: 0" class="foInherit"/>'
 
 Nostrils:
   foreignObject: 
@@ -450,3 +591,137 @@ Nose:
     x: 265
     y: 180
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="width: 50px; height: 100px;border-radius: 0 0 35% 35%;border: 5px {{nose}} solid; border-style: none groove groove ridge;background: {{skin2}}"/>'
+
+Lips Animation:
+  style: |
+    @keyframes mouth-animation-lips {
+      30%, 42% {
+        height: 62px;
+        margin-top: 0px;
+      }
+      35%, 37% {
+        height: 10px;
+        margin-top: 12.5px;
+      }
+    }
+
+Lips Style:
+  style: [
+    '.lips',
+    {
+      animation: 'mouth-animation-lips 25s infinite',
+      background: 'radial-gradient({{lips1}}, {{lips2}});',
+      border-radius: 10% 10% 50% 50%
+    },
+  ]
+
+Lips:
+  foreignObject: 
+    foreignObject: [ 160, 62 ]
+    x: 220
+    y: 328
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit lips"/>'
+
+Mouth Style:
+  style: |
+    @keyframes mouth-animation {
+      0%, 30%, 42%, 100% {
+        height: 50px;
+        margin-top: 0px;
+      }
+      35%, 37% {
+        height: 0px;
+        margin-top: 11.5px;
+      }
+    }
+    @keyframes mouth-animation-teeth {
+      0%, 30%, 41%, 100% {
+        height: 100%;
+        opacity: 1.0;
+      }
+      34%, 38% {
+        height: 100%;
+        opacity: 0.25;
+      }
+      35%, 37% {
+        height: 0%;
+        opacity: 0.0;
+      }
+    }
+    .mouth {
+      background: {{teeth}};
+      border-radius: 10% 10% 50% 50%;
+      animation: mouth-animation 25s infinite;
+      width: 100%;
+      height: 100%;
+    }
+    .teeth {
+      border-collapse: collapse;
+      width: 100%;
+      height: 100%;
+      animation: mouth-animation-teeth 25s infinite;
+      clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 80% 93%, 50% 105%, 20% 93%, 0% 60%);
+    }
+    .teeth td, .teeth th {
+      border: 1px solid {{teethOutline}};
+    }
+    .teeth tr:first-child>td {
+      border-top: 0px;
+    }
+    .teeth tr:last-child>td {
+      border-bottom: 0px;
+    }
+    .teeth td:first-child {
+      border-left: 0px;
+    }
+    .teeth td:last-child {
+      border-right: 0px;
+    }
+
+Teeth:
+  foreignObject: 
+    foreignObject: [ 148, 50 ]
+    x: 225
+    y: 333
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="mouth">
+        <table class="teeth">
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </html>'
+
+Inner Lips Style:
+  style: [
+    '.mouth-inner-lips',
+    {
+      border: '1px solid {{lips1}};',
+      animation: 'mouth-animation 25s infinite',
+      border-radius: 10% 10% 50% 50%,
+      width: calc(100% - 2px),
+    },
+  ]
+
+Inner Lips:
+  foreignObject: 
+    foreignObject: [ 150, 52 ]
+    x: 224
+    y: 332
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="mouth-inner-lips"/>'
