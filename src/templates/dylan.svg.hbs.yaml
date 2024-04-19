@@ -663,11 +663,11 @@ Mouth Style:
     }
     .teeth {
       border-collapse: collapse;
-      width: inherit;
-      height: inherit;
       animation: mouth-animation-teeth 25s infinite;
       clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 80% 93%, 50% 105%, 20% 93%, 0% 60%);
       display: content;
+      width: 100%;
+      position: absolute;
     }
     .teeth td, .teeth th {
       border: 1px solid {{teethOutline}};
@@ -691,7 +691,7 @@ Teeth:
     x: 225
     y: 333
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="mouth">
-        <div style="width: inherit; height: inherit; position: fixed">
+        <div style="width: inherit; height: inherit; position: fixed;">
           <table class="teeth">
             <tr>
               <td></td>
