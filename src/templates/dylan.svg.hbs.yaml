@@ -49,7 +49,6 @@ ForeignObject Style:
       padding: inherit;
       margin: inherit;
       animation: inherit;
-      display: content;
     }
 
 # Style defines the background image and it's associated blur filter
