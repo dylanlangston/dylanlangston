@@ -1,14 +1,8 @@
-import { build, default_templates } from './library/Builder';
+import { build, get_default_templates } from './library/Builder';
 
-build(default_templates).then((result) => {
-    if (result) {
-        console.log(`Build Successful ✨`);
-    }
-    else {
-        console.log(`Build Failed ⚠️`);
-        process.exit(1);
-    }
+build(get_default_templates()).then(() => {
+    console.log(`Build Successful ✨`);
 }, error => {
-    console.error('Unknown Error:', error);
+    console.error(`Build Failed ⚠️\n`, error)
 });
 

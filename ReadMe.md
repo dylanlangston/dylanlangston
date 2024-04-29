@@ -1,35 +1,9 @@
-<!-- Version 1.0.38 -->
-
-<!-- Built Mon Apr 29 2024 18:47:30 GMT+0000 (Coordinated Universal Time) -->
-
-<div align="right">
-  <details>
-    <summary>
-      <div align="center">
-        <a href="./dylan.svg?short_path=0" title="Click to View Source">
-          <object>
-            <img src="dylan.svg" alt="Dylan">
-          </object>
-        </a>
-        <br />
-      </div>
-    </summary>
-    <a href="https://github.dev/dylanlangston/dylanlangston"><img
-        src="https://img.shields.io/static/v1?style=for-the-badge&label=&message=View+on+GitHub.dev&color=lightgrey&logo=github"
-        alt="Edit on GitHub.dev"></a>
-    <a href="https://vscode.dev/github/dylanlangston/dylanlangston"><img
-        src="https://img.shields.io/static/v1?style=for-the-badge&label=&message=View+on+VSCode.dev&color=blue&logo=visualstudiocode"
-        alt="Open in vscode.dev"></a>
-  </details>
-</div>
-
+<!-- 
+Version 1.0.48
+Built Mon Apr 29 2024 19:14:51 GMT+0000 (Coordinated Universal Time) 
+-->
 <div align="center">
 
-[![website badge](https://img.shields.io/badge/dylanlangston.com-073642?style=social\&logo=html5)](https://dylanlangston.com)
-[![linkedin badge](https://img.shields.io/badge/LinkedIn-073642?style=social\&logo=linkedin)](https://www.linkedin.com/in/dylan-langston/)
-[![gist badge](https://img.shields.io/badge/Gist-073642?style=social\&logo=github)](https://gist.github.com/dylanlangston) <br />
-![Visits Badge](https://badges.pufler.dev/visits/dylanlangston/dylanlangston)
-![Repos Badge](https://badges.pufler.dev/repos/dylanlangston)
-![Years Badge](https://badges.pufler.dev/years/dylanlangston)
+[![Dylan](dylan.svg "Dylan")](./src/templates/dylan.svg.hbs.yaml "Click to View Source")
 
 </div>

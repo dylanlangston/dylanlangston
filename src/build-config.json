@@ -1,9 +1,40 @@
 [
   {
-    "in": "dylan.svg.hbs",
+    "in": "dylan.svg.hbs.yaml",
     "out": "dylan.svg",
     "type": "SVG",
-    "data": {}
+    "data": {
+      "files": [
+        "bliss.webp",
+        "solo.webp"
+      ],
+      "width": 1600,
+      "height": 800,
+      "hair1": "#6e3710",
+      "hair2": "#8B4513",
+      "mustache": "#a0782d",
+      "sideburns": "rgba(160, 120, 45, 1)",
+      "shirt": "white",
+      "collar": "#696969",
+      "skin1": "#ffefd5",
+      "skin2": "#ffebcc",
+      "skin3": "#ffe1b3",
+      "lips1": "#f08080",
+      "lips2": "bisque",
+      "nose": "wheat",
+      "eye": "#f8f8ff",
+      "tearDuct": "rgba(240, 128, 128, 0.4)",
+      "iris1": "#fff",
+      "iris2": "#87cefa",
+      "iris3": "#b0c4de",
+      "iris4": "#fff",
+      "pupil": "#000",
+      "teeth": "#FFFAF0",
+      "teethOutline": "#dddddd",
+      "speechBubbleLight": "rgba(255,255,255, 0.85)",
+      "speechBubbleDark": "rgba(190,190,190, 0.85)",
+      "text": "#9f00c5"
+    }
   },
   {
     "in": "readme.md.hbs",
@@ -11,7 +42,8 @@
     "type": "Markdown",
     "data": {
       "image": "dylan.svg",
-      "imageAlt": "Dylan"
+      "imageAlt": "Dylan",
+      "imageTemplate": "dylan.svg.hbs.yaml"
     }
   }
 ]
