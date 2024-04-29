@@ -635,7 +635,7 @@ Lips Style:
   style: [
     '.lips',
     {
-      animation: 'mouth-animation-lips 25s infinite',
+      animation: 'mouth-animation-lips 25s infinite ease-in-out',
       background: 'radial-gradient({{lips1}}, {{lips2}});',
       border-radius: 10% 10% 50% 50%
     },
@@ -662,87 +662,89 @@ Mouth Style:
     }
     @keyframes mouth-animation-teeth {
       0%, 30%, 41%, 100% {
-        height: 100%;
-        opacity: 1.0;
-      }
-      34%, 38% {
-        height: 100%;
-        opacity: 0.25;
+        transform: scaleY(1);
+        transform-origin: center 333px;
       }
       35%, 37% {
-        height: 0%;
-        opacity: 0.0;
+        transform: scaleY(0);
+        transform-origin: center 345.3px;
       }
     }
     .mouth {
       background: {{teeth}};
       border-radius: 10% 10% 50% 50%;
-      animation: mouth-animation 25s infinite;
-      width: inherit;
+      animation: mouth-animation 25s infinite ease-in-out;
       height: inherit;
     }
-    .teeth {
-      border-collapse: collapse;
-      animation: mouth-animation-teeth 25s infinite;
-      clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 80% 93%, 50% 105%, 20% 93%, 0% 60%);
-      display: content;
-      width: 100%;
-      position: absolute;
-    }
-    .teeth td, .teeth th {
-      border: 1px solid {{teethOutline}};
-    }
-    .teeth tr:first-child>td {
-      border-top: 0px;
-    }
-    .teeth tr:last-child>td {
-      border-bottom: 0px;
-    }
-    .teeth td:first-child {
-      border-left: 0px;
-    }
-    .teeth td:last-child {
-      border-right: 0px;
-    }
 
-Teeth:
+Teeth Background:
   foreignObject: 
-    foreignObject: [ 148, 50 ]
+    foreignObject: [ 148, 62 ]
     x: 225
     y: 333
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="mouth">
-        <div style="width: inherit; height: inherit; position: fixed;">
-          <table class="teeth">
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </table>
-        </div>
-      </html>'
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit mouth"/>'
+
+Teeth:
+  path:
+    path: |
+      M 243.00,333.00
+      C 244.91,337.83 244.00,355.74 244.00,362.00
+        244.00,362.00 263.00,362.00 263.00,362.00
+        263.00,355.74 262.09,337.83 264.00,333.00
+        264.00,333.00 264.00,362.00 264.00,362.00
+        264.00,362.00 282.00,362.00 282.00,362.00
+        282.00,355.74 281.09,337.83 283.00,333.00
+        283.00,333.00 283.00,362.00 283.00,362.00
+        283.00,362.00 301.00,362.00 301.00,362.00
+        301.00,355.74 300.09,337.83 302.00,333.00
+        302.00,333.00 302.00,362.00 302.00,362.00
+        302.00,362.00 321.00,362.00 321.00,362.00
+        321.00,355.74 320.09,337.83 322.00,333.00
+        322.00,333.00 322.00,362.00 322.00,362.00
+        322.00,362.00 340.00,362.00 340.00,362.00
+        340.00,355.74 339.09,337.83 341.00,333.00
+        341.00,333.00 341.00,362.00 341.00,362.00
+        341.00,362.00 359.00,362.00 359.00,362.00
+        359.00,355.74 358.09,337.83 360.00,333.00
+        360.00,333.00 360.00,362.00 360.00,362.00
+        360.00,362.00 371.00,363.00 371.00,363.00
+        371.00,363.00 360.00,363.00 360.00,363.00
+        360.00,363.00 359.00,370.00 359.00,370.00
+        359.00,370.00 359.00,363.00 359.00,363.00
+        359.00,363.00 341.00,363.00 341.00,363.00
+        341.00,363.00 340.00,378.00 340.00,378.00
+        340.00,378.00 340.00,363.00 340.00,363.00
+        340.00,363.00 322.00,363.00 322.00,363.00
+        322.00,363.00 321.00,381.00 321.00,381.00
+        321.00,381.00 321.00,363.00 321.00,363.00
+        321.00,363.00 302.00,363.00 302.00,363.00
+        302.00,363.00 301.00,383.00 301.00,383.00
+        301.00,383.00 301.00,363.00 301.00,363.00
+        301.00,363.00 283.00,363.00 283.00,363.00
+        283.00,363.00 282.00,382.00 282.00,382.00
+        282.00,382.00 282.00,363.00 282.00,363.00
+        282.00,363.00 264.00,363.00 264.00,363.00
+        264.00,363.00 263.00,380.00 263.00,380.00
+        263.00,380.00 263.00,363.00 263.00,363.00
+        263.00,363.00 244.00,363.00 244.00,363.00
+        244.00,363.00 243.00,373.00 243.00,373.00
+        243.00,373.00 243.00,363.00 243.00,363.00
+        243.00,363.00 227.00,362.00 227.00,362.00
+        227.00,362.00 243.00,362.00 243.00,362.00
+        243.00,362.00 243.00,333.00 243.00,333.00 Z
+    width: 148
+    fill: '{{teethOutline}}'
+    css:
+      animation: mouth-animation-teeth 25s infinite ease-in-out;
+    x: 225
+    y: 333
 
 Inner Lips Style:
   style: [
     '.mouth-inner-lips',
     {
       border: '1px solid {{lips1}};',
-      animation: 'mouth-animation 25s infinite',
+      animation: 'mouth-animation 25s infinite ease-in-out',
       border-radius: 10% 10% 50% 50%,
       width: calc(100% - 2px),
     },
