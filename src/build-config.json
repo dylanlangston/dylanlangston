@@ -18,6 +18,7 @@
       "collar": "#696969",
       "skin1": "#ffefd5",
       "skin2": "#ffebcc",
+      "skin3": "#ffe1b3",
       "lips1": "#f08080",
       "lips2": "bisque",
       "nose": "wheat",
@@ -29,7 +30,9 @@
       "iris4": "#fff",
       "pupil": "#000",
       "teeth": "#FFFAF0",
-      "teethOutline": "#dddddd"
+      "teethOutline": "#dddddd",
+      "speechBubbleLight": "rgba(255,255,255, 0.85)",
+      "speechBubbleDark": "rgba(190,190,190, 0.85)"
     }
   },
   {
