@@ -261,29 +261,20 @@ Arm Pit Left:
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="width: 100px;border-right: 2px solid {{collar}};animation: unset"/>'
 
 # Hand: 
-#   foreignObject: 
-#     foreignObject: [ 200, 200 ]
-#     x: 20
-#     y: 540
-#     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="foInherit" style="font-size: 100px">🖐🏻</html>'
-
-Collar style:
-  style: |
-    .collar {
-      background: transparent;
-      height: 75px;
-      width: 95px;
-      border-radius: 50%;
-      border-bottom: 3px solid {{collar}};
-    }
 
 Collar:
-  foreignObject: 
-    foreignObject: [ 95, 35 ]
+  path:
+    path: 'M 0,50 A 50,50 0 0 0 100,50'
+    fill: none
+    stroke: {
+      color: '{{collar}}',
+      width: 2,
+      linecap: round
+    }
+    height: 35
+    width: 95
     x: 249.5
-    y: 460
-    addClass: 'collar'
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml"/>' 
+    y: 501
 
 Hair Front Right:
   foreignObject: 
