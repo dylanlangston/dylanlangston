@@ -58,7 +58,12 @@ export class SVG {
                         params: {
                             overrides: {
                                 removeViewBox: false,
-                                removeEmptyContainers: false
+                                removeEmptyContainers: false,
+                                inlineStyles: {
+                                    onlyMatchedOnce: true,
+                                    removeMatchedSelectors: true,
+                                    useMqs: ['prefers-color-scheme']
+                                }
                             }
                         }
                     },
