@@ -20,6 +20,21 @@ height: {{height}}
 viewBox: 0 0 {{width}} {{height}}
 preserveAspectRatio: xMinYMin none
 
+Fadein Style:
+  style: |
+    svg {
+      opacity: 1;
+      animation: fade-in 150ms;
+    }
+    @keyframes fade-in {
+      0% {
+        opacity: 0.01;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
 # Style to ensure foreignObjects inherit their parent element style
 ForeignObject Style:
   style: |
