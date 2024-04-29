@@ -509,14 +509,18 @@ Pupil Animation:
     @keyframes pupil-animation {
       0%, 10%, 39%, 100% {
         transform: translate(0px, 0px);
-      },
+        stroke: {{pupil}};
+        stroke-width: 0px;
+      }
       2%, 33% {
         transform: translate(-1.5px, 0px);
         stroke: {{pupil}};
-        stroke-width: 3px;
-      },
+        stroke-width: 2px;
+      }
       7%, 36% {
         transform: translate(1.5px, 0px);
+        stroke: {{pupil}};
+        stroke-width: 3px;
       }
     }  
 
@@ -525,8 +529,7 @@ Pupil Style:
   style: [
     '.pupil',
     {
-      animation: 'pupil-animation 10s infinite;',
-      stroke: transparent,
+      animation: 'pupil-animation 17s alternate',
       fill: '{{pupil}}'
     }
   ]
