@@ -60,9 +60,9 @@ export class SVG {
                                 removeViewBox: false,
                                 removeEmptyContainers: false,
                                 inlineStyles: {
-                                    onlyMatchedOnce: true,
+                                    onlyMatchedOnce: false,
                                     removeMatchedSelectors: true,
-                                    useMqs: ['prefers-color-scheme']
+                                    useMqs: ['prefers-color-scheme', 'prefers-reduced-motion']
                                 }
                             }
                         }
