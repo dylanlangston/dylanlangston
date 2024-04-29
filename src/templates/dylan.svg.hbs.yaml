@@ -597,7 +597,7 @@ Eyebrow Left:
 Eyebrow Right:
   foreignObject: 
     foreignObject: [ 100, 50 ]
-    x: 335
+    x: 340
     y: 90
     addClass: eyebrow
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml">
@@ -607,14 +607,14 @@ Eyebrow Right:
 Nostrils:
   foreignObject: 
     foreignObject: [ 90, 40 ]
-    x: 250
+    x: 252.5
     y: 235
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="width: 80px; height: 30px;border-radius: 50% 50% 25% 25%;border: 5px {{nose}} solid; border-style: ridge groove groove ridge"/>'
 
 Nose:
   foreignObject: 
     foreignObject: [ 60, 105 ]
-    x: 265
+    x: 267.5
     y: 180
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="width: 50px; height: 100px;border-radius: 0 0 35% 35%;border: 5px {{nose}} solid; border-style: none groove groove ridge;background: {{skin2}}"/>'
 
@@ -765,7 +765,7 @@ Mustache:
   foreignObject: 
     foreignObject: [ 200, 70 ]
     x: 200
-    y: 295
+    y: 300
     css:
       border-radius: 30% 30% 0 0;
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="mustache"/>'
@@ -774,7 +774,7 @@ Mustache 2:
   foreignObject: 
     foreignObject: [ 160, 90 ]
     x: 220
-    y: 285
+    y: 290
     css:
       border-radius: 25% 25% 0 0;
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="mustache"/>'
@@ -790,14 +790,14 @@ Left Sideburn:
   foreignObject: 
     foreignObject: [ 30, 90 ]
     x: 95
-    y: 180
+    y: 190
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="sideburn"/>'
 
 Right Sideburn:
   foreignObject: 
     foreignObject: [ 30, 90 ]
     x: 475
-    y: 180
+    y: 190
     addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="sideburn"/>'
 
 Beard Style:
