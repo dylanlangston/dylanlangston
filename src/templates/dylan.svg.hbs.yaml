@@ -684,10 +684,10 @@ Eyebrow Style:
       height: inherit;
       padding-top: inherit;
     }
-    .eyebrow-inner, .left {
+    .eyebrow-inner.left {
       border-radius: 45% 30% 0 0;
     }
-    .eyebrow-inner, .right {
+    .eyebrow-inner.right {
       border-radius: 30% 45% 0 0;
     }
 
