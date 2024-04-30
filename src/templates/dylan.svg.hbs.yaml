@@ -1006,10 +1006,13 @@ Speech Bubble style:
       .speech-bubble {
         fill: {{speechBubbleLight}};
         backdrop-filter: blur(10px);
+        stroke: {{speechBubbleStrokeLight}};
+        stroke-width: 3px;
       }
       @media (prefers-color-scheme: dark) {
         .speech-bubble {
           fill: {{speechBubbleDark}};
+          stroke: {{speechBubbleStrokeDark}};
         }
       }
 

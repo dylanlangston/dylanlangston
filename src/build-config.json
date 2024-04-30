@@ -32,7 +32,9 @@
       "teeth": "#FFFAF0",
       "teethOutline": "#dddddd",
       "speechBubbleLight": "rgba(255,255,255, 0.85)",
-      "speechBubbleDark": "rgba(190,190,190, 0.85)",
+      "speechBubbleStrokeLight": "white",
+      "speechBubbleDark": "rgba(34, 39, 46, 0.85)",
+      "speechBubbleStrokeDark": "black",
       "text": "#9f00c5"
     }
   },
