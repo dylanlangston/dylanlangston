@@ -1,10 +1,8 @@
 <!-- 
-Version 1.0.40
-Built Tue Apr 30 2024 04:29:36 GMT+0000 (Coordinated Universal Time) 
+Version 1.0.41
+Built Tue Apr 30 2024 04:41:18 GMT+0000 (Coordinated Universal Time) 
 -->
 
-<div align="center">
-
-[![Dylan](dylan.svg "Dylan")](./src/templates/dylan.svg.hbs.yaml "Click to View Source")
-
-</div>
+<a href="./src/templates/dylan.svg.hbs.yaml" title="Click to View Source">
+  <object data="dylan.svg" alt="Dylan" width="100%">
+</a>
