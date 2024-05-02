@@ -1003,16 +1003,29 @@ Speech Bubble style:
        </filter>
   style:
     style: |
+      @property --SpeechBubbleFill {
+        syntax:'<color>';
+        inherits:true;
+      }
+      @property --SpeechBubbleStroke {
+        syntax:'<color>';
+        inherits:true;
+      }
       .speech-bubble {
-        fill: {{speechBubbleLight}};
+        --SpeechBubbleFill: {{speechBubbleLight}};
+        --SpeechBubbleStroke: {{speechBubbleStrokeLight}};
+        --transitionTimeout: 2s;
+
+        transition: --SpeechBubbleFill var(--transitionTimeout), --SpeechBubbleStroke var(--transitionTimeout);
+        fill: var(--SpeechBubbleFill);
         backdrop-filter: blur(10px);
-        stroke: {{speechBubbleStrokeLight}};
+        stroke: var(--SpeechBubbleStroke);
         stroke-width: 3px;
       }
       @media (prefers-color-scheme: dark) {
         .speech-bubble {
-          fill: {{speechBubbleDark}};
-          stroke: {{speechBubbleStrokeDark}};
+          --SpeechBubbleFill: {{speechBubbleDark}};
+          --SpeechBubbleStroke: {{speechBubbleStrokeDark}};
         }
       }
 
