@@ -49,10 +49,8 @@ export class SVG {
 
     private svgdom = import('svgdom');
 
-    private parser = new DOMParser();
-
     async processCSS(svg: string): Promise<string> {
-        const xmlDoc = this.parser.parseFromString(svg, 'image/svg+xml');
+        const xmlDoc = new DOMParser().parseFromString(svg, 'image/svg+xml');
 
         const cssContent: string[] = [];
         const styleElements = Array.from(xmlDoc.getElementsByTagName('style'));
