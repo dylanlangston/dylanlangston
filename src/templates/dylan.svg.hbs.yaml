@@ -1004,11 +1004,11 @@ Speech Bubble style:
   style:
     style: |
       @property --SpeechBubbleFill {
-        syntax:'<color>';
+        syntax: "<color>";
         inherits:true;
       }
       @property --SpeechBubbleStroke {
-        syntax:'<color>';
+        syntax: "<color>";
         inherits:true;
       }
       .speech-bubble {
@@ -1016,7 +1016,7 @@ Speech Bubble style:
         --SpeechBubbleStroke: {{speechBubbleStrokeLight}};
         --transitionTimeout: 2s;
 
-        transition: --SpeechBubbleFill var(--transitionTimeout), --SpeechBubbleStroke var(--transitionTimeout);
+        transition: --SpeechBubbleFill var(--transitionTimeout), --SpeechBubbleStroke var(--transitionTimeout), fill var(--transitionTimeout);
         fill: var(--SpeechBubbleFill);
         backdrop-filter: blur(10px);
         stroke: var(--SpeechBubbleStroke);

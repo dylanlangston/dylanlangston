@@ -86,7 +86,6 @@ export async function build(templates: Template[], debug: boolean = false, con?:
             fs.writeFileSync(outFile, minifiedOutput);
 
             (con ?? console).log(`${template.type} file generated: '${outFile}'`);
-            debugger;
         }
     }
 }

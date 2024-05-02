@@ -1,9 +1,48 @@
 import * as SVGO from 'svgo';
-import { DOMParser } from '@xmldom/xmldom';
+import { DOMParser, XMLSerializer } from '@xmldom/xmldom';
 import postcss from 'postcss';
-import postcssrc from 'postcss-load-config';
-import * as cheerio from 'cheerio';
+import cssnano from 'cssnano';
+import autoprefixer from 'autoprefixer';
 import { SVG as SVGjs, registerWindow, extend, Defs, ForeignObject, Svg } from '@svgdotjs/svg.js';
+const cssNanoPreset = cssnano({
+    preset: [
+        'default', {
+            autoprefixer: true,
+            cssDeclarationSorter: true,
+            calc: true,
+            colormin: true,
+            convertValues: true,
+            discardComments: true,
+            discardDuplicates: true,
+            discardEmpty: true,
+            discardOverridden: true,
+            discardUnused: true,
+            mergeIdents: true,
+            mergeLonghand: true,
+            mergeRules: true,
+            minifyFontValues: true,
+            minifyGradients: true,
+            minifyParams: true,
+            minifySelectors: true,
+            normalizeCharset: true,
+            normalizeDisplayValues: true,
+            normalizePositions: true,
+            normalizeRepeatStyle: true,
+            normalizeString: true,
+            normalizeTimingFunctions: true,
+            normalizeUnicode: true,
+            normalizeUrl: true,
+            normalizeWhitespace: true,
+            orderedValues: true,
+            reduceIdents: true,
+            reduceInitial: true,
+            reduceTransforms: true,
+            svgo: true,
+            uniqueSelectors: true,
+            zindex: true
+        }
+    ]
+});
 
 export class SVG {
     public static Instance = new SVG();
@@ -13,23 +52,29 @@ export class SVG {
     private parser = new DOMParser();
 
     async processCSS(svg: string): Promise<string> {
-        const $ = cheerio.load(svg, { xmlMode: true });
+        const xmlDoc = this.parser.parseFromString(svg, 'image/svg+xml');
 
         const cssContent: string[] = [];
-        $('style').each((_: number, element: cheerio.Element) => {
-            cssContent.push($(element).text());
-            $(element).remove();
-        });
+        const styleElements = Array.from(xmlDoc.getElementsByTagName('style'));
+        for (const styleElement of styleElements) {
+            cssContent.push(styleElement.textContent || '');
+            styleElement.parentNode?.removeChild(styleElement);
+        }
 
         const combinedCssContent = cssContent.join('\n');
 
-        const { plugins, options } = await postcssrc();
-        
-        const result = await postcss(plugins).process(combinedCssContent, options);
+        const result = await postcss([autoprefixer, cssNanoPreset]).process(combinedCssContent, {
+            from: undefined
+        })
 
-        $('svg').append(`<style>${result.css}</style>`)
+        const styleElement = xmlDoc.createElement('style');
+        styleElement.textContent = result.css;
+        const svgElement = xmlDoc.getElementsByTagName('svg')[0]
+        svgElement.appendChild(styleElement);
 
-        return $.xml();
+        const updatedSVG = new XMLSerializer().serializeToString(xmlDoc);
+
+        return updatedSVG;
     }
 
     // Function to validate SVG file
@@ -46,7 +91,7 @@ export class SVG {
     // Function to minify SVG file
     async minify(svgString: string, debug: boolean, con?: typeof console): Promise<string> {
         try {
-            const result = SVGO.optimize(debug ? svgString : await this.processCSS(svgString), {
+            const result = SVGO.optimize(await this.processCSS(svgString), {
                 multipass: true,
                 js2svg: {
                     indent: 2,
@@ -63,7 +108,6 @@ export class SVG {
                                     onlyMatchedOnce: false,
                                     removeMatchedSelectors: true,
                                     useMqs: ['prefers-color-scheme', 'prefers-reduced-motion'],
-                                    usePseudos: ['']
                                 }
                             }
                         }
@@ -82,7 +126,7 @@ export class SVG {
             return svgString;
         }
     }
-    
+
     async generateSVGFromConfig(config: any): Promise<string> {
         const window = (await this.svgdom).createSVGWindow()
         const document = window.document
@@ -90,13 +134,13 @@ export class SVG {
         registerWindow(window, document);
 
         extend(Defs, {
-            addDef: function(object: any) {
+            addDef: function (object: any) {
                 (<any>this).add(SVGjs(object));
             }
         })
 
         extend(ForeignObject, {
-            addObject: function(object: any) {
+            addObject: function (object: any) {
                 (<any>this).add(object);
             }
         })
@@ -110,14 +154,14 @@ export class SVG {
 
                 if (paramKeys.findIndex(p => p == funcName) != -1) {
                     const parameters = params[funcName];
-                    const result = func.apply(parent, Array.isArray(parameters) ? parameters : [ parameters ]);
+                    const result = func.apply(parent, Array.isArray(parameters) ? parameters : [parameters]);
 
                     for (let chainedFunctionName of paramKeys.filter(p => p != funcName)) {
                         executeFunction(result, chainedFunctionName, params[chainedFunctionName]);
                     }
                 }
                 else {
-                    func.apply(parent, Array.isArray(params) ? params : [ params ]);
+                    func.apply(parent, Array.isArray(params) ? params : [params]);
                 }
             }
         }
