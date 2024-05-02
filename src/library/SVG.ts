@@ -63,7 +63,7 @@ export class SVG {
                                     onlyMatchedOnce: false,
                                     removeMatchedSelectors: true,
                                     useMqs: ['prefers-color-scheme', 'prefers-reduced-motion'],
-                                    usePseudos: ''
+                                    usePseudos: ['']
                                 }
                             }
                         }
