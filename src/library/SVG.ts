@@ -78,7 +78,7 @@ export class SVG {
     // Function to validate SVG file
     validate(svgString: string, con?: typeof console): boolean {
         try {
-            this.parser.parseFromString(svgString, 'image/svg+xml');
+            new DOMParser().parseFromString(svgString, 'image/svg+xml');
             return true;
         } catch (error) {
             (con ?? console).error('Invalid SVG:', error);
