@@ -3,7 +3,8 @@ import { DOMParser, XMLSerializer } from '@xmldom/xmldom';
 import postcss from 'postcss';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
-import { SVG as SVGjs, registerWindow, extend, Defs, ForeignObject, Svg } from '@svgdotjs/svg.js';
+import * as SVGjs from '@svgdotjs/svg.js';
+
 const cssNanoPreset = cssnano({
     preset: [
         'default', {
@@ -100,13 +101,47 @@ export class SVG {
                         name: "preset-default",
                         params: {
                             overrides: {
-                                removeViewBox: false,
-                                removeEmptyContainers: false,
+                                removeDoctype: undefined,
+                                removeXMLProcInst: undefined,
+                                removeComments: undefined,
+                                removeMetadata: undefined,
+                                removeEditorsNSData: undefined,
+                                cleanupAttrs: undefined,
+                                mergeStyles: undefined,
                                 inlineStyles: {
                                     onlyMatchedOnce: false,
                                     removeMatchedSelectors: true,
                                     useMqs: ['prefers-color-scheme', 'prefers-reduced-motion'],
-                                }
+                                },
+                                minifyStyles: undefined,
+                                cleanupIds: undefined,
+                                removeUselessDefs: undefined,
+                                cleanupNumericValues: undefined,
+                                convertColors: undefined,
+                                removeUnknownsAndDefaults: {
+                                    keepRoleAttr: true
+                                },
+                                removeNonInheritableGroupAttrs: undefined,
+                                removeUselessStrokeAndFill: undefined,
+                                removeViewBox: false,
+                                cleanupEnableBackground: undefined,
+                                removeHiddenElems: undefined,
+                                removeEmptyText: undefined,
+                                convertShapeToPath: undefined,
+                                convertEllipseToCircle: undefined,
+                                moveElemsAttrsToGroup: undefined,
+                                moveGroupAttrsToElems: undefined,
+                                collapseGroups: undefined,
+                                convertPathData: undefined,
+                                convertTransform: undefined,
+                                removeEmptyAttrs: undefined,
+                                removeEmptyContainers: undefined,
+                                mergePaths: undefined,
+                                removeUnusedNS: undefined,
+                                sortAttrs: undefined,
+                                sortDefsChildren: undefined,
+                                removeTitle: false,
+                                removeDesc: undefined,
                             }
                         }
                     },
@@ -129,21 +164,47 @@ export class SVG {
         const window = (await this.svgdom).createSVGWindow()
         const document = window.document
 
-        registerWindow(window, document);
+        SVGjs.registerWindow(window, document);
 
-        extend(Defs, {
+        class TitleElement extends SVGjs.Container {
+            constructor(title: string) {
+                const titleNode: SVGGraphicsElement = SVGjs.create('title');
+                titleNode.textContent = title;
+                super(titleNode);
+            }
+        }
+        
+        class DescriptionElement extends SVGjs.Container {
+            constructor(desc: string) {
+                const descNode: SVGGraphicsElement = SVGjs.create('desc');
+                descNode.textContent = desc;
+                super(descNode)
+            }
+        }
+          
+          // Add a method to create a rounded rect
+        SVGjs.extend(SVGjs.Container, {
+            title: function(title: string) {
+                return (<any>this).put(new TitleElement(title));
+            },
+            desc: function(desc: string) {
+                return (<any>this).put(new DescriptionElement(desc));
+            }
+        });
+
+        SVGjs.extend(SVGjs.Defs, {
             addDef: function (object: any) {
-                (<any>this).add(SVGjs(object));
+                (<any>this).add(SVGjs.SVG(object));
             }
         })
 
-        extend(ForeignObject, {
+        SVGjs.extend(SVGjs.ForeignObject, {
             addObject: function (object: any) {
                 (<any>this).add(object);
             }
         })
 
-        const draw = SVGjs();
+        const draw = SVGjs.SVG();
 
         function executeFunction(parent: any, funcName: string, params: any) {
             const func: Function = parent[funcName];
@@ -164,7 +225,7 @@ export class SVG {
             }
         }
 
-        function parseConfig(draw: Svg, config: any) {
+        function parseConfig(draw: SVGjs.Svg, config: any) {
             for (const svgDraw of Object.keys(config)) {
                 if (typeof config[svgDraw] === 'object') {
                     for (const funcName in config[svgDraw]) {

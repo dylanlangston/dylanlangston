@@ -35,7 +35,9 @@
       "speechBubbleStrokeLight": "white",
       "speechBubbleDark": "rgba(34, 39, 46, 0.85)",
       "speechBubbleStrokeDark": "black",
-      "text": "#9f00c5"
+      "text": "#9f00c5",
+      "accessibleTitle": "Hello World",
+      "accessibleDesc": "Animated cartoon image of Dylan Langston waving hello."
     }
   },
   {

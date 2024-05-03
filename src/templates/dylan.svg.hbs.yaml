@@ -18,7 +18,20 @@
 width: {{width}}
 height: {{height}}
 viewBox: 0 0 {{width}} {{height}}
+role: img
 preserveAspectRatio: xMinYMin none
+aria-labelledby: title
+aria-describedby: desc
+
+Title: 
+  title:
+    title:  {{accessibleTitle}}
+    id: "title"
+
+Description: 
+  desc: 
+    desc: {{accessibleDesc}}
+    id: "desc"
 
 Fadein Style:
   style: |
