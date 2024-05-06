@@ -1,6 +1,6 @@
 {
   "name": "dylanlangston",
-  "version": "1.0.52",
+  "version": "1.0.53",
   "description": "Dylan Langston's Github Profile Readme",
   "scripts": {
     "build": "ts-node build.ts",
