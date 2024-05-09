@@ -8,7 +8,7 @@
 <p align="center">
   <a href="https://www.typescriptlang.org/"><img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=flat-square"></a>
   <a href="https://github.com/dylanlangston/dylanlangston/actions/workflows/build.yml"><img alt="GitHub Workflow CI/CD" src="https://img.shields.io/github/actions/workflow/status/dylanlangston/dylanlangston/build.yml?label=CI%2FCD&style=flat-square"></a>
-  <a href="https://github.com/dylanlangston/dylanlangston/blob/main/LICENSE"><img alt="GitHub License" src="https://img.shields.io/github/license/dylanlangston/dylanlangston?label=License&style=flat-square"></a>
+  <a href="https://github.com/dylanlangston/dylanlangston/blob/master/LICENSE"><img alt="GitHub License" src="https://img.shields.io/github/license/dylanlangston/dylanlangston?label=License&style=flat-square"></a>
   <a href="https://api.github.com/repos/dylanlangston/dylanlangston"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/dylanlangston/dylanlangston?label=Repo%20Size&style=flat-square"></a>
 </p>
 
