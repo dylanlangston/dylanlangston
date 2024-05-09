@@ -1,9 +1,7 @@
 <h1 align="center"><strong><em>Dylan Langston's Github profile</em> 🙋‍♂️</strong></h1>
-<a href="https://github.com/dylanlangston/dylanlangston/" title="Dylan Langston's Github profile 🙋‍♂️">
-  <p align="center">
+<p align="center">
     <img src="../dylan.svg" alt="Dylan Langston's Github profile 🙋‍♂️" align="center"></img>
-  </p>
-</a>
+</p>
 
 <p align="center">
   <a href="https://www.typescriptlang.org/"><img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=flat-square"></a>
