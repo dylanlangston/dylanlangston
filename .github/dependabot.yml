@@ -7,7 +7,7 @@ updates:
       prefix: "Node - "
     directory: "/src"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     labels:
       - ":label: Dependencies"
       - ":technologist:TypeScript/JavaScript :green_circle:"
@@ -17,7 +17,7 @@ updates:
       prefix: "Github Actions - "
     directory: ./.github/workflows/
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     labels:
       - ":label: Dependencies"
       - ":technologist: Github Actions :brown_circle:"
