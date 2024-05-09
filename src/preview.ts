@@ -97,12 +97,14 @@ async function startServer() {
 
     await rebuildAndStartServer();
 
-    process.stdin.setRawMode(true);
-    process.stdin.resume();
-    process.stdin.on('data', () => {
-        console.log('Exiting ❌');
-        process.exit();
-    });
+    if (process.stdin.setRawMode) {
+        process.stdin.setRawMode(true);
+        process.stdin.resume();
+        process.stdin.on('data', () => {
+            console.log('Exiting ❌');
+            process.exit();
+        });
+    }
 
     let debounce: NodeJS.Timeout | undefined;
     const watcher: fs.WatchListener<string> = (eventType, filename) => {

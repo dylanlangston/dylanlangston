@@ -19,6 +19,20 @@
             "type": "node"
         },
         {
+            "name": "Preview",
+            "request": "launch",
+            "runtimeArgs": [
+                "run",
+                "preview"
+            ],
+            "cwd": "${workspaceFolder}/src",
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node",
+        },
+        {
             "name": "Test",
             "request": "launch",
             "runtimeArgs": [

@@ -1,16 +1,16 @@
+const remark = import('remark');
+const remarkHtml = import('remark-html');
+const remarkPresetLintConsistent = import('remark-preset-lint-consistent');
+const remarkPresetLintRecommended = import('remark-preset-lint-recommended');
+
 export class Markdown {
     public static Instance = new Markdown();
 
-    private remark = import('remark');
-    private remarkPresetLintConsistent = import('remark-preset-lint-consistent');
-    private remarkPresetLintRecommended = import('remark-preset-lint-recommended');
-    private remarkHtml = import('remark-html');
-
     // Function to validate Markdown file
     async validate(markdownString: string, con?: typeof console): Promise<boolean> {
-        const result = await (await this.remark).remark()
-            .use(<any>(await this.remarkPresetLintConsistent).default)
-            .use(<any>(await this.remarkPresetLintRecommended).default)
+        const result = await (await remark).remark()
+            .use((await remarkPresetLintConsistent).default)
+            .use((await remarkPresetLintRecommended).default)
             .process(markdownString);
 
         if (result.messages.length === 0) {
@@ -24,7 +24,7 @@ export class Markdown {
     // Function to minify Markdown file
     async minify(markdownString: string, con?: typeof console): Promise<string> {
         try {
-            const minifiedMarkdown = await (await this.remark).remark().process(markdownString);
+            const minifiedMarkdown = await (await remark).remark().process(markdownString);
             return minifiedMarkdown.toString();
         } catch (error) {
             (con ?? console).error('Error while minifying Markdown:', error);
@@ -35,8 +35,8 @@ export class Markdown {
     // Function to convert Markdown to HTML
     async toHtml(markdownString: string, con?: typeof console): Promise<string> {
         try {
-            const htmlOutput = await (await this.remark).remark()
-                .use(await (await this.remarkHtml).default, {
+            const htmlOutput = await (await remark).remark()
+                .use((await remarkHtml).default, {
                     sanitize: false,
                 })
                 .process(markdownString);

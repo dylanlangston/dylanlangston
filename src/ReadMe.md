@@ -49,7 +49,7 @@ __Installing Dependencies__
 
 __Building__
 
-* To build the TypeScript app, run the following command:
+* To build, run the following command:
     ```
     npm run build
     ```
@@ -60,11 +60,24 @@ __Building__
   <tr>
     <td>
 
+__Test__
+* To test, run the following command:
+    ```
+    npm run test
+    ```
+
+    </td>
+  </tr>
+  <tr></tr>
+  <tr>
+    <td>
+
 __Preview__
-* To preview the application, run the following command:
+1. To preview, run the following command:
     ```
     npm run preview
     ```
+2. Open [http://localhost:8080/](http://localhost:8080/)
 
     </td>
   </tr>
