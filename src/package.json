@@ -4,7 +4,7 @@
   "description": "Dylan Langston's Github Profile Readme",
   "scripts": {
     "build": "ts-node build.ts",
-    "test": "ts-node test.ts"
+    "preview": "ts-node preview.ts"
   },
   "repository": {
     "type": "git",

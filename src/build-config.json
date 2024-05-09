@@ -47,7 +47,7 @@
     "data": {
       "image": "dylan.svg",
       "imageAlt": "Dylan",
-      "imageTemplate": "dylan.svg.hbs.yaml"
+      "imageLink": "./src/ReadMe.md"
     }
   }
 ]
