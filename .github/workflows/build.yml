@@ -42,6 +42,7 @@ jobs:
 
       - name: Commit Changes
         run: |
+          cd ${{ github.workspace }}
           git config --local user.email "${{secrets.GIT_EMAIL}}"
           git config --local user.name "${{secrets.GIT_NAME}}"
           git add .
