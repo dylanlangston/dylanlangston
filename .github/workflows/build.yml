@@ -10,6 +10,8 @@ jobs:
   update-readme:
     name: "Build ReadMe and Commit"
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@main
@@ -26,9 +28,6 @@ jobs:
         run: |
          cd src
          npm ci
-
-      - name: Install playwright browsers
-        run: npx --prefix ./src playwright install --with-deps
 
       - name: Test Project
         run: npm run test --prefix ./src
