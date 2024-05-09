@@ -12,7 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests/',
   testIgnore: 'unit*',
-  retries: 1,
+  retries: 2,
   workers: '75%',
   reporter: 'list',
   use: {
