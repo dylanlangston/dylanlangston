@@ -13,13 +13,13 @@ jobs:
     container:
       image: mcr.microsoft.com/playwright:latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@main
-
       - name: Set up Node.js
         uses: actions/setup-node@main
         with:
-          node-version: '20'
+          node-version: 'lts'
+
+      - name: Checkout Repository
+        uses: actions/checkout@main
 
       - name: Increment version
         run: npm version patch --prefix ./src
@@ -40,8 +40,6 @@ jobs:
 
       - name: Commit Changes
         run: |
-          ls -lah
-          tree
           git config --local user.email "${{secrets.GIT_EMAIL}}"
           git config --local user.name "${{secrets.GIT_NAME}}"
           git add .
