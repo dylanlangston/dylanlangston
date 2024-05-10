@@ -25,7 +25,7 @@ jobs:
         run: npm version patch --prefix ./src
 
       - name: Install Dependencies
-        run: npm install --prefix ./src
+        run: npm ci --prefix ./src
 
       - name: Test Project
         run: npm run test --prefix ./src
@@ -41,8 +41,8 @@ jobs:
       - name: Commit Changes
         run: |
         
-          git config --local ./ user.email "${{secrets.GIT_EMAIL}}"
-          git config --local ./ user.name "${{secrets.GIT_NAME}}"
+          git config user.email "${{secrets.GIT_EMAIL}}"
+          git config user.name "${{secrets.GIT_NAME}}"
           git add .
           git commit -m "Update README" || echo "No changes to commit"
           git push
