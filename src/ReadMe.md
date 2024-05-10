@@ -130,52 +130,79 @@ __Preview__
 ### Solution Architecture 🏰
 ```mermaid
 graph LR;
-    A[./build.ts]
-    T[./preview.ts]
-    
-    A -->|imports| B[./library/Builder.ts]
+    subgraph "input" [Inputs]
+      G((build-config.json))
+      I[("`./templates`")]
+      H[("`./static`")]
+    end
 
-    S{{"http://localhost:8080/"}}
-    T -->|open| S
-    J --->|reads| T
+    subgraph "build" [npm run build]
+      A[./build.ts]
+    end
+    subgraph "preview" [npm run preview]
+      T[./preview.ts]
+    end
+    subgraph "test" [npm run test]
+      Q[./test.ts]
+      R([Jest])
+      U([Playwright])
+    end
 
-    G((build-config.json))
-    G -->|reads| B
+    subgraph "logic" [ ]
+      B[./library/Builder.ts]
+      K([js-yaml])
+      L([Handlebars.js])
+      D[./library/SVG.ts]
+      N([SVG.js])
+      P([SVGO])
+      O([cssnano])
+      E[./libary/Markdown.ts]
+      M([remark])
+    end
 
-    G ---|define| I
+    subgraph "out" [Outputs]
+      S{{"http://localhost:8080/"}}
+      J[("`./out`")]
+    end
+
+    build ~~~ logic
+    preview ~~~ logic
+    test ~~~ logic
+
+    input ~~~ logic
+    logic ~~~ out
+
+    A ==>|imports| B
+    B -->|imports| D
+    B -->|imports| E
+    B -.->|writes| J
+    B -->|imports| K
+    B -->|imports| L
+    D -->|imports| N
+    D -->|imports| O
+    D -->|imports| P
+    E -->|imports| M
+    G -.->|reads| B
     G ---|define| H
-
-    B -->|imports| D[./library/SVG.ts]
-    subgraph " "
-        D -->|imports| N([SVG.js])
-        D -->|imports| P([SVGO])
-        D -->|imports| O([cssnano])
-    end
-
-    B -->|imports| E[./libary/Markdown.ts]
-    subgraph " "
-        E -->|imports| M([remark])
-    end
-
-
-    subgraph " "
-        B -->|imports| K([js-yaml])
-        B -->|imports| L([Handlebars.js])
-    end
-        
-    T -->|imports| B
-
-    I[("`./templates`")] -->|reads| B
-    H[("`./static`")] -->|reads| B
-
-    B -->|writes| J[("`./out`")]
+    G ---|define| I
+    H -.->|reads| B
+    I -.->|reads| B
+    J -.->|reads| T
+    J -.->|reads| Q
+    R <-->|tests| B
+    T ==>|imports| B
+    T -->|serves| S
+    U <-->|tests| S
+    Q ==>|imports| B
+    Q -->|imports| R
+    Q -->|imports| U
 ```
 
 ### External Resources ℹ️
 Here are some additional resources which are used:
 <table>
   <tr>
-    <td><a href="https://github.com/cssnano/cssnano">cssnano</a> - Used to optimize the CSS</td>
+    <td><a href="https://github.com/cssnano/cssnano">cssnano</a> - Used to optimize CSS</td>
   </tr>
   <tr>
     <td><a href="https://github.com/handlebars-lang/handlebars.js">Handlebars.js</a> - Used to Populate Templates</td>
@@ -184,13 +211,19 @@ Here are some additional resources which are used:
     <td><a href="https://github.com/nodeca/js-yaml">js-yaml</a> - Used to read YAML templates</td>
   </tr>
   <tr>
-    <td><a href="https://github.com/remarkjs/remark">remark</a> - Used to Optmize Markdown</td>
+    <td><a href="https://github.com/jestjs/jest">Jest</a> - Unit testing for javascript</td>
+  </tr>
+    <tr>
+    <td><a href="https://github.com/microsoft/playwright">Playwright</a> - Unit testing for javascript</td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/remarkjs/remark">remark</a> - Used to generate and optmize Markdown</td>
   </tr>
   <tr>
     <td><a href="https://github.com/svgdotjs/svg.js">SVG.js</a> - Used to generate SVGs</td>
   </tr>
   <tr>
-    <td><a href="https://github.com/svg/svgo">SVGO</a> - Used to optimize the SVG</td>
+    <td><a href="https://github.com/svg/svgo">SVGO</a> - Used to optimize SVGs</td>
   </tr>
 </table>
 
