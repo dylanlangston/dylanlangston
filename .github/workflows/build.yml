@@ -7,9 +7,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-readme:
-    name: "Build ReadMe and Commit"
+  checkout: 
+    name: "Checkout Code"
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@main
+
+  build:
+    name: "Build Templates"
+    runs-on: ubuntu-latest
+    needs: [checkout]
     container:
       image: mcr.microsoft.com/playwright:latest
     steps:
@@ -17,9 +25,6 @@ jobs:
         uses: actions/setup-node@main
         with:
           node-version: '>=20'
-
-      - name: Checkout Repository
-        uses: actions/checkout@main
 
       - name: Increment version
         run: npm version patch --prefix ./src
@@ -41,10 +46,11 @@ jobs:
   Commit:
     name: "Commit Changes"
     runs-on: ubuntu-latest
-    needs: [update-readme]
+    needs: [build]
     steps:
       - name: Commit Changes
         run: |
+          ls -lah
           git config --local ./ user.email "${{secrets.GIT_EMAIL}}"
           git config --local ./ user.name "${{secrets.GIT_NAME}}"
           git add .
