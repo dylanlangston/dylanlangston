@@ -40,7 +40,7 @@ jobs:
 
       - name: Commit Changes
         run: |
-          git config --global --add safe.directory ./
+          git config --global --add safe.directory $(pwd)
           git status .
           git config user.email "${{secrets.GIT_EMAIL}}"
           git config user.name "${{secrets.GIT_NAME}}"
