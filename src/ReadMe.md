@@ -211,10 +211,10 @@ Here are some additional resources which are used:
     <td><a href="https://github.com/nodeca/js-yaml">js-yaml</a> - Used to read YAML templates</td>
   </tr>
   <tr>
-    <td><a href="https://github.com/jestjs/jest">Jest</a> - Unit testing for javascript</td>
+    <td><a href="https://github.com/jestjs/jest">Jest</a> - Unit testing</td>
   </tr>
     <tr>
-    <td><a href="https://github.com/microsoft/playwright">Playwright</a> - Unit testing for javascript</td>
+    <td><a href="https://github.com/microsoft/playwright">Playwright</a> - Integration testing</td>
   </tr>
   <tr>
     <td><a href="https://github.com/remarkjs/remark">remark</a> - Used to generate and optmize Markdown</td>
