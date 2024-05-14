@@ -5,6 +5,9 @@ Built {{build_time}}
 
 <a href="{{imageLink}}" title="Click to View Source">
   <div align="center">
-    <img src="{{image}}" alt="{{imageAlt}}" width="100%">
+    <picture>
+      <source srcset="{{image}}">
+      <img src="{{image}}" alt="{{imageAlt}}" width="100%">
+    </picture>
   </div>
 </a>
