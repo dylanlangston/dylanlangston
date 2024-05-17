@@ -38,7 +38,7 @@ export async function build(templates: Template[], debug: boolean = false, con?:
             input.files = newFilesObj;
         }
         if (input.github && Object.keys(input.github).includes("username")) {
-            const githubStats = new GitHubStatsFetcher(input.github.username, process.env.GITHUB_TOKEN!);
+            const githubStats = new GitHubStatsFetcher(input.github.username, process.env.PERSONAL_ACCESS_TOKEN ?? process.env.GITHUB_TOKEN);
             input.github = await githubStats.fetchStats();
         }
         return input;
