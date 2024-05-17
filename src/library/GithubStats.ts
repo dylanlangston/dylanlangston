@@ -109,7 +109,7 @@ export class GitHubStatsFetcher {
         const query = `
             query($login: String!) {
                 user(login: $login) {
-                    repositories(first: 100) {
+                    repositories(privacy: PUBLIC) {
                         nodes {
                             stargazers {
                                 totalCount
@@ -144,12 +144,12 @@ export class GitHubStatsFetcher {
         const query = `
             query($login: String!) {
                 user(login: $login) {
-                    repositories(first: 100) {
+                    repositories(privacy: PUBLIC) {
                         nodes {
                             defaultBranchRef {
                                 target {
                                     ... on Commit {
-                                        history(first: 100) {
+                                        history() {
                                             edges {
                                                 node {
                                                     additions
