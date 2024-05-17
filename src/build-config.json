@@ -52,6 +52,9 @@
       "font": "\"JetBrains Mono\", monospace",
       "fontSize": "32px",
       "lineWidth": 1590,
+      "files": [
+        "jetbrains_mono.woff2"
+      ],
       "github": {
         "username": "dylanlangston"
       },
