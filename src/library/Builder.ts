@@ -4,6 +4,7 @@ import * as Handlebars from 'handlebars';
 import { TemplateType, Template } from './Template';
 import { SVG } from './SVG';
 import { Markdown } from './Markdown';
+import { GitHubStatsFetcher } from './GithubStats';
 import * as yaml from 'js-yaml';
 const packageJson = require('../package.json');
 const mime = import('mime');
@@ -35,6 +36,10 @@ export async function build(templates: Template[], debug: boolean = false, con?:
                 newFilesObj[file.replace('.', '_')] = `data:${contentType};base64,${fileContent}`;
             }
             input.files = newFilesObj;
+        }
+        if (input.github && Object.keys(input.github).includes("username")) {
+            const githubStats = new GitHubStatsFetcher(input.github.username, process.env.GITHUB_TOKEN!);
+            input.github = await githubStats.fetchStats();
         }
         return input;
     }

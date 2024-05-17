@@ -4,6 +4,9 @@ on:
   push:
     branches: ["master"]
     
+    schedule:
+      - cron: "0 5 * * *" # This will run the action every day at midnight EST time
+
   workflow_dispatch:
 
 jobs:

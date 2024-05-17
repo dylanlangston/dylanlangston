@@ -41,13 +41,40 @@
     }
   },
   {
+    "in": "stats.svg.hbs.yaml",
+    "out": "stats.svg",
+    "type": "SVG",
+    "data": {
+      "width": 1600,
+      "height": 160,
+      "accessibleTitle": "Profile Info and Stats",
+      "accessibleDesc": "Information and Statistics for Dylan Langston's Github profile",
+      "font": "\"JetBrains Mono\", monospace",
+      "fontSize": "32px",
+      "lineWidth": 1590,
+      "github": {
+        "username": "dylanlangston"
+      },
+      "keys": {
+        "repos": "Repos Owned",
+        "contributed": "Repos Contributed",
+        "commits": "Commmits",
+        "stars": "Stars",
+        "followers": "Followers",
+        "linesOfCode": "Lines of Code"
+      }
+    }
+  },
+  {
     "in": "readme.md.hbs",
     "out": "ReadMe.md",
     "type": "Markdown",
     "data": {
       "image": "dylan.svg",
       "imageAlt": "Dylan",
-      "imageLink": "./src/ReadMe.md"
+      "imageLink": "./src/ReadMe.md",
+      "statsImage": "stats.svg",
+      "statsImageAlt": "Profile Info and Stats"
     }
   }
 ]

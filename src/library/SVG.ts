@@ -189,23 +189,26 @@ export class SVG {
             },
             desc: function(desc: string) {
                 return (<any>this).put(new DescriptionElement(desc));
+            },
+            raw: function (object: any) {
+                (<SVGjs.Container>this).put(<SVGjs.Element>SVGjs.SVG(object));
             }
         });
 
         SVGjs.extend(SVGjs.Defs, {
             addDef: function (object: any) {
-                (<any>this).add(SVGjs.SVG(object));
+                (<SVGjs.Defs>this).add(<SVGjs.Element>SVGjs.SVG(object));
             }
         })
 
         SVGjs.extend(SVGjs.ForeignObject, {
             addObject: function (object: any) {
-                (<any>this).add(object);
+                (<SVGjs.ForeignObject>this).add(object);
             }
         })
 
         const draw = SVGjs.SVG();
-
+        
         function executeFunction(parent: any, funcName: string, params: any) {
             const func: Function = parent[funcName];
             if (typeof func === 'function') {
@@ -222,6 +225,9 @@ export class SVG {
                 else {
                     func.apply(parent, Array.isArray(params) ? params : [params]);
                 }
+            }
+            else {
+                throw `Function not found ${funcName}`;
             }
         }
 
