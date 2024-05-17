@@ -70,6 +70,6 @@ Github Stats:
   raw: |
     <text x="10" y="40">
       <tspan x="10" y="40">{{ github.username }}'s Github Stats:</tspan>
-      <tspan class="keyColor" x="10" y="100">{{ keys.repos }}: </tspan>{{ github.repos }} | <tspan class="keyColor">{{ keys.contributed }}</tspan>: {{ github.contributedRepos }}  | <tspan class="keyColor">{{ keys.commits }}</tspan>: {{ github.commits }}  | <tspan class="keyColor">{{ keys.stars }}</tspan>: {{ github.stars }}
-      <tspan class="keyColor" x="10" y="140">{{ keys.followers }}:</tspan> {{ github.followers }}  | <tspan class="keyColor">{{ keys.linesOfCode }}</tspan>: {{ github.linesOfCode }} (<tspan class="addColor">{{ github.linesOfCodeAdded }}++</tspan>, <tspan class="delColor">{{ github.linesOfCodeRemoved }}--</tspan>)
+      <tspan class="keyColor" x="10" y="100">{{ keys.repos }}: </tspan>{{ github.repos }} | <tspan class="keyColor">{{ keys.contributed }}</tspan>: {{ github.contributedRepos }} | <tspan class="keyColor">{{ keys.commits }}</tspan>: {{ github.commits }} | <tspan class="keyColor">{{ keys.stars }}</tspan>: {{ github.stars }}
+      <tspan class="keyColor" x="10" y="140">{{ keys.followers }}:</tspan> {{ github.followers }} | <tspan class="keyColor">{{ keys.linesOfCode }}</tspan>: {{ github.linesOfCode }} (<tspan class="addColor">{{ github.linesOfCodeAdded }}++</tspan>, <tspan class="delColor">{{ github.linesOfCodeRemoved }}--</tspan>)
     </text>
