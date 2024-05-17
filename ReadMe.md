@@ -1,6 +1,6 @@
 <!-- 
-Version 1.0.73
-Built Fri May 17 2024 19:07:21 GMT+0000 (Coordinated Universal Time) 
+Version 1.0.74
+Built Fri May 17 2024 20:10:36 GMT+0000 (Coordinated Universal Time) 
 -->
 
 <a href="./src/ReadMe.md" title="Click to View Source">
@@ -15,7 +15,7 @@ Built Fri May 17 2024 19:07:21 GMT+0000 (Coordinated Universal Time)
 <br/>
 
 <div align="center">
-  <picture width="50%" alt="Profile Info and Stats">
+  <picture width="100%" alt="Profile Info and Stats">
     <source srcset="stats.svg">
     <img src="stats.svg" alt="Profile Info and Stats">
   </picture>
