@@ -149,7 +149,7 @@ export class GitHubStatsFetcher {
                             defaultBranchRef {
                                 target {
                                     ... on Commit {
-                                        history(first: 4999) {
+                                        history(first: 100) {
                                             edges {
                                                 node {
                                                     additions
