@@ -60,7 +60,7 @@ export class GitHubStatsFetcher {
         const query = `
             query($login: String!, $ownerAffiliations: [RepositoryAffiliation]) {
                 user(login: $login) {
-                    repositories(ownerAffiliations: $ownerAffiliations) {
+                    repositories(ownerAffiliations: $ownerAffiliations, privacy: PUBLIC) {
                         totalCount
                     }
                 }
