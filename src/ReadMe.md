@@ -158,6 +158,8 @@ graph LR;
       O([cssnano])
       E[./libary/Markdown.ts]
       M([remark])
+      GS[./library/GithubStats.ts]
+      AX[axios]
     end
 
     subgraph "out" [Outputs]
@@ -175,6 +177,7 @@ graph LR;
     A ==>|imports| B
     B -->|imports| D
     B -->|imports| E
+    B -->|imports| GS
     B -.->|writes| J
     B -->|imports| K
     B -->|imports| L
@@ -182,6 +185,7 @@ graph LR;
     D -->|imports| O
     D -->|imports| P
     E -->|imports| M
+    GS -->|imports| AX
     G -.->|reads| B
     G ---|define| H
     G ---|define| I
@@ -201,6 +205,9 @@ graph LR;
 ### External Resources ℹ️
 Here are some additional resources which are used:
 <table>
+  <tr>
+    <td><a href="https://github.com/axios/axios">axios</a> - Used to retrieve Github Stats</td>
+  </tr>
   <tr>
     <td><a href="https://github.com/cssnano/cssnano">cssnano</a> - Used to optimize CSS</td>
   </tr>
