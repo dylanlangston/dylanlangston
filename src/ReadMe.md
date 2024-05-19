@@ -10,7 +10,7 @@
   <a href="https://api.github.com/repos/dylanlangston/dylanlangston"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/dylanlangston/dylanlangston?label=Repo%20Size&style=flat-square"></a>
 </p>
 
-### A brief introduction
+### A brief introduction 🎤
 Hello and welcome! This repository contains the source code used to generate my Github profile readme. The core of this solution lies in using the combination of YAML and Handlebars as templates. The [`./build.ts`](./build.ts) file orchestrates the build process, utilizing [`./library/Builder.ts`](./library/Builder.ts) to generate assets based on templates like [`./templates/dylan.svg.hbs.yaml`](./templates/dylan.svg.hbs.yaml) and [`./templates/readme.md.hbs`](./templates/readme.md.hbs) defined in [`./build-config.json`](./build-config.json). These templates are processed using Handlebars, allowing for population of variables also defined in `./build-config.json`. The novel approach of SVG with YAML markup enhances readability and enables post-processing techniques to optimize the final SVG output.
 
 ### Building 🏗️
@@ -202,6 +202,31 @@ graph LR;
     Q -->|imports| U
 ```
 
+### Citations 📓
+In this project, we utilize images under fair use to create derivative artwork. These images are sourced from publicly available resources and are used for the purpose of creating transformative artworks.
+<table>
+  <tr>
+    <td><img src="./static/bliss.webp" alt="Bliss (Windows XP)" width="200em"></td>
+    <td>
+      <p><em>Bliss (Windows XP)</em></p>
+      <p>Original scan of Charles O'Rear's photograph</p>
+      <p>Source: <a href="https://en.wikipedia.org/wiki/File:Bliss_(Windows_XP).png">Wikipedia</a></p>
+      <p>License: Microsoft</p>
+    </td>
+  </tr>
+  <tr>
+    <td><img src="./static/solo.webp" alt="Solo Jazz design" width="200em"></td>
+    <td>
+      <p><em>Solo Jazz design</em></p>
+      <p>The Solo Jazz design by Gina Ekiss represented in a high-quality clean image.</p>
+      <p>Source: <a href="https://en.wikipedia.org/wiki/File:Solo_Jazz_design.jpg">Wikipedia</a></p>
+      <p>License: Solo Cup Company/Dart Container</p>
+    </td>
+  </tr>
+</table>
+
+
+
 ### External Resources ℹ️
 Here are some additional resources which are used:
 <table>
@@ -235,7 +260,7 @@ Here are some additional resources which are used:
 </table>
 
 ### License 📜
-This tool is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the [`LICENSE`](https://github.com/dylanlangston/dylanlangston/blob/main/LICENSE) file for details.
+This repository is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the [`LICENSE`](https://github.com/dylanlangston/dylanlangston/blob/main/LICENSE) file for details.
 
 <h2 id="footer"></h2>
 <sub>
