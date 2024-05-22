@@ -159,7 +159,7 @@ graph LR;
       E[./libary/Markdown.ts]
       M([remark])
       GS[./library/GithubStats.ts]
-      AX[axios]
+      AX[Octokit.js]
     end
 
     subgraph "out" [Outputs]
@@ -231,9 +231,6 @@ In this project, we utilize images under fair use to create derivative artwork. 
 Here are some additional resources which are used:
 <table>
   <tr>
-    <td><a href="https://github.com/axios/axios">axios</a> - Used to retrieve Github Stats</td>
-  </tr>
-  <tr>
     <td><a href="https://github.com/cssnano/cssnano">cssnano</a> - Used to optimize CSS</td>
   </tr>
   <tr>
@@ -245,7 +242,10 @@ Here are some additional resources which are used:
   <tr>
     <td><a href="https://github.com/jestjs/jest">Jest</a> - Unit testing</td>
   </tr>
-    <tr>
+  <tr>
+    <td><a href="https://github.com/octokit/octokit.js">Octokit.js</a> - Used to retrieve Github Stats</td>
+  </tr>
+  <tr>
     <td><a href="https://github.com/microsoft/playwright">Playwright</a> - Integration testing</td>
   </tr>
   <tr>

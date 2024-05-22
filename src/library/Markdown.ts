@@ -1,16 +1,16 @@
-const remark = import('remark');
-const remarkHtml = import('remark-html');
-const remarkPresetLintConsistent = import('remark-preset-lint-consistent');
-const remarkPresetLintRecommended = import('remark-preset-lint-recommended');
+import { remark } from 'remark';
+import remarkHtml from 'remark-html';
+import remarkPresetLintConsistent from 'remark-preset-lint-consistent';
+import remarkPresetLintRecommended from 'remark-preset-lint-recommended';
 
 export class Markdown {
     public static Instance = new Markdown();
 
     // Function to validate Markdown file
     async validate(markdownString: string, con?: typeof console): Promise<boolean> {
-        const result = await (await remark).remark()
-            .use((await remarkPresetLintConsistent).default)
-            .use((await remarkPresetLintRecommended).default)
+        const result = await remark()
+            .use(remarkPresetLintConsistent)
+            .use(remarkPresetLintRecommended)
             .process(markdownString);
 
         if (result.messages.length === 0) {
@@ -24,7 +24,7 @@ export class Markdown {
     // Function to minify Markdown file
     async minify(markdownString: string, con?: typeof console): Promise<string> {
         try {
-            const minifiedMarkdown = await (await remark).remark().process(markdownString);
+            const minifiedMarkdown = await remark().process(markdownString);
             return minifiedMarkdown.toString();
         } catch (error) {
             (con ?? console).error('Error while minifying Markdown:', error);
@@ -35,8 +35,8 @@ export class Markdown {
     // Function to convert Markdown to HTML
     async toHtml(markdownString: string, con?: typeof console): Promise<string> {
         try {
-            const htmlOutput = await (await remark).remark()
-                .use((await remarkHtml).default, {
+            const htmlOutput = await remark()
+                .use(remarkHtml, {
                     sanitize: false,
                 })
                 .process(markdownString);

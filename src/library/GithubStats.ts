@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { Octokit } from 'octokit';
 
 interface GitHubStats {
     username: string;
@@ -13,16 +13,18 @@ interface GitHubStats {
 }
 
 export class GitHubStatsFetcher {
-    private static readonly BASE_URL = 'https://api.github.com/graphql';
-    private headers: { Authorization?: string } = {};
     private userName: string;
+    private octokit: Octokit;
 
     constructor(userName: string, accessToken?: string) {
         this.userName = userName;
         if (accessToken) {
-            this.headers = {
-                Authorization: `Bearer ${accessToken}`,
-            };
+            this.octokit = new Octokit({
+                auth: accessToken
+            });
+        }
+        else {
+            this.octokit = new Octokit();
         }
     }
 
@@ -68,7 +70,7 @@ export class GitHubStatsFetcher {
         `;
         const variables = { login: this.userName, ownerAffiliations };
         const response = await this.makeRequest(query, variables);
-        return response.data.user.repositories.totalCount;
+        return response.user.repositories.totalCount;
     }
 
     private async fetchContributedRepoCount(): Promise<number> {
@@ -85,7 +87,7 @@ export class GitHubStatsFetcher {
         `;
         const variables = { login: this.userName };
         const response = await this.makeRequest(query, variables);
-        return response.data.user.contributionsCollection.repositoryContributions.totalCount;
+        return response.user.contributionsCollection.repositoryContributions.totalCount;
     }
 
     private async fetchCommitCount(): Promise<number> {
@@ -102,7 +104,7 @@ export class GitHubStatsFetcher {
         `;
         const variables = { login: this.userName };
         const response = await this.makeRequest(query, variables);
-        return response.data.user.contributionsCollection.contributionCalendar.totalContributions;
+        return response.user.contributionsCollection.contributionCalendar.totalContributions;
     }
 
     private async fetchStarCount(): Promise<number> {
@@ -121,7 +123,7 @@ export class GitHubStatsFetcher {
         `;
         const variables = { login: this.userName };
         const response = await this.makeRequest(query, variables);
-        const repos = response.data.user.repositories.nodes;
+        const repos = response.user.repositories.nodes;
         return repos.reduce((acc: number, repo: any) => acc + repo.stargazers.totalCount, 0);
     }
 
@@ -137,7 +139,7 @@ export class GitHubStatsFetcher {
         `;
         const variables = { login: this.userName };
         const response = await this.makeRequest(query, variables);
-        return response.data.user.followers.totalCount;
+        return response.user.followers.totalCount;
     }
 
     private async fetchLOC(): Promise<{ added: number, removed: number }> {
@@ -167,7 +169,7 @@ export class GitHubStatsFetcher {
         `;
         const variables = { login: this.userName };
         const response = await this.makeRequest(query, variables);
-        const repos = response.data.user.repositories.nodes;
+        const repos = response.user.repositories.nodes;
         let added = 0, removed = 0;
 
         for (const repo of repos) {
@@ -182,12 +184,8 @@ export class GitHubStatsFetcher {
         return { added, removed };
     }
 
-    private async makeRequest(query: any, variables: any): Promise<any> {
-        const response = await axios.post(
-            GitHubStatsFetcher.BASE_URL,
-            { query, variables },
-            { headers: this.headers }
-        );
-        return response.data;
+    private async makeRequest(query: string, variables: any): Promise<any> {
+        const response: any = await this.octokit.graphql(query, variables);
+        return response;
     }
 }

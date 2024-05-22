@@ -1,18 +1,17 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as Handlebars from 'handlebars';
+import { default as Handlebars } from 'handlebars';
 import { TemplateType, Template } from './Template';
 import { SVG } from './SVG';
 import { Markdown } from './Markdown';
 import { GitHubStatsFetcher } from './GithubStats';
 import * as yaml from 'js-yaml';
-const packageJson = require('../package.json');
-const mime = import('mime');
+import packageJson from '../package.json';
+import { default as mime } from 'mime';
 
-
-export const outDir = path.join(__dirname, '..', 'out');
-
-const templatesFilePath = path.join(__dirname, '..', 'build-config.json');
+export const cwd = process.cwd();
+const templatesFilePath = path.join(cwd, 'build-config.json');
+export const outDir = path.join(cwd, 'out');
 
 export function get_default_templates(): Template[] {
     return JSON.parse(fs.readFileSync(templatesFilePath, 'utf8'));
@@ -30,8 +29,8 @@ export async function build(templates: Template[], debug: boolean = false, con?:
             const newFilesObj: any = {};
             for (let i = 0; i < input.files.length; i++) {
                 const file: string = input.files[i];
-                const contentType = (await mime).default.getType(file) || 'application/octet-stream';
-                const fileContent = fs.readFileSync(path.join(__dirname, '..', 'static', file), { encoding: 'base64' });
+                const contentType = mime.getType(file) || 'application/octet-stream';
+                const fileContent = fs.readFileSync(path.join(cwd, 'static', file), { encoding: 'base64' });
 
                 newFilesObj[file.replace('.', '_')] = `data:${contentType};base64,${fileContent}`;
             }
@@ -65,7 +64,7 @@ export async function build(templates: Template[], debug: boolean = false, con?:
     }
 
     for (let template of templates) {
-        const templateSource = fs.readFileSync(path.join(__dirname, '..', 'templates', template.in), 'utf8');
+        const templateSource = fs.readFileSync(path.join(cwd, 'templates', template.in), 'utf8');
         const handlebars = Handlebars.compile(templateSource);
         const data = await populateTemplate(template.in, template.data);
         let file: string;
@@ -81,7 +80,7 @@ export async function build(templates: Template[], debug: boolean = false, con?:
             default:
                 throw `Not Implemented: ${template.type}`;
         }
-        
+
         if (!(await validate(template.type, file))) throw `Invalid ${template.type} template: '${template.in}'`;
 
         const minifiedOutput = await minify(template.type, file);

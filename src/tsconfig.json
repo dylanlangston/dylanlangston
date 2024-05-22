@@ -1,22 +1,24 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "NodeNext",
+    "target": "ESNext",
+    "module": "ESNext",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "Bundler",
+    "declaration": true,
+    "composite": true,
     "baseUrl": "./",
     "paths": {
       "*": [
         "/*"
       ]
     },
+    "outDir": "./dist",
   },
-  "include": [
-    "./**/*.ts"
-, "build.ts"  ],
+  "include": [ "./**/*.ts", "./**/package.json", "build.ts", "preview.ts" ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }

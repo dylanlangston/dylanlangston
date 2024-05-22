@@ -2,17 +2,16 @@ import * as fs from 'fs';
 import * as http from 'http';
 import * as path from 'path';
 import * as WebSocket from 'ws'; // Import WebSocket module
-import { build, get_default_templates, outDir } from './library/Builder';
+import { build, get_default_templates, cwd, outDir } from './library/Builder';
 import { Markdown } from './library/Markdown';
 import { NullLogger } from './library/NullLogger';
+import { default as mime } from 'mime';
 
 const port = 8080;
 
 async function startServer() {
     let server: http.Server | undefined;
-    let wss: WebSocket.Server | undefined;
-
-    const mime = import('mime');
+    let wss: WebSocket.WebSocketServer | undefined;
 
     const rebuildAndStartServer = async () => {
         const default_templates = get_default_templates();
@@ -29,7 +28,7 @@ async function startServer() {
 
         if (wss) {
             wss.clients.forEach(client => {
-                if (client.readyState === WebSocket.OPEN) {
+                if (client.readyState === WebSocket.WebSocket.OPEN) {
                     client.send('reload');
                 }
             });
@@ -75,7 +74,7 @@ async function startServer() {
                                 }
                             }
                             const file = fs.readFileSync(filename);
-                            const contentType = (await mime).default.getType(filename) || 'application/octet-stream';
+                            const contentType = mime.getType(filename) || 'application/octet-stream';
                             res.writeHead(200, { 'Content-Type': contentType });
                             res.end(file);
                             return;
@@ -85,7 +84,7 @@ async function startServer() {
                     res.end();
                 });
 
-                wss = new WebSocket.Server({ server });
+                wss = new WebSocket.WebSocketServer({ server });
                 server.listen(port, () => {
                     console.log(`Server is running on 'http://localhost:${port}/'\nPress any key to exit...`);
                 });
@@ -124,8 +123,8 @@ async function startServer() {
             debounce = undefined;
         }, 500);
     };
-    fs.watch(path.resolve(__dirname, 'build-config.json'), watcher);
-    fs.watch(path.resolve(__dirname, 'templates'), watcher);
+    fs.watch(path.resolve(cwd, 'build-config.json'), watcher);
+    fs.watch(path.resolve(cwd, 'templates'), watcher);
 }
 
 startServer().catch(err => {
