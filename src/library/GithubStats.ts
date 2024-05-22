@@ -28,7 +28,20 @@ export class GitHubStatsFetcher {
         }
     }
 
-    public async fetchStats(): Promise<GitHubStats> {
+    public async fetchStats(debug: boolean): Promise<GitHubStats> {
+        if (debug) {
+            return {
+                username: this.userName,
+                repos: 0,
+                contributedRepos: 0,
+                commits: 0,
+                stars: 0,
+                followers: 0,
+                linesOfCode: 1,
+                linesOfCodeAdded: 2,
+                linesOfCodeRemoved: 1
+            };
+        }
         const [
             repoInfo,
             contributedReposInfo,
