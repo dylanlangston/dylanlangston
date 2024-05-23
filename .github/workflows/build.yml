@@ -19,7 +19,6 @@ jobs:
     env:
       github: true
       PERSONAL_ACCESS_TOKEN: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
-      ACTIONS_RUNTIME_URL: ${{ env.ACTIONS_RUNTIME_URL }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@main
