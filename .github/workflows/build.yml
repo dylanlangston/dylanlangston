@@ -4,7 +4,7 @@ on:
   push:
     branches: ["master"]
     paths:
-      - 'src/'
+      - 'src'
   
   schedule:
     - cron: "0 5 * * *" # This will run the action every day at midnight EST time
