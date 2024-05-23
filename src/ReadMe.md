@@ -1,6 +1,9 @@
 <h1 align="center"><strong><em>Dylan Langston's Github profile</em> 🙋‍♂️</strong></h1>
 <p align="center">
-    <img src="../dylan.svg" alt="Dylan Langston's Github profile 🙋‍♂️" align="center"></img>
+    <picture width="100%" alt="Dylan Langston's Github profile 🙋‍♂️" align="center">
+      <source media="(prefers-color-scheme: dark)" srcset="../dylan-dark.svg">
+      <img src="../dylan.svg" alt="Dylan Langston's Github profile 🙋‍♂️">
+    </picture>
 </p>
 
 <p align="center">
