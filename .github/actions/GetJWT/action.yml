@@ -1,8 +1,0 @@
-name: 'GetJWT'
-description: 'Get ID token from Github OIDC provider'
-outputs:
-  token: 
-    description: 'ID token obtained from OIDC provider'
-runs:
-  using: 'node20'
-  main: 'index.js'

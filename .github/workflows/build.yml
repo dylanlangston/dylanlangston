@@ -65,12 +65,13 @@ jobs:
         run: npm exec --prefix ./src playwright install 
 
       - name: Get JWT
-        uses: dylanlangston/dylanlangston/.github/actions/GetJWT@master
-        id: get_jwt
+        uses: actions/github-script@master
+        with:
+          script: |
+            core.exportVariable('ACTIONS_CACHE_URL', process.env['ACTIONS_CACHE_URL'])
+            core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env['ACTIONS_RUNTIME_TOKEN']
 
       - name: Test Project
-        env:
-          ACTIONS_RUNTIME_TOKEN: '${{ steps.get_jwt.outputs.token }}'
         run: npm run test --prefix ./src
 
       - name: Build Project
