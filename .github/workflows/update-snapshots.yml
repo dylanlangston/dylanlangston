@@ -12,24 +12,39 @@ jobs:
   update-snapshot:
     name: "Update Snapshots and Commit"
     runs-on: ubuntu-latest
-    env:
-      PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@main
+    
       - name: Set up Node.js
         uses: actions/setup-node@main
         with:
           node-version: '>=20'
           cache: 'npm'
-          cache-dependency-path: './src/'
-
-      - name: Checkout Repository
-        uses: actions/checkout@main
-
+          cache-dependency-path: "${{ github.workspace }}/src"
+          
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+        
+      - name: Node Cache
+        uses: actions/cache@v3
+        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+             ${{ steps.npm-cache-dir.outputs.dir }}
+             ${{ github.workspace }}/src/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('${{ github.workspace }}/src/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            
       - name: Install Dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci --prefix ./src
         
       - name: Install Playwright Browsers
-        run: npx playwright install-deps
+        run: npm exec --prefix ./src playwright install -- --with-deps
 
       - name: Update Snapshots
         run: npm run update-snapshots --prefix ./src
