@@ -3,7 +3,9 @@ name: 🔄 Update README
 on:
   push:
     branches: ["master"]
-    
+    paths:
+      - './src/'
+  
   schedule:
     - cron: "0 5 * * *" # This will run the action every day at midnight EST time
 
@@ -33,7 +35,7 @@ jobs:
         run: npm ci --prefix ./src
 
       - name: Install Playwright Browsers
-        run: npx playwright install-deps --prefix ./src
+        run: npx playwright install-deps
 
       - name: Test Project
         run: npm run test --prefix ./src
