@@ -53,7 +53,7 @@ jobs:
         run: npm version patch --prefix ./src
 
       - name: Install Playwright Browsers
-        run: npm exec --prefix ./src playwright install --with-deps
+        run: npm exec --prefix ./src playwright install -- -- --with-deps
 
       - name: Test Project
         run: npm run test --prefix ./src
