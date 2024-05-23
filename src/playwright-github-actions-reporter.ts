@@ -194,20 +194,16 @@ class Summary {
 class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
   private summary = new Summary();
 
-  onTestBegin(test: reporterTypes.TestCase): void {
-    this.summary.addHeading(`🎭 Begin integration test: ${test.title}`, 3);
-  }
-
   onTestEnd(test: reporterTypes.TestCase, result: reporterTypes.TestResult): void {
 
     const status = result.status === 'passed' ? 'success' : 'failure';
-    const summaryTitle = `${test.parent.project()?.name} - Status: ${status} - Attempt #${test.retries + 1}`;
+    const summaryTitle = `🎭 ${test.parent.project()?.name} test result: ${status} (Attempt #${test.retries + 1})`;
     const duration = `Duration: ${result.duration}ms`;
 
     if (result.status === 'failed') {
-      const error = result.errors[0].message;
+      const error = result.error?.message;
       this.summary.addHeading(summaryTitle, 4);
-      this.summary.addRaw(`${duration}\n`);
+      this.summary.addRaw(`${duration}`, true);
       this.summary.addQuote(error!);
       const attachments = result.attachments || [];
       const snapshotFiles = attachments.filter((a: any) => a.name.toLowerCase().endsWith(".png"));
@@ -216,8 +212,8 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
       const expectedImage = snapshotFiles.find(s => s.name.endsWith("-expected.png"));
 
       if (actualImage && diffImage && expectedImage) {
-        this.summary.addRaw('| Original | Diff | Actual |');
-        this.summary.addRaw('|---|---|---|');
+        this.summary.addRaw('| Original | Diff | Actual |', true);
+        this.summary.addRaw('|---|---|---|', true);
         const getImageUrl = (baseImage: typeof actualImage): string => {
           if (baseImage.body)
           {
@@ -226,19 +222,14 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
           return `data:image/png;base64,${fs.readFileSync(baseImage.path!).toString('base64')}`
           
         }
-        this.summary.addRaw(`| ![Original](${getImageUrl(actualImage)}) | ![Diff](${getImageUrl(diffImage)}) | ![Actual](${getImageUrl(expectedImage)}) |`);
+        this.summary.addRaw(`| ![Original](${getImageUrl(actualImage)}) | ![Diff](${getImageUrl(diffImage)}) | ![Actual](${getImageUrl(expectedImage)}) |`, true);
       }
     } else {
-      this.summary.addHeading(summaryTitle, 3);
+      this.summary.addHeading(summaryTitle, 4);
       this.summary.addRaw(`${duration}\n`);
     }
-  }
 
-  onEnd(result: reporterTypes.FullResult): void {
-    const status = result.status === 'passed' ? 'success' : 'failure';
     this.summary.addSeparator();
-    this.summary.addHeading(`🎭 Integration test result: ${status}`, 3);
-
     this.summary.write({overwrite: false});
   }
 }
