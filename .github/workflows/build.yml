@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       github: true
+      PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      ACTIONS_RUNTIME_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@main
@@ -42,8 +44,6 @@ jobs:
              ${{ steps.npm-cache-dir.outputs.dir }}
              ${{ github.workspace }}/src/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('${{ github.workspace }}/src/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Playwright Cache
         uses: actions/cache@v3
@@ -51,8 +51,6 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('${{ github.workspace }}/src/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
 
       - name: Install Dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
@@ -73,8 +71,6 @@ jobs:
 
       - name: Build Project
         run: npm run build --prefix ./src
-        env:
-          ACTIONS_RUNTIME_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Copy build output
         run: cp -r src/out/* .
