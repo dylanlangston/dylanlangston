@@ -24,9 +24,9 @@ __Getting the Source Code__
     ```
     git clone https://github.com/dylanlangston/dylanlangston.git
     ```
-2. Navigate to the project directory:
+2. Navigate to the project's source directory:
     ```
-    cd dylanlangston
+    cd dylanlangston/src
     ```
 
     </td>
