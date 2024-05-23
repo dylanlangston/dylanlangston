@@ -1,8 +1,7 @@
-import * as playwright from 'playwright';
 import { EOL } from 'os';
 import * as fs from 'fs';
 import * as path from 'path';
-import {default as artifact} from '@actions/artifact';
+import * as artifact from '@actions/artifact'; 
 
 import type * as reporterTypes from 'playwright/types/testReporter';
 
@@ -192,10 +191,11 @@ class Summary {
     }
 }
 
+const artifactClient = new artifact.DefaultArtifactClient();
 const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
 async function uploadArtifact(filePath: string): Promise<string> {
     const fileName = path.basename(filePath);
-    const uploadResponse = await artifact.uploadArtifact(fileName, [filePath], '.', {
+    const uploadResponse = await artifactClient.uploadArtifact(fileName, [filePath], '.', {
         
     });
 
