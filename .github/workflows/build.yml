@@ -72,10 +72,9 @@ jobs:
         run: npm run test --prefix ./src
 
       - name: Build Project
-        env:
-          PERSONAL_ACCESS_TOKEN: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
-          ACTIONS_RUNTIME_TOKEN: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
         run: npm run build --prefix ./src
+        env:
+          ACTIONS_RUNTIME_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Copy build output
         run: cp -r src/out/* .
