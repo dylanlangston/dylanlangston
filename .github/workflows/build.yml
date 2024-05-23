@@ -45,16 +45,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
             
-      - name: Install Node Modules
-        run: |
-          cd ${{ github.workspace }}/src/asteroids-website
-          npm install
+      - name: Install Dependencies
+        run: npm ci --prefix ./src
           
       - name: Increment version
         run: npm version patch --prefix ./src
-
-      - name: Install Dependencies
-        run: npm ci --prefix ./src
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
