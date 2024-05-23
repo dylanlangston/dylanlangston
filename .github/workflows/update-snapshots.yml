@@ -1,0 +1,42 @@
+name: 📷 Update Snapshots
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-snapshot:
+    name: "Update Snapshots and Commit"
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:latest
+      options: --user root
+    env:
+      PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      HOME: /root
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@main
+        with:
+          node-version: '>=20'
+
+      - name: Checkout Repository
+        uses: actions/checkout@main
+
+      - name: Increment version
+        run: npm version patch --prefix ./src
+
+      - name: Install Dependencies
+        run: npm ci --prefix ./src
+
+      - name: Update Snapshots
+        run: npm run update-snapshots
+
+      - name: Commit Changes
+        run: |
+          git config --global --add safe.directory $(pwd)
+          git status .
+          git config user.email "${{secrets.GIT_EMAIL}}"
+          git config user.name "${{secrets.GIT_NAME}}"
+          git add .
+          git commit -m "Update Snapshots" || echo "No changes to commit"
+          git push
