@@ -18,8 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       github: true
-      PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-      ACTIONS_RUNTIME_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      PERSONAL_ACCESS_TOKEN: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@main
