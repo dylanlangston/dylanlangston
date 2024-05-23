@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: '>=20'
           cache: 'npm'
-          working-directory: src
+          cache-dependency-path: "${{ github.workspace }}/src"
 
       - name: Increment version
         run: npm version patch --prefix ./src
