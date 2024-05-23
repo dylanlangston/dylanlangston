@@ -13,9 +13,6 @@ jobs:
   update-readme:
     name: "Build ReadMe and Commit"
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:latest
-      options: --user root
     env:
       PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       HOME: /root
@@ -24,6 +21,7 @@ jobs:
         uses: actions/setup-node@main
         with:
           node-version: '>=20'
+          cache: 'npm'
 
       - name: Checkout Repository
         uses: actions/checkout@main
@@ -33,6 +31,9 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci --prefix ./src
+
+      - name: Install Playwright Browsers
+        run: npx playwright install-deps --prefix ./src
 
       - name: Test Project
         run: npm run test --prefix ./src
