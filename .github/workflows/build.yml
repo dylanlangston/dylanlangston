@@ -46,6 +46,7 @@ jobs:
             ${{ runner.os }}-node-
             
       - name: Install Dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci --prefix ./src
           
       - name: Increment version
