@@ -27,7 +27,28 @@ jobs:
           node-version: '>=20'
           cache: 'npm'
           cache-dependency-path: "${{ github.workspace }}/src"
-
+          
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+        
+      - name: Node Cache
+        uses: actions/cache@v3
+        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+             ${{ steps.npm-cache-dir.outputs.dir }}
+             ${{ github.workspace }}/src/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('${{ github.workspace }}/src/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            
+      - name: Install Node Modules
+        run: |
+          cd ${{ github.workspace }}/src/asteroids-website
+          npm install
+          
       - name: Increment version
         run: npm version patch --prefix ./src
 
