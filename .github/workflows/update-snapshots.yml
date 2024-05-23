@@ -4,7 +4,7 @@ on:
   push:
     branches: ["master"]
     paths:
-      - './.github/workflows/update-snapshot.yml'
+      - './.github/workflows/update-snapshots.yml'
 
   workflow_dispatch:
 
