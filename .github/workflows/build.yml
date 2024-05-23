@@ -18,7 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       github: true
-      PERSONAL_ACCESS_TOKEN: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@main
@@ -65,10 +64,18 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npm exec --prefix ./src playwright install 
 
+      - name: Get JWT
+        uses: dylanlangston/dylanlangston/.github/actions/GetJWT@master
+        id: get_jwt
+
       - name: Test Project
+        env:
+          ACTIONS_RUNTIME_TOKEN: '${{ steps.get_jwt.outputs.token }}'
         run: npm run test --prefix ./src
 
       - name: Build Project
+        env:
+          PERSONAL_ACCESS_TOKEN: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
         run: npm run build --prefix ./src
 
       - name: Copy build output

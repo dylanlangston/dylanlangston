@@ -1,6 +1,5 @@
 import * as path from 'path';
 import { DefaultArtifactClient } from '@actions/artifact';
-import { getIDToken, exportVariable } from '@actions/core'
 import Summary from './github-actions-summary';
 import type * as reporterTypes from 'playwright/types/testReporter';
 
@@ -22,11 +21,6 @@ async function uploadArtifact(filePath: string): Promise<string> {
 
 class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
   private summary = new Summary();
-
-  constructor() {
-    // Export ACTIONS_RUNTIME_TOKEN
-    getIDToken().then(token => exportVariable("ACTIONS_RUNTIME_TOKEN", token));
-  }
 
   async onTestEnd(test: reporterTypes.TestCase, result: reporterTypes.TestResult): Promise<void> {
     const status = result.status === 'passed' ? 'success' : 'failure';
