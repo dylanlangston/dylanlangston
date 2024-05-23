@@ -12,6 +12,8 @@ jobs:
   update-snapshot:
     name: "Update Snapshots and Commit"
     runs-on: ubuntu-latest
+    env:
+      github: true
     steps:
       - name: Checkout Repository
         uses: actions/checkout@main

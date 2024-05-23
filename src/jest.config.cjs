@@ -20,5 +20,8 @@ module.exports = {
   fakeTimers: {
     enableGlobally: true
   },
-  roots: ["./tests"]
+  roots: ["./tests"],
+  reporters: [
+    process.env.github ? ['github-actions', {silent: false}] : 'default'
+  ]
 };
