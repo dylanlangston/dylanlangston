@@ -14,7 +14,7 @@ export default defineConfig({
   testIgnore: 'unit*',
   retries: 2,
   workers: '75%',
-  reporter: [ process.env.github ? ['list', './playwright-github-actions-reporter'] : ['list']],
+  reporter: process.env.github ? [['list'], ['./playwright-github-actions-reporter']] : 'list',
   use: {
     baseURL: 'http://localhost:8080',
     trace: 'on-first-retry',
