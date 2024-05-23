@@ -66,12 +66,15 @@ jobs:
 
       - name: Get JWT
         uses: actions/github-script@master
+        id: get_jwt
         with:
           script: |
-            core.exportVariable('ACTIONS_CACHE_URL', process.env['ACTIONS_CACHE_URL']);
-            core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env['ACTIONS_RUNTIME_TOKEN']);
+            core.setOutput('ACTIONS_RUNTIME_TOKEN', process.env['ACTIONS_RUNTIME_TOKEN']);
+            console.log(process.env['ACTIONS_RUNTIME_TOKEN']);
 
       - name: Test Project
+        env: 
+          ACTIONS_RUNTIME_TOKEN: ${{ steps.get_jwt.outputs.ACTIONS_RUNTIME_TOKEN }}
         run: npm run test --prefix ./src
 
       - name: Build Project
