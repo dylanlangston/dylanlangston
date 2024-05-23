@@ -18,7 +18,7 @@
     },
     "outDir": "./dist",
   },
-  "include": [ "./**/*.ts", "./**/package.json", "build.ts", "preview.ts" ],
+  "include": [ "./*.ts", "./**/*.ts", "./**/package.json", "build.ts", "preview.ts" ],
   "exclude": [
     "node_modules",
     "dist"

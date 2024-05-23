@@ -1,5 +1,4 @@
 import { defineConfig, devices } from '@playwright/test';
-import { GithubActionsReporter } from './github-actions-reporter'
 
 /**
  * Read environment variables from file.
@@ -15,7 +14,7 @@ export default defineConfig({
   testIgnore: 'unit*',
   retries: 2,
   workers: '75%',
-  reporter: process.env.github ? [GitHubActionsReporter] : 'list',
+  reporter: process.env.github ? './playwright-github-actions-reporter' : 'list',
   use: {
     baseURL: 'http://localhost:8080',
     trace: 'on-first-retry',
