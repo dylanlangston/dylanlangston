@@ -1,12 +1,12 @@
 <!-- 
-Version 1.0.83
-Built Thu May 23 2024 01:48:52 GMT+0000 (Coordinated Universal Time) 
+Version 1.0.84
+Built Thu May 23 2024 02:42:57 GMT+0000 (Coordinated Universal Time) 
 -->
 
 <a href="./src/ReadMe.md" title="Click to View Source">
   <div align="center">
     <picture width="100%" alt="Dylan">
-      <source srcset="dylan.svg">
+      <source media="(prefers-color-scheme: dark)" srcset="dylan-dark.svg">
       <img src="dylan.svg" alt="Dylan">
     </picture>
   </div>
@@ -16,7 +16,7 @@ Built Thu May 23 2024 01:48:52 GMT+0000 (Coordinated Universal Time)
 
 <div align="center">
   <picture width="100%" alt="Profile Info and Stats">
-    <source srcset="stats.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="stats-dark.svg">
     <img src="stats.svg" alt="Profile Info and Stats">
   </picture>
 </div>
