@@ -32,4 +32,14 @@ test('Ensure layout is correct', async ({ page }) => {
     timeout: 10000,
     maxDiffPixelRatio: 0.1,
   });
+
+  page.emulateMedia({
+    colorScheme: 'dark'
+  });
+
+  await expect(page).toHaveScreenshot("entire-dark.png", {
+    fullPage: true,
+    timeout: 10000,
+    maxDiffPixelRatio: 0.1,
+  });
 });
