@@ -1,6 +1,8 @@
 import * as playwright from 'playwright';
 import { EOL } from 'os';
 import * as fs from 'fs';
+import * as path from 'path';
+import {default as artifact} from '@actions/artifact';
 
 import type * as reporterTypes from 'playwright/types/testReporter';
 
@@ -190,11 +192,21 @@ class Summary {
     }
 }
 
+const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
+async function uploadArtifact(filePath: string): Promise<string> {
+    const fileName = path.basename(filePath);
+    const uploadResponse = await artifact.uploadArtifact(fileName, [filePath], '.', {
+        
+    });
+
+    const runId = process.env.GITHUB_RUN_ID;
+    return `https://github.com/${owner}/${repo}/suites/artifacts/${runId}/${uploadResponse.id}`;
+}
 
 class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
   private summary = new Summary();
 
-  onTestEnd(test: reporterTypes.TestCase, result: reporterTypes.TestResult): void {
+  async onTestEnd(test: reporterTypes.TestCase, result: reporterTypes.TestResult): Promise<void> {
 
     const status = result.status === 'passed' ? 'success' : 'failure';
     const summaryTitle = `🎭 ${test.parent.project()?.name} test result: ${status} (Attempt #${test.retries + 1})`;
@@ -214,15 +226,7 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
       if (actualImage && diffImage && expectedImage) {
         this.summary.addRaw('| Original | Diff | Actual |', true);
         this.summary.addRaw('|---|---|---|', true);
-        const getImageUrl = (baseImage: typeof actualImage): string => {
-          if (baseImage.body)
-          {
-            return `data:image/png;base64,${baseImage.body.toString('base64')}` 
-          }
-          return `data:image/png;base64,${fs.readFileSync(baseImage.path!).toString('base64')}`
-          
-        }
-        this.summary.addRaw(`| ![Original](${getImageUrl(actualImage)}) | ![Diff](${getImageUrl(diffImage)}) | ![Actual](${getImageUrl(expectedImage)}) |`, true);
+        this.summary.addRaw(`| ![Original](${await uploadArtifact(actualImage.path!)}) | ![Diff](${await uploadArtifact(diffImage.path!)}) | ![Actual](${await uploadArtifact(expectedImage.path!)}) |`, true);
       }
     } else {
       this.summary.addHeading(summaryTitle, 4);
