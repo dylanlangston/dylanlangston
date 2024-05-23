@@ -1,8 +1,9 @@
 import { test, expect } from '@playwright/test';
 
 test('Ensure layout is correct', async ({ page }) => {
-  await page.goto('');
-  await page.reload();
+  await page.goto('', {
+    waitUntil: "load"
+  });
 
   await expect(page).toHaveScreenshot("body.png", {
     clip: {

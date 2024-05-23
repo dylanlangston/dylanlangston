@@ -38,6 +38,7 @@ Fadein Style:
     svg {
       opacity: 1;
       animation: fade-in 150ms;
+      border-radius: 75px 75px 15px 15px;
     }
     @keyframes fade-in {
       0% {
@@ -77,22 +78,24 @@ Background style:
       </filter>
   style: |
     .background {
-      width: inherit;
-      height: inherit;
-      background-size: calc({{width}}px - 10px) calc({{height}}px - 10px);
-      background-repeat: no-repeat;
-      background-image: url("{{{files.bliss_webp}}}");
-      background-position: center;
+      fill: url(#background);
     }
 
+Background style 2:
+  defs:
+    defs:
+    addDef: | 
+      <pattern id="background" patternUnits="userSpaceOnUse" y="0" x="0" width="{{width}}" height="{{height}}">
+        <image href="{{{files.bliss_webp}}}" preserveAspectRatio="none" width="{{width}}" height="{{height}}"/>
+      </pattern>
+
 Background:
-  foreignObject:
-    foreignObject: [{{width}}, {{height}}]
-    attr: [ "filter", "url(#blur_filter)"]
+  rect:
+    rect: [{{width}}, {{height}}]
+    x: 0
+    y: 0
     addClass: background
-    addObject: '<html xmlns="http://www.w3.org/1999/xhtml"/>' 
-    css: 
-      border-radius: 75px 75px 15px 15px;
+    attr: [ "filter", "url(#blur_filter)"]
 
 # Style defines the hair background gradient
 Hair Style:
