@@ -238,6 +238,8 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
     const status = result.status === 'passed' ? 'success' : 'failure';
     this.summary.addSeparator();
     this.summary.addHeading(`🎭 Integration test result: ${status}`, 3);
+
+    this.summary.write({overwrite: false});
   }
 }
 
