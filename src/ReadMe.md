@@ -214,7 +214,7 @@ In this project, we utilize images under fair use to create derivative artwork. 
       <p><em>Bliss (Windows XP)</em></p>
       <p>Original scan of Charles O'Rear's photograph</p>
       <p>Source: <a href="https://en.wikipedia.org/wiki/File:Bliss_(Windows_XP).png">Wikipedia</a></p>
-      <p>License: Microsoft</p>
+      <p>License: Used with permission from Microsoft</p>
     </td>
   </tr>
   <tr>
