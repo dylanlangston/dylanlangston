@@ -1,18 +1,16 @@
 <!-- 
-Version 1.0.89
-Built Thu May 23 2024 14:31:28 GMT+0000 (Coordinated Universal Time) 
+Version 1.0.91
+Built Thu May 23 2024 14:44:19 GMT+0000 (Coordinated Universal Time) 
 -->
 
 <a href="./src/ReadMe.md" title="Click to View Source">
-  <div align="center">
+  <h1 align="center">
     <picture width="100%" alt="Dylan">
       <source media="(prefers-color-scheme: dark)" srcset="dylan-dark.svg">
       <img src="dylan.svg" alt="Dylan">
     </picture>
-  </div>
+  </h1>
 </a>
-
-<br/>
 
 <div align="center">
   <picture width="100%" alt="Profile Info and Stats">
