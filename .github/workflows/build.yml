@@ -73,8 +73,8 @@ jobs:
 
       - name: Build Project
         env:
-          PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          ACTIONS_RUNTIME_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          PERSONAL_ACCESS_TOKEN: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
+          ACTIONS_RUNTIME_TOKEN: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
         run: npm run build --prefix ./src
 
       - name: Copy build output
