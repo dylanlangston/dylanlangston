@@ -7,9 +7,6 @@ jobs:
   update-snapshot:
     name: "Update Snapshots and Commit"
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:latest
-      options: --user root
     env:
       PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       HOME: /root
@@ -22,11 +19,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@main
 
-      - name: Increment version
-        run: npm version patch --prefix ./src
-
       - name: Install Dependencies
         run: npm ci --prefix ./src
+        
+      - name: Install Playwright Browsers
+        run: npx playwright install-deps --prefix ./src
 
       - name: Update Snapshots
         run: npm run update-snapshots --prefix ./src
