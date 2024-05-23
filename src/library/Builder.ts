@@ -36,9 +36,10 @@ export async function build(templates: Template[], debug: boolean = false, con?:
             }
             input.files = newFilesObj;
         }
-        if (input.github && Object.keys(input.github).includes("username")) {
+        if (input.github && Object.keys(input.github).includes("username") && !input.githubPrepopulated) {
             const githubStats = new GitHubStatsFetcher(input.github.username, process.env.PERSONAL_ACCESS_TOKEN ?? process.env.GITHUB_TOKEN);
             input.github = await githubStats.fetchStats(debug);
+            input.githubPrepopulated = true;
         }
         return input;
     }
