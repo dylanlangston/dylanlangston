@@ -38,7 +38,6 @@ Fadein Style:
     svg {
       opacity: 1;
       animation: fade-in 150ms;
-      border-radius: 75px 75px 15px 15px;
     }
     @keyframes fade-in {
       0% {
@@ -90,8 +89,20 @@ Background style 2:
       </pattern>
 
 Background:
-  rect:
-    rect: [{{width}}, {{height}}]
+  path:
+    path: |
+      M 75 0
+      H 1525
+      A 75 75 0 0 1 1600 75
+      V 785
+      A 15 15 0 0 1 1585 800
+      H 15
+      A 15 15 0 0 1 0 785
+      V 75
+      A 75 75 0 0 1 75 0
+      Z
+    width: {{width}}
+    height: {{height}}
     x: 0
     y: 0
     addClass: background
