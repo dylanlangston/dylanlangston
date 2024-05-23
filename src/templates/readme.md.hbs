@@ -6,7 +6,7 @@ Built {{build_time}}
 <a href="{{imageLink}}" title="Click to View Source">
   <div align="center">
     <picture width="100%" alt="{{imageAlt}}">
-      <source srcset="{{image}}">
+      <source media="(prefers-color-scheme: dark)" srcset="{{imageDark}}">
       <img src="{{image}}" alt="{{imageAlt}}">
     </picture>
   </div>
@@ -16,7 +16,7 @@ Built {{build_time}}
 
 <div align="center">
   <picture width="100%" alt="{{statsImageAlt}}">
-    <source srcset="{{statsImage}}">
+    <source media="(prefers-color-scheme: dark)" srcset="{{statsImageDark}}">
     <img src="{{statsImage}}" alt="{{statsImageAlt}}">
   </picture>
 </div>

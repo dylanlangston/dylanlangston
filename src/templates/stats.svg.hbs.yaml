@@ -8,6 +8,7 @@ aria-labelledby: title
 aria-describedby: desc
 font-family: '{{{font}}}'
 font-size: {{fontSize}}
+class: {{darkThemeClass}}
 
 Title: 
   title:
@@ -40,6 +41,16 @@ Stats Style:
     text, tspan {
       white-space: pre;
       fill: black;
+    }
+    .dark .background{fill: #161b22}
+    .dark .keyColor {fill: #ffa657;}
+    .dark .valueColor {fill: #a5d6ff;}
+    .dark .addColor {fill: #3fb950;}
+    .dark .delColor {fill: #f85149;}
+    .dark .commentColor {fill: #8b949e;}
+    .dark .line {stroke: white}
+    .dark text, .dark tspan {
+      fill: white;
     }
     @media (prefers-color-scheme: dark) {
       .background{fill: #161b22}

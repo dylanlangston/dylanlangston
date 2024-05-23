@@ -62,8 +62,15 @@ export async function build(templates: Template[], debug: boolean = false, con?:
                 throw `Not Implemented: ${type}`;
         }
     }
+    async function processTemplate(template: Template) {
+        if (template.type == TemplateType.DarkSVGVarient) {
+            const originalSVGTemplate: Template = JSON.parse(JSON.stringify(templates.find(t => t.out == template.in)));
+            originalSVGTemplate.out = template.out;
+            originalSVGTemplate.data.darkThemeClass = "dark";
+            await processTemplate(originalSVGTemplate);
+            return;
+        }
 
-    for (let template of templates) {
         const templateSource = fs.readFileSync(path.join(cwd, 'templates', template.in), 'utf8');
         const handlebars = Handlebars.compile(templateSource);
         const data = await populateTemplate(template.in, template.data);
@@ -91,5 +98,9 @@ export async function build(templates: Template[], debug: boolean = false, con?:
 
             (con ?? console).log(`${template.type} file generated: '${outFile}'`);
         }
+    }
+
+    for (let template of templates) {
+        await processTemplate(template);
     }
 }

@@ -65,6 +65,7 @@ async function startServer() {
                                             </html>
                                             `);
                                         return;
+                                    case "DarkSVGVarient":
                                     case "SVG":
                                         res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
                                         res.end(file);

@@ -22,6 +22,7 @@ role: img
 preserveAspectRatio: xMinYMin none
 aria-labelledby: title
 aria-describedby: desc
+class: {{darkThemeClass}}
 
 Title: 
   title:
@@ -1048,6 +1049,10 @@ Speech Bubble style:
         backdrop-filter: blur(10px);
         stroke: var(--SpeechBubbleStroke);
         stroke-width: 3px;
+      }
+      .dark .speech-bubble {
+        --SpeechBubbleFill: {{speechBubbleDark}};
+        --SpeechBubbleStroke: {{speechBubbleStrokeDark}};
       }
       @media (prefers-color-scheme: dark) {
         .speech-bubble {
