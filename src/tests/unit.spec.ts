@@ -82,7 +82,7 @@ describe('build function', () => {
         await build(templates);
 
         expect(fs.writeFileSync).toHaveBeenCalledWith(expect.any(String), expect.any(String));
-        expect(Markdown.Instance.minify).toHaveBeenCalledTimes(2);
+        expect(Markdown.Instance.minify).toHaveBeenCalledTimes(1);
         expect(SVG.Instance.generateSVGFromConfig).toHaveBeenCalledTimes(1);
     });
 
