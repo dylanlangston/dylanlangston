@@ -42,7 +42,7 @@ Stats Style:
       white-space: pre;
       fill: black;
     }
-    @media (prefers-color-scheme: dark) {
+    @media (prefers-color-scheme: dark) and not (prefers-color-scheme: no-preference) {
       .background{fill: #161b22}
       .keyColor {fill: #ffa657;}
       .valueColor {fill: #a5d6ff;}
@@ -67,7 +67,7 @@ Stats Style:
     text, tspan {
       fill: white;
     }
-    @media (prefers-color-scheme: light) {
+    @media (prefers-color-scheme: light) and not (prefers-color-scheme: no-preference) {
       .background {fill: #f6f8fa}
       .keyColor {fill: #953800;}
       .valueColor {fill: #0a3069;}

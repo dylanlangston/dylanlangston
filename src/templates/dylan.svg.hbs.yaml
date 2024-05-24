@@ -1052,7 +1052,7 @@ Speech Bubble style:
         --SpeechBubbleFill: {{speechBubbleLight}};
         --SpeechBubbleStroke: {{speechBubbleStrokeLight}};
       }
-      @media (prefers-color-scheme: dark) {
+      @media (prefers-color-scheme: dark) and not (prefers-color-scheme: no-preference) {
         .speech-bubble {
           --SpeechBubbleFill: {{speechBubbleDark}};
           --SpeechBubbleStroke: {{speechBubbleStrokeDark}};
@@ -1064,7 +1064,7 @@ Speech Bubble style:
         --SpeechBubbleFill: {{speechBubbleDark}};
         --SpeechBubbleStroke: {{speechBubbleStrokeDark}};
       }
-      @media (prefers-color-scheme: light) {
+      @media (prefers-color-scheme: light) and not (prefers-color-scheme: no-preference) {
         .speech-bubble {
           --SpeechBubbleFill: {{speechBubbleLight}};
           --SpeechBubbleStroke: {{speechBubbleStrokeLight}};
