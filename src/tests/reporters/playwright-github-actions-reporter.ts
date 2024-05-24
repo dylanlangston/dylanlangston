@@ -58,10 +58,10 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
         const snapshotFiles = attachments.filter((a: any) => a.name.toLowerCase().endsWith(".png"));
         const actualImage = snapshotFiles.find(s => s.name.endsWith("-actual.png"));
         const diffImage = snapshotFiles.find(s => s.name.endsWith("-diff.png"));
-        const expectedImage = snapshotFiles.find(s => s.name.endsWith("-expected.png"));
+        //const expectedImage = snapshotFiles.find(s => s.name.endsWith("-expected.png"));
 
-        if (actualImage && diffImage && expectedImage) {
-          const imagesUrl = await uploadImages([actualImage.path!, expectedImage.path!, diffImage.path!], process.cwd(), browser, testName, result.retry)
+        if (actualImage && diffImage) {
+          const imagesUrl = await uploadImages([actualImage.path!, diffImage.path!], path.dirname(actualImage.path!), browser, testName, result.retry)
           this.summary.addLink("Screenshots", imagesUrl)
         }
       } else {
