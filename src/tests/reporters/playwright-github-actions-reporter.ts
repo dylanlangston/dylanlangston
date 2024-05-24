@@ -6,10 +6,12 @@ import type * as reporterTypes from 'playwright/types/testReporter';
 
 const artifactClient = new DefaultArtifactClient();
 const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
-async function uploadArtifact(filePath: string, browser: string, testName: string): Promise<string> {
-  const fileName = `${testName}-${browser}-${path.basename(filePath)}`;
+async function uploadArtifact(filePath: string, browser: string, testName: string, attempt: number): Promise<string> {
+  const fileName = `${testName}-${browser}-${attempt}-${path.basename(filePath)}`;
   try {
-    const uploadResponse = await artifactClient.uploadArtifact(fileName, [filePath], '/');
+    const uploadResponse = await artifactClient.uploadArtifact(fileName, [filePath], '/', {
+      compressionLevel: 0
+    });
     const runId = process.env.GITHUB_RUN_ID;
     return `https://github.com/${owner}/${repo}/suites/artifacts/${runId}/${uploadResponse.id}`;
   }
@@ -42,9 +44,9 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
 
       if (actualImage && diffImage && expectedImage) {
         const [actualURL, diffURL, expectedURL] = await Promise.all([
-          uploadArtifact(actualImage.path!, browser, testName),
-          uploadArtifact(diffImage.path!, browser, testName),
-          uploadArtifact(expectedImage.path!, browser, testName)
+          uploadArtifact(actualImage.path!, browser, testName, test.retries),
+          uploadArtifact(diffImage.path!, browser, testName, test.retries),
+          uploadArtifact(expectedImage.path!, browser, testName, test.retries)
         ]);
 
         this.summary.addEOL();
