@@ -83,11 +83,11 @@
     "out": "ReadMe.md",
     "type": "Markdown",
     "data": {
-      "image": "dylan.svg",
+      "image": "dylan-light.svg",
       "imageDark": "dylan-dark.svg",
       "imageAlt": "Dylan",
       "imageLink": "./src/ReadMe.md",
-      "statsImage": "stats.svg",
+      "statsImage": "stats-light.svg",
       "statsImageDark": "stats-dark.svg",
       "statsImageAlt": "Profile Info and Stats"
     }
