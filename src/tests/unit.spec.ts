@@ -14,7 +14,8 @@ jest.mock('mime', () => ({
 }));
 
 jest.mock('handlebars', () => ({
-    compile: jest.fn().mockReturnValue(() => 'compiledTemplate')
+    compile: jest.fn().mockReturnValue(() => 'compiledTemplate'),
+    registerHelper: jest.fn()
 }));
 
 jest.mock('fs', () => {
