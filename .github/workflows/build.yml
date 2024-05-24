@@ -18,7 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       github: true
-      ACTIONS_RUNTIME_TOKEN: ${{ steps.get_jwt.outputs.ACTIONS_RUNTIME_TOKEN }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@main
@@ -71,7 +70,7 @@ jobs:
         with:
           script: |
             core.setOutput('ACTIONS_RUNTIME_TOKEN', process.env['ACTIONS_RUNTIME_TOKEN']);
-            console.log("test - " + process.env['ACTIONS_RUNTIME_TOKEN']);
+            core.setOutput('ACTIONS_RESULTS_URL', process.env['ACTIONS_RESULTS_URL']);
 
       - name: Test Project
         run: npm run test --prefix ./src
@@ -79,6 +78,8 @@ jobs:
       - name: Build Project
         env:
           PERSONAL_ACCESS_TOKEN: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
+          ACTIONS_RUNTIME_TOKEN: ${{ steps.get_jwt.outputs.ACTIONS_RUNTIME_TOKEN }}
+          ACTIONS_RESULTS_URL: ${{ steps.get_jwt.outputs.ACTIONS_RESULTS_URL }}
         run: npm run build --prefix ./src
 
       - name: Copy build output
