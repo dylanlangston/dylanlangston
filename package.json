@@ -1,0 +1,10 @@
+{
+    "scripts": {
+      "build": "cd src && npm run build",
+      "preview": "cd src && npm run preview",
+      "test": "cd src && npm run test",
+      "test:unit": "cd src && npm run test:unit",
+      "test:integration": "cd src && npm run test:integration",
+      "update-snapshots": "cd src && npm run update-snapshots"
+    }
+  }
