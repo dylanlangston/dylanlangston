@@ -32,6 +32,8 @@ function cleanText(input: string): string {
  return cleanText.trim();
 }
 
+let firstOutput: boolean = true;
+
 class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
   private summary = new Summary();
 
@@ -43,6 +45,13 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
     const duration = `Duration: ${result.duration}ms`;
 
     setTimeout(async () => {
+      if (firstOutput) {
+        firstOutput = false;
+      }
+      else {
+        this.summary.addSeparator();
+      }
+
       if (result.status === 'failed') {
         const error = cleanText(result.error!.message!);
         this.summary.addHeading(summaryTitle, 4);
@@ -62,9 +71,7 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
           ]);
 
           this.summary.addEOL();
-          this.summary.addRaw('| Original | Diff | Actual |', true);
-          this.summary.addRaw('|---|---|---|', true);
-          this.summary.addRaw(`| [Original](${actualURL}) | [Diff](${diffURL}) | [Actual](${expectedURL}) |`, true);
+          this.summary.addRaw(`<table><tr><td><a href"${actualURL}">Actual</a></tr><tr><td><a href="${diffURL}">Diff</a></td></tr><tr><td><a href"${expectedURL}">Original</a></td></tr></table>`, true);
         }
       } else {
         this.summary.addHeading(summaryTitle, 4);
