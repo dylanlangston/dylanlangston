@@ -1,3 +1,4 @@
+const { EOL } = await import('os');
 const { summary } = await import('./github-actions-summary.mjs')
 
 /** @type {import('@jest/reporters').Reporter} */
@@ -17,7 +18,7 @@ class JestGitHubActionsReporter {
         summary.addHeading(`🤡 Unit - '${test.fullName}' - ${status}`, 4);
         summary.addRaw(`Duration: ${test.duration}ms`, true);
         if (test.status === 'failed') {
-          summary.addQuote(test.failureMessages.join('\n'));
+          summary.addQuote(test.failureMessages.join(EOL));
         }
       });
     });

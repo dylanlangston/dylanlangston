@@ -56,7 +56,7 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
         }
       } else {
         summary.addHeading(summaryTitle, 4);
-        summary.addRaw(`${duration}\n`);
+        summary.addRaw(`${duration}`, true);
       }
 
       await summary.write({ overwrite: false });

@@ -32,21 +32,30 @@ jobs:
         
       - name: Node Cache
         uses: actions/cache@master
-        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        id: npm-cache
         with:
           path: |
              ${{ steps.npm-cache-dir.outputs.dir }}
              ${{ github.workspace }}/src/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('${{ github.workspace }}/src/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-            
-      - name: Install Dependencies
+
+      - name: Playwright Cache
+        uses: actions/cache@master
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('${{ github.workspace }}/src/package-lock.json') }}
+
+      - name: Install Node Dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci --prefix ./src
-        
+          
+      - name: Install Playwright Dependencies
+        run: npm exec --prefix ./src playwright install-deps
+
       - name: Install Playwright Browsers
-        run: npm exec --prefix ./src playwright install -- --with-deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npm exec --prefix ./src playwright install 
 
       - name: Update Snapshots
         run: npm run update-snapshots --prefix ./src
