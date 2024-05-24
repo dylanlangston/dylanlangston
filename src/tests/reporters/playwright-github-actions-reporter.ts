@@ -10,9 +10,7 @@ const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
 async function uploadArtifact(filePath: string, browser: string, testName: string, attempt: number): Promise<string> {
   const fileName = `${testName}-${browser}-${attempt}-${path.basename(filePath)}`;
   try {
-    const zipName = `${filePath}.zip`;
-    await fs.copyFile(filePath, zipName)
-    const uploadResponse = await artifactClient.uploadArtifact(fileName, [zipName], path.dirname(zipName), {
+    const uploadResponse = await artifactClient.uploadArtifact(fileName, [filePath], path.dirname(filePath), {
       compressionLevel: 0
     });
     const runId = process.env.GITHUB_RUN_ID;
