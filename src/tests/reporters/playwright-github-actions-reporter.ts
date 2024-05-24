@@ -7,10 +7,10 @@ import type * as reporterTypes from 'playwright/types/testReporter';
 
 const artifactClient = new DefaultArtifactClient();
 const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
-async function uploadArtifact(filePath: string, browser: string, testName: string, attempt: number): Promise<string> {
-  const fileName = `${testName}-${browser}-${attempt}-${path.basename(filePath)}`;
+async function uploadImages(files: string[], dir: string, browser: string, testName: string, attempt: number): Promise<string> {
+  const fileName = `${testName}-${browser}-${attempt}`;
   try {
-    const uploadResponse = await artifactClient.uploadArtifact(fileName, [filePath], path.dirname(filePath), {
+    const uploadResponse = await artifactClient.uploadArtifact(fileName, files, dir, {
       compressionLevel: 0
     });
     const runId = process.env.GITHUB_RUN_ID;
@@ -29,7 +29,7 @@ const ansiRegex = new RegExp(
 
 function cleanText(input: string): string {
   const cleanText = input.replace(ansiRegex, "");
- return cleanText.trim();
+  return cleanText.trim();
 }
 
 let firstOutput: boolean = true;
@@ -64,14 +64,8 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
         const expectedImage = snapshotFiles.find(s => s.name.endsWith("-expected.png"));
 
         if (actualImage && diffImage && expectedImage) {
-          const [actualURL, diffURL, expectedURL] = await Promise.all([
-            uploadArtifact(actualImage.path!, browser, testName, result.retry),
-            uploadArtifact(diffImage.path!, browser, testName, result.retry),
-            uploadArtifact(expectedImage.path!, browser, testName, result.retry)
-          ]);
-
-          this.summary.addEOL();
-          this.summary.addRaw(`<table><tr><td><a href="${actualURL}">Actual</a><td><a href="${diffURL}">Diff</a></td><td><a href="${expectedURL}">Original</a></td></tr></table>`, true);
+          const imagesUrl = await uploadImages([actualImage.path!, expectedImage.path!, diffImage.path!], path.dirname(actualImage.path!), browser, testName, result.retry)
+          this.summary.addLink("Screenshots", imagesUrl)
         }
       } else {
         this.summary.addHeading(summaryTitle, 4);
