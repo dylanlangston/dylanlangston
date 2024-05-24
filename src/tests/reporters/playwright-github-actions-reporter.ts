@@ -31,7 +31,7 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
     const testName = test.title;
     const status = result.status === 'passed' ? 'success' : 'failure';
     const browser = test.parent.project()!.name;
-    const summaryTitle = `🎭 ${testName} ${browser} test result: ${status} (Attempt #${test.retries + 1})`;
+    const summaryTitle = `🎭 ${testName} ${browser} test result: ${status} (Attempt #${result.retry + 1})`;
     const duration = `Duration: ${result.duration}ms`;
 
     setTimeout(async () => {
@@ -48,9 +48,9 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
 
         if (actualImage && diffImage && expectedImage) {
           const [actualURL, diffURL, expectedURL] = await Promise.all([
-            uploadArtifact(actualImage.path!, browser, testName, test.retries),
-            uploadArtifact(diffImage.path!, browser, testName, test.retries),
-            uploadArtifact(expectedImage.path!, browser, testName, test.retries)
+            uploadArtifact(actualImage.path!, browser, testName, result.retry),
+            uploadArtifact(diffImage.path!, browser, testName, result.retry),
+            uploadArtifact(expectedImage.path!, browser, testName, result.retry)
           ]);
 
           this.summary.addEOL();
