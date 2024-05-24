@@ -1,7 +1,7 @@
 [
   {
     "in": "dylan.svg.hbs.yaml",
-    "out": "dylan.svg",
+    "out": "dylan-light.svg",
     "type": "SVG",
     "data": {
       "files": [
@@ -41,13 +41,13 @@
     }
   },
   {
-    "in": "dylan.svg",
+    "in": "dylan-light.svg",
     "out": "dylan-dark.svg",
     "type": "DarkSVGVarient"
   },
   {
     "in": "stats.svg.hbs.yaml",
-    "out": "stats.svg",
+    "out": "stats-light.svg",
     "type": "SVG",
     "data": {
       "width": 1600,
@@ -74,7 +74,7 @@
     }
   },
   {
-    "in": "stats.svg",
+    "in": "stats-light.svg",
     "out": "stats-dark.svg",
     "type": "DarkSVGVarient"
   },

@@ -22,7 +22,6 @@ role: img
 preserveAspectRatio: xMinYMin none
 aria-labelledby: title
 aria-describedby: desc
-class: {{darkThemeClass}}
 
 Title: 
   title:
@@ -1040,8 +1039,6 @@ Speech Bubble style:
         inherits:true;
       }
       .speech-bubble {
-        --SpeechBubbleFill: {{speechBubbleLight}};
-        --SpeechBubbleStroke: {{speechBubbleStrokeLight}};
         --transitionTimeout: 2s;
 
         transition: --SpeechBubbleFill var(--transitionTimeout), --SpeechBubbleStroke var(--transitionTimeout), fill var(--transitionTimeout);
@@ -1050,9 +1047,10 @@ Speech Bubble style:
         stroke: var(--SpeechBubbleStroke);
         stroke-width: 3px;
       }
-      .dark .speech-bubble {
-        --SpeechBubbleFill: {{speechBubbleDark}};
-        --SpeechBubbleStroke: {{speechBubbleStrokeDark}};
+      {{#ifCond darkThemeClass '!=' 'dark'}}
+      .speech-bubble {
+        --SpeechBubbleFill: {{speechBubbleLight}};
+        --SpeechBubbleStroke: {{speechBubbleStrokeLight}};
       }
       @media (prefers-color-scheme: dark) {
         .speech-bubble {
@@ -1060,6 +1058,19 @@ Speech Bubble style:
           --SpeechBubbleStroke: {{speechBubbleStrokeDark}};
         }
       }
+      {{/ifCond}}
+      {{#ifCond darkThemeClass '==' 'dark'}}
+      .speech-bubble {
+        --SpeechBubbleFill: {{speechBubbleDark}};
+        --SpeechBubbleStroke: {{speechBubbleStrokeDark}};
+      }
+      @media (prefers-color-scheme: light) {
+        .speech-bubble {
+          --SpeechBubbleFill: {{speechBubbleLight}};
+          --SpeechBubbleStroke: {{speechBubbleStrokeLight}};
+        }
+      }
+      {{/ifCond}}
 
 Speech Bubble:
  path:
