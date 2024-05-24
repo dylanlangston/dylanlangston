@@ -16,6 +16,9 @@ jobs:
   update-readme:
     name: "Build ReadMe and Commit"
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:latest
+      options: --user root
     env:
       github: true
     steps:
@@ -43,26 +46,12 @@ jobs:
              ${{ github.workspace }}/src/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('${{ github.workspace }}/src/package-lock.json') }}
 
-      - name: Playwright Cache
-        uses: actions/cache@master
-        id: playwright-cache
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('${{ github.workspace }}/src/package-lock.json') }}
-
       - name: Install Node Dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci --prefix ./src
           
       - name: Increment version
         run: npm version patch --prefix ./src
-
-      - name: Install Playwright Dependencies
-        run: npm exec --prefix ./src playwright install-deps
-
-      - name: Install Playwright Browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npm exec --prefix ./src playwright install 
 
       - name: Get Actions JWT
         uses: actions/github-script@master
@@ -76,6 +65,7 @@ jobs:
         env:
           ACTIONS_RUNTIME_TOKEN: ${{ steps.get_jwt.outputs.ACTIONS_RUNTIME_TOKEN }}
           ACTIONS_RESULTS_URL: ${{ steps.get_jwt.outputs.ACTIONS_RESULTS_URL }}
+          HOME: /root
         run: npm run test --prefix ./src
 
       - name: Build Project
