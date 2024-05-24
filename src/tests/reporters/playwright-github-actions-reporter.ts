@@ -6,8 +6,8 @@ import type * as reporterTypes from 'playwright/types/testReporter';
 
 const artifactClient = new DefaultArtifactClient();
 const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
-async function uploadArtifact(filePath: string): Promise<string> {
-  const fileName = path.basename(filePath);
+async function uploadArtifact(filePath: string, browser: string, testName: string): Promise<string> {
+  const fileName = `${testName}-${browser}-${path.basename(filePath)}`;
   try {
     const uploadResponse = await artifactClient.uploadArtifact(fileName, [filePath], '/');
     const runId = process.env.GITHUB_RUN_ID;
@@ -23,12 +23,14 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
   private summary = new Summary();
 
   async onTestEnd(test: reporterTypes.TestCase, result: reporterTypes.TestResult): Promise<void> {
+    const testName = test.title;
     const status = result.status === 'passed' ? 'success' : 'failure';
-    const summaryTitle = `🎭 ${test.parent.project()?.name} test result: ${status} (Attempt #${test.retries + 1})`;
+    const browser = test.parent.project()!.name;
+    const summaryTitle = `🎭 ${testName} ${browser} test result: ${status} (Attempt #${test.retries + 1})`;
     const duration = `Duration: ${result.duration}ms`;
 
     if (result.status === 'failed') {
-      const error = result.error?.message;
+      const error = result.error?.message?.replace(/[\u0000-\u001F\u007F-\u009F]/g, "");
       this.summary.addHeading(summaryTitle, 4);
       this.summary.addRaw(`${duration}`, true);
       this.summary.addQuote(error!);
@@ -40,23 +42,22 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
 
       if (actualImage && diffImage && expectedImage) {
         const [actualURL, diffURL, expectedURL] = await Promise.all([
-          uploadArtifact(actualImage.path!),
-          uploadArtifact(diffImage.path!),
-          uploadArtifact(expectedImage.path!)
+          uploadArtifact(actualImage.path!, browser, testName),
+          uploadArtifact(diffImage.path!, browser, testName),
+          uploadArtifact(expectedImage.path!, browser, testName)
         ]);
 
+        this.summary.addEOL();
         this.summary.addRaw('| Original | Diff | Actual |', true);
         this.summary.addRaw('|---|---|---|', true);
         this.summary.addRaw(`| ![Original](${actualURL}) | ![Diff](${diffURL}) | ![Actual](${expectedURL}) |`, true);
-        await this.summary.write({ overwrite: false });
-
       }
     } else {
       this.summary.addHeading(summaryTitle, 4);
       this.summary.addRaw(`${duration}\n`);
-      this.summary.addSeparator();
-      await this.summary.write({ overwrite: false });
     }
+
+    await this.summary.write({ overwrite: false });
   }
 }
 
