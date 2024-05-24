@@ -4,6 +4,8 @@ import postcss from 'postcss';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
 import * as SVGjs from '@svgdotjs/svg.js';
+import { build } from './Builder';
+import { Template, TemplateType } from './Template';
 
 const cssNanoPreset = cssnano({
     preset: [
@@ -160,7 +162,7 @@ export class SVG {
         }
     }
 
-    async generateSVGFromConfig(config: any): Promise<string> {
+    async generateSVGFromConfig(config: any, data: any): Promise<string> {
         const window = (await this.svgdom).createSVGWindow()
         const document = window.document
 
@@ -192,6 +194,10 @@ export class SVG {
             },
             raw: function (object: any) {
                 (<SVGjs.Container>this).put(<SVGjs.Element>SVGjs.SVG(object));
+            },
+            import: async function(file: string) {
+                const output = await build([new Template(file, null, TemplateType.SVG, data)]);
+                (<SVGjs.Container>this).put(<SVGjs.Element>SVGjs.SVG(output[0].out));
             }
         });
 
@@ -209,35 +215,43 @@ export class SVG {
 
         const draw = SVGjs.SVG();
         
-        function executeFunction(parent: any, funcName: string, params: any) {
+        async function executeFunction(parent: any, funcName: string, params: any) {
             const func: Function = parent[funcName];
             if (typeof func === 'function') {
                 const paramKeys = typeof params === 'object' ? Object.keys(params) : [];
-
+        
                 if (paramKeys.findIndex(p => p == funcName) != -1) {
                     const parameters = params[funcName];
-                    const result = func.apply(parent, Array.isArray(parameters) ? parameters : [parameters]);
-
+                    let result;
+                    if (func.constructor.name === 'AsyncFunction') {
+                        result = await func.apply(parent, Array.isArray(parameters) ? parameters : [parameters]);
+                    } else {
+                        result = func.apply(parent, Array.isArray(parameters) ? parameters : [parameters]);
+                    }
+        
                     for (let chainedFunctionName of paramKeys.filter(p => p != funcName)) {
-                        executeFunction(result, chainedFunctionName, params[chainedFunctionName]);
+                        await executeFunction(result, chainedFunctionName, params[chainedFunctionName]);
                     }
                 }
                 else {
-                    func.apply(parent, Array.isArray(params) ? params : [params]);
+                    if (func.constructor.name === 'AsyncFunction') {
+                        await func.apply(parent, Array.isArray(params) ? params : [params]);
+                    } else {
+                        func.apply(parent, Array.isArray(params) ? params : [params]);
+                    }
                 }
-            }
-            else {
-                throw `Function not found ${funcName}`;
+            } else {
+                throw new Error(`Function not found ${funcName}`);
             }
         }
 
-        function parseConfig(draw: SVGjs.Svg, config: any) {
+        async function parseConfig(draw: SVGjs.Svg, config: any) {
             for (const svgDraw of Object.keys(config)) {
                 if (typeof config[svgDraw] === 'object') {
                     for (const funcName in config[svgDraw]) {
                         if (config[svgDraw].hasOwnProperty(funcName)) {
                             const params = config[svgDraw][funcName];
-                            executeFunction(draw, funcName, params);
+                            await executeFunction(draw, funcName, params);
                         }
                     }
                 }
@@ -246,7 +260,7 @@ export class SVG {
                 }
             }
         }
-        parseConfig(draw, config);
+        await parseConfig(draw, config);
 
         return draw.svg();
     }

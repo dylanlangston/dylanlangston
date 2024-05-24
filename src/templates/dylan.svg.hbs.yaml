@@ -67,49 +67,8 @@ ForeignObject Style:
       animation: inherit;
     }
 
-# Style defines the background image and it's associated blur filter
-Background style:
-  defs:
-    defs:
-    addDef: |
-      <filter 
-        id="blur_filter" 
-        x="0%" y="0%" 
-        width="100%" height="100%">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
-      </filter>
-  style: |
-    .background {
-      fill: url(#background);
-    }
-
-Background style 2:
-  defs:
-    defs:
-    addDef: | 
-      <pattern id="background" patternUnits="userSpaceOnUse" y="0" x="0" width="{{width}}" height="{{height}}">
-        <image href="{{{files.bliss_webp}}}" preserveAspectRatio="none" width="{{width}}" height="{{height}}"/>
-      </pattern>
-
 Background:
-  path:
-    path: |
-      M 75 0
-      H 1525
-      A 75 75 0 0 1 1600 75
-      V 785
-      A 15 15 0 0 1 1585 800
-      H 15
-      A 15 15 0 0 1 0 785
-      V 75
-      A 75 75 0 0 1 75 0
-      Z
-    width: {{width}}
-    height: {{height}}
-    x: 0
-    y: 0
-    addClass: background
-    attr: [ "filter", "url(#blur_filter)"]
+  import: './dylan/background.svg.hbs.yaml'
 
 # Style defines the hair background gradient
 Hair Style:
