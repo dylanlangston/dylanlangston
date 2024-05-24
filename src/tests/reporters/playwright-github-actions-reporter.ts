@@ -9,17 +9,14 @@ const artifactClient = new DefaultArtifactClient();
 const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
 async function uploadImages(files: string[], parentDir: string, browser: string, testName: string, attempt: number): Promise<string> {
   const fileName = `${testName}-${browser}-${attempt}`;
-  try {
-    const uploadResponse = await artifactClient.uploadArtifact(fileName, files, parentDir, {
-      compressionLevel: 0
-    });
-    const runId = process.env.GITHUB_RUN_ID;
-    return `https://github.com/${owner}/${repo}/actions/runs/${runId}/artifacts/${uploadResponse.id}`;
-  }
-  catch (err) {
-    console.log(err);
-    throw err;
-  }
+  console.log(fileName);
+  console.log(files);
+  console.log(parentDir);
+  const uploadResponse = await artifactClient.uploadArtifact(fileName, files, parentDir, {
+    compressionLevel: 0
+  });
+  const runId = process.env.GITHUB_RUN_ID;
+  return `https://github.com/${owner}/${repo}/actions/runs/${runId}/artifacts/${uploadResponse.id}`;
 }
 
 const ansiRegex = new RegExp(
