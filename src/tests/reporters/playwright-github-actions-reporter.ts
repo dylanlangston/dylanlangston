@@ -9,9 +9,6 @@ const artifactClient = new DefaultArtifactClient();
 const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
 async function uploadImages(files: string[], parentDir: string, browser: string, testName: string, attempt: number): Promise<string> {
   const fileName = `${testName}-${browser}-${attempt}`;
-  console.log(fileName);
-  console.log(files);
-  console.log(parentDir);
   const uploadResponse = await artifactClient.uploadArtifact(fileName, files, parentDir, {
     compressionLevel: 0
   });
@@ -29,21 +26,16 @@ function cleanText(input: string): string {
   return cleanText.trim();
 }
 
-let firstOutput: boolean = true;
-
 class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
   onTestEnd(test: reporterTypes.TestCase, result: reporterTypes.TestResult): void {
     const testName = test.title;
-    const status = result.status === 'passed' ? 'success' : 'failure';
+    const status = result.status === 'passed' ? 'Success' : 'Failure';
     const browser = test.parent.project()!.name;
-    const summaryTitle = `🎭 ${testName} ${browser} test result: ${status} (Attempt #${result.retry + 1})`;
+    const summaryTitle = `🎭 Integration - '${testName} ${browser}' - ${status} (Attempt #${result.retry + 1})`;
     const duration = `Duration: ${result.duration}ms`;
 
     setTimeout(async () => {
-      if (firstOutput) {
-        firstOutput = false;
-      }
-      else {
+      if (await summary.previousSummaryPresent()) {
         summary.addSeparator();
       }
 

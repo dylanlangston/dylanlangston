@@ -1,6 +1,6 @@
 import { EOL } from 'os';
 import { constants, promises } from 'fs'
-const { access, appendFile, writeFile } = promises;
+const { access, appendFile, writeFile, readFile } = promises;
 
 const SUMMARY_ENV_VAR = 'GITHUB_STEP_SUMMARY';
 
@@ -30,7 +30,7 @@ const SUMMARY_ENV_VAR = 'GITHUB_STEP_SUMMARY';
 // Source: https://github.com/actions/toolkit/blob/main/packages/core/src/summary.ts
 class Summary {
     #_buffer = '';
-    /** @type {any} */
+    /** @type {string|undefined} */
     #_filePath;
 
     /**
@@ -217,7 +217,7 @@ class Summary {
                         return this.#wrap(tag, data, attrs)
                     })
                     .join('')
-                    // @ts-check
+                // @ts-check
                 return this.#wrap('tr', cells)
             })
             .join('')
@@ -323,6 +323,17 @@ class Summary {
     addLink(text, href) {
         const element = this.#wrap('a', text, { href })
         return this.addRaw(element).addEOL()
+    }
+
+    /**
+     * Adds an HTML anchor tag to the summary buffer
+     *
+     * @returns {Promise<boolean>} summary instance
+     */
+    async previousSummaryPresent() {
+        const filePath = await this.#filePath();
+        const file = await readFile(filePath)
+        return file.byteLength > 0;
     }
 }
 export const summary = new Summary();
