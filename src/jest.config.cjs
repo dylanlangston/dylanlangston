@@ -21,7 +21,5 @@ module.exports = {
     enableGlobally: true
   },
   roots: ["./tests"],
-  reporters: [
-    process.env.github ? ['github-actions', {silent: false}] : 'default'
-  ]
+  reporters: process.env.github ? ['./tests/reporters/jest-github-actions-reporter.js', 'default'] : [ 'default' ]
 };

@@ -3,7 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
@@ -18,7 +18,7 @@
     },
     "outDir": "./dist",
   },
-  "include": [ "./*.ts", "./**/*.ts", "./**/package.json", "build.ts", "preview.ts" ],
+  "include": [ "./*.ts", "./**/*.ts", "./**/*.js", "./**/*.mjs", "./**/package.json", "build.ts", "preview.ts" ],
   "exclude": [
     "node_modules",
     "dist"

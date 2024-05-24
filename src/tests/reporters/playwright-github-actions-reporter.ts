@@ -1,7 +1,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { DefaultArtifactClient } from '@actions/artifact';
-import Summary from './github-actions-summary';
+import { summary } from './github-actions-summary.mjs';
 import type * as reporterTypes from 'playwright/types/testReporter';
 
 
@@ -32,8 +32,6 @@ function cleanText(input: string): string {
 let firstOutput: boolean = true;
 
 class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
-  private summary = new Summary();
-
   onTestEnd(test: reporterTypes.TestCase, result: reporterTypes.TestResult): void {
     const testName = test.title;
     const status = result.status === 'passed' ? 'success' : 'failure';
@@ -46,14 +44,14 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
         firstOutput = false;
       }
       else {
-        this.summary.addSeparator();
+        summary.addSeparator();
       }
 
       if (result.status === 'failed') {
         const error = cleanText(result.error!.message!);
-        this.summary.addHeading(summaryTitle, 4);
-        this.summary.addRaw(`${duration}`, true);
-        this.summary.addQuote(error!);
+        summary.addHeading(summaryTitle, 4);
+        summary.addRaw(`${duration}`, true);
+        summary.addQuote(error!, undefined!);
         const attachments = result.attachments || [];
         const snapshotFiles = attachments.filter((a: any) => a.name.toLowerCase().endsWith(".png"));
         const actualImage = snapshotFiles.find(s => s.name.endsWith("-actual.png"));
@@ -62,14 +60,14 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
 
         if (actualImage && diffImage) {
           const imagesUrl = await uploadImages([actualImage.path!, diffImage.path!], path.dirname(actualImage.path!), browser, testName, result.retry)
-          this.summary.addLink("Screenshots", imagesUrl)
+          summary.addLink("Screenshots", imagesUrl)
         }
       } else {
-        this.summary.addHeading(summaryTitle, 4);
-        this.summary.addRaw(`${duration}\n`);
+        summary.addHeading(summaryTitle, 4);
+        summary.addRaw(`${duration}\n`);
       }
 
-      await this.summary.write({ overwrite: false });
+      await summary.write({ overwrite: false });
     });
   }
 }
