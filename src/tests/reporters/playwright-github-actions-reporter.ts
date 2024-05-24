@@ -8,7 +8,7 @@ import type * as reporterTypes from 'playwright/types/testReporter';
 const artifactClient = new DefaultArtifactClient();
 const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
 async function uploadArtifact(filePath: string, browser: string, testName: string, attempt: number): Promise<string> {
-  const fileName = `${testName}-${browser}-${attempt}-${path.basename(filePath)}.zip`;
+  const fileName = `${testName}-${browser}-${attempt}-${path.basename(filePath)}`;
   try {
     const zipName = `${filePath}.zip`;
     await fs.copyFile(filePath, zipName)
@@ -16,12 +16,17 @@ async function uploadArtifact(filePath: string, browser: string, testName: strin
       compressionLevel: 0
     });
     const runId = process.env.GITHUB_RUN_ID;
-    return `https://github.com/${owner}/${repo}/suites/artifacts/${runId}/${uploadResponse.id}`;
+    return `https://github.com/d${owner}/${repo}/actions/runs/${runId}/artifacts/${uploadResponse.id}`;
   }
   catch (err) {
     console.log(err);
     throw err;
   }
+}
+
+function cleanText(input: string): string {
+  const ansiRemoved = input.replace(/�\[\d+m/g, '');
+  return ansiRemoved.trim();
 }
 
 class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
@@ -36,7 +41,7 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
 
     setTimeout(async () => {
       if (result.status === 'failed') {
-        const error = result.error?.message;
+        const error = cleanText(result.error!.message!);
         this.summary.addHeading(summaryTitle, 4);
         this.summary.addRaw(`${duration}`, true);
         this.summary.addQuote(error!);
@@ -56,7 +61,7 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
           this.summary.addEOL();
           this.summary.addRaw('| Original | Diff | Actual |', true);
           this.summary.addRaw('|---|---|---|', true);
-          this.summary.addRaw(`| ![Original](${actualURL}) | ![Diff](${diffURL}) | ![Actual](${expectedURL}) |`, true);
+          this.summary.addRaw(`| [Original](${actualURL}) | [Diff](${diffURL}) | [Actual](${expectedURL}) |`, true);
         }
       } else {
         this.summary.addHeading(summaryTitle, 4);
