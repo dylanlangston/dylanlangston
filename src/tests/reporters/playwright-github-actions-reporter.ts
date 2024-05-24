@@ -12,7 +12,7 @@ async function uploadArtifact(filePath: string, browser: string, testName: strin
   try {
     const zipName = `${filePath}.zip`;
     await fs.copyFile(filePath, zipName)
-    const uploadResponse = await artifactClient.uploadArtifact(fileName, [zipName], '/', {
+    const uploadResponse = await artifactClient.uploadArtifact(fileName, [zipName], zipName, {
       compressionLevel: 0
     });
     const runId = process.env.GITHUB_RUN_ID;
