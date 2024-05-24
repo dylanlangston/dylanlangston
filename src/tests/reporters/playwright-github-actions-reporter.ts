@@ -16,7 +16,7 @@ async function uploadArtifact(filePath: string, browser: string, testName: strin
       compressionLevel: 0
     });
     const runId = process.env.GITHUB_RUN_ID;
-    return `https://github.com/d${owner}/${repo}/actions/runs/${runId}/artifacts/${uploadResponse.id}`;
+    return `https://github.com/${owner}/${repo}/actions/runs/${runId}/artifacts/${uploadResponse.id}`;
   }
   catch (err) {
     console.log(err);
@@ -24,9 +24,14 @@ async function uploadArtifact(filePath: string, browser: string, testName: strin
   }
 }
 
+const ansiRegex = new RegExp(
+  "[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><~]",
+  "g"
+);
+
 function cleanText(input: string): string {
-  const ansiRemoved = input.replace(/�\[\d+m/g, '');
-  return ansiRemoved.trim();
+  const cleanText = input.replace(ansiRegex, "");
+ return cleanText.trim();
 }
 
 class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
