@@ -3,7 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "allowJs": true,
-    "checkJs": false,
+    "checkJs": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,

@@ -4,9 +4,33 @@ const { access, appendFile, writeFile } = promises;
 
 const SUMMARY_ENV_VAR = 'GITHUB_STEP_SUMMARY';
 
+/**
+ * @typedef {Object} SummaryTableCell
+ * @property {string} data Cell content
+ * @property {boolean} [header=false] Render cell as header
+ * @property {string} [colspan='1'] Number of columns the cell extends
+ * @property {string} [rowspan='1'] Number of rows the cell extends
+ */
+
+/**
+ * @typedef {Array<SummaryTableCell|string>} SummaryTableRow
+ */
+
+/**
+ * @typedef {Object} SummaryImageOptions
+ * @property {string} [width] The width of the image in pixels. Must be an integer without a unit.
+ * @property {string} [height] The height of the image in pixels. Must be an integer without a unit.
+ */
+
+/**
+ * @typedef {Object} SummaryWriteOptions
+ * @property {boolean} [overwrite=false] Replace all existing content in summary file with buffer contents
+ */
+
 // Source: https://github.com/actions/toolkit/blob/main/packages/core/src/summary.ts
 class Summary {
-    #_buffer='';
+    #_buffer = '';
+    /** @type {any} */
     #_filePath;
 
     /**
@@ -44,7 +68,7 @@ class Summary {
      *
      * @param {string} tag HTML tag to wrap
      * @param {string | null} content content within the tag
-     * @param {[attribute: string]: string} attrs key-value list of HTML attributes to add
+     * @param {Object.<string, string>} attrs key-value list of HTML attributes to add
      *
      * @returns {string} content wrapped in HTML element
      */
@@ -78,7 +102,7 @@ class Summary {
     /**
      * Clears the summary buffer and wipes the summary file
      *
-     * @returns {Summary} summary instance
+     * @returns {Promise<Summary>} summary instance
      */
     async clear() {
         return this.emptyBuffer().write({ overwrite: true })
@@ -96,7 +120,7 @@ class Summary {
     /**
      * If the summary buffer is empty
      *
-     * @returns {boolen} true if the buffer is empty
+     * @returns {boolean} true if the buffer is empty
      */
     isEmptyBuffer() {
         return this.#_buffer.length === 0
@@ -177,6 +201,7 @@ class Summary {
         const tableBody = rows
             .map(row => {
                 const cells = row
+                    // @ts-ignore
                     .map(cell => {
                         if (typeof cell === 'string') {
                             return this.#wrap('td', cell)
@@ -192,7 +217,7 @@ class Summary {
                         return this.#wrap(tag, data, attrs)
                     })
                     .join('')
-
+                    // @ts-check
                 return this.#wrap('tr', cells)
             })
             .join('')
@@ -275,11 +300,11 @@ class Summary {
      * Adds an HTML blockquote to the summary buffer
      *
      * @param {string} text quote text
-     * @param {string} cite (optional) citation url
+     * @param {string | undefined} cite (optional) citation url
      *
      * @returns {Summary} summary instance
      */
-    addQuote(text, cite) {
+    addQuote(text, cite = undefined) {
         const attrs = {
             ...(cite && { cite })
         }

@@ -51,7 +51,7 @@ class PlaywrightGitHubActionsReporter implements reporterTypes.Reporter {
         const error = cleanText(result.error!.message!);
         summary.addHeading(summaryTitle, 4);
         summary.addRaw(`${duration}`, true);
-        summary.addQuote(error!, undefined!);
+        summary.addQuote(error!);
         const attachments = result.attachments || [];
         const snapshotFiles = attachments.filter((a: any) => a.name.toLowerCase().endsWith(".png"));
         const actualImage = snapshotFiles.find(s => s.name.endsWith("-actual.png"));

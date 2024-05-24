@@ -2,7 +2,12 @@ const { summary } = await import('./github-actions-summary.mjs')
 
 let firstOutput = true;
 
+/** @type {import('@jest/reporters').Reporter} */
 class JestGitHubActionsReporter {
+  /**
+   * @param {object} contexts
+   * @param {import('@jest/reporters').AggregatedResult} results
+   */
   onRunComplete(contexts, results) {
     if (firstOutput) {
       firstOutput = false;
@@ -10,22 +15,15 @@ class JestGitHubActionsReporter {
       summary.addSeparator();
     }
 
-    summary.addHeading('Test Suites Summary', 3);
-    summary.addRaw(`Total: ${results.numTotalTestSuites}`);
-    summary.addRaw(`Passed: ${results.numPassedTestSuites}`);
-    summary.addRaw(`Failed: ${results.numFailedTestSuites}`);
-
     if (results.numFailedTestSuites > 0) {
-      summary.addHeading('Failed Test Suites', 4);
       results.testResults.forEach((suite) => {
         if (suite.testResults.some(test => test.status === 'failed')) {
-          summary.addHeading(suite.testFilePath, 5);
-          summary.addRaw(`Tests: ${suite.numPassedTests} passed, ${suite.numFailedTests} failed, ${suite.numTotalTests} total`);
           suite.testResults.forEach((test) => {
+            const status = test.status === 'passed' ? 'success' : 'failure';
+            summary.addHeading(`🤡 ${test.fullName} test result: ${status}`, 4);
+            summary.addRaw(`Duration: ${test.duration}ms`, true);
             if (test.status === 'failed') {
-              summary.addHeading(test.fullName, 6);
-              summary.addRaw(test.failureMessages.join('\n'));
-              summary.addBreak();
+              summary.addQuote(test.failureMessages.join('\n'));
             }
           });
         }
