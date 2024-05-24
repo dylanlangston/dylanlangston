@@ -85,18 +85,18 @@ async function minify(type: TemplateType, input: string, debug: boolean = false,
             throw `Not Implemented: ${type}`;
     }
 }
-async function processTemplate(template: Template, templates: Template[], con?: typeof console) {
+async function processTemplate(template: Template, templates: Template[], debug: boolean = false, con?: typeof console) {
     if (template.type == TemplateType.DarkSVGVarient) {
         const originalSVGTemplate: Template = JSON.parse(JSON.stringify(templates.find(t => t.out == template.in)));
         originalSVGTemplate.out = template.out;
         originalSVGTemplate.data.darkThemeClass = "dark";
-        await processTemplate(originalSVGTemplate, templates);
+        await processTemplate(originalSVGTemplate, templates, debug, con);
         return;
     }
 
     const templateSource = fs.readFileSync(path.join(cwd, 'templates', template.in), 'utf8');
     const handlebars = Handlebars.compile(templateSource);
-    const data = await populateTemplate(template.in, template.data);
+    const data = await populateTemplate(template.in, template.data, debug);
     let file: string;
 
     switch (template.type) {
@@ -113,7 +113,7 @@ async function processTemplate(template: Template, templates: Template[], con?: 
 
     if (!(await validate(template.type, file))) throw `Invalid ${template.type} template: '${template.in}'`;
 
-    const minifiedOutput = await minify(template.type, file);
+    const minifiedOutput = await minify(template.type, file, debug, con);
 
     if (template.out != null) {
         const outFile = path.join(outDir, template.out);
@@ -130,7 +130,7 @@ export async function build(templates: Template[], debug: boolean = false, con?:
     }
 
     for (let template of templates) {
-        await processTemplate(template, templates, con);
+        await processTemplate(template, templates, debug, con);
     }
     return templates;
 }
