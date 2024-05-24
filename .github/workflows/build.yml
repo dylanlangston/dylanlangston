@@ -19,8 +19,6 @@ jobs:
     container:
       image: mcr.microsoft.com/playwright:latest
       options: --user root
-    env:
-      github: true
     steps:
       - name: Checkout Repository
         uses: actions/checkout@main
@@ -63,6 +61,7 @@ jobs:
 
       - name: Test Project
         env:
+          github: true
           ACTIONS_RUNTIME_TOKEN: ${{ steps.get_jwt.outputs.ACTIONS_RUNTIME_TOKEN }}
           ACTIONS_RESULTS_URL: ${{ steps.get_jwt.outputs.ACTIONS_RESULTS_URL }}
           HOME: /root
