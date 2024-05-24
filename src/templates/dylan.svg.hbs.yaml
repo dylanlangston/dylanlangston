@@ -37,10 +37,13 @@ Fadein Style:
   style: |
     svg {
       opacity: 1;
-      animation: fade-in 150ms;
+      animation: fade-in 1000ms;
     }
     @keyframes fade-in {
       0% {
+        opacity: 0.00;
+      },
+      50% {
         opacity: 0.01;
       }
       100% {
