@@ -27,20 +27,6 @@ jobs:
           node-version: '>=20'
           cache: 'npm'
           cache-dependency-path: "${{ github.workspace }}/src"
-          
-      - name: Get npm cache directory
-        id: npm-cache-dir
-        shell: bash
-        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
-        
-      - name: Node Cache
-        uses: actions/cache@master
-        id: npm-cache
-        with:
-          path: |
-             ${{ steps.npm-cache-dir.outputs.dir }}
-             ${{ github.workspace }}/src/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('${{ github.workspace }}/src/package-lock.json') }}
 
       - name: Install Node Dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
