@@ -1,0 +1,273 @@
+
+Eye Left:
+  circle:
+    circle: 70
+    fill: '{{eye}}'
+    x: 175
+    y: 110
+
+Eye Right:
+  circle:
+    circle: 70
+    fill: '{{eye}}'
+    x: 350
+    y: 110
+
+Tear Duct Left:
+  ellipse:
+    ellipse: [7, 5]
+    fill: '{{tearDuct}}'
+    x: 236
+    y: 158
+
+Tear Duct Right:
+  ellipse:
+    ellipse: [7, 5]
+    fill: '{{tearDuct}}'
+    x: 352
+    y: 158
+
+# Style defines the iris background gradient
+Iris Style:
+  defs:
+    defs: 
+    addDef: |
+      <radialGradient id="iris_gradient" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+        <stop offset="0%" stop-color="{{iris1}}" />
+        <stop offset="20%" stop-color="{{iris2}}" />
+        <stop offset="85%" stop-color="{{iris3}}" />
+        <stop offset="100%" stop-color="{{iris4}}" />
+      </radialGradient>
+  style: [
+    '.iris',
+    {
+      fill: url(#iris_gradient),
+      background: 'radial-gradient({{iris1}},{{iris2}},{{iris3}},{{iris4}})'
+    }
+  ]
+
+Iris Left:
+  circle:
+    circle: 50
+    x: 185
+    y: 120
+    addClass: iris
+
+Iris Right:
+  circle:
+    circle: 50
+    x: 360
+    y: 120
+    addClass: iris
+
+# Animation of the pupil moving left/right and increasing in size
+Pupil Animation:
+  style: |
+    @keyframes pupil-animation {
+      0%, 10%, 39%, 100% {
+        transform: translate(0px, 0px);
+        stroke: {{pupil}};
+        stroke-width: 0px;
+      }
+      2%, 33% {
+        transform: translate(-1.5px, 0px);
+        stroke: {{pupil}};
+        stroke-width: 2px;
+      }
+      7%, 36% {
+        transform: translate(1.5px, 0px);
+        stroke: {{pupil}};
+        stroke-width: 3px;
+      }
+    }  
+
+# Style applies the pupil animation
+Pupil Style:
+  style: [
+    '.pupil',
+    {
+      animation: 'pupil-animation 17s alternate',
+      fill: '{{pupil}}'
+    }
+  ]
+
+Pupil Left:
+  circle:
+    circle: 25
+    x: 197.5
+    y: 132.5
+    addClass: pupil
+
+Pupil Right:
+  circle:
+    circle: 25
+    x: 372.5
+    y: 132.5
+    addClass: pupil
+
+Eyelid Left: 
+  ellipse:
+    ellipse: [120, 60]
+    fill: transparent
+    x: 150
+    y: 115
+    stroke: {
+      color: '{{skin2}}',
+      width: 20,
+      linecap: round
+    }
+
+Eyelid Right: 
+  ellipse:
+    ellipse: [120, 60]
+    fill: transparent
+    x: 325
+    y: 115
+    stroke: {
+      color: '{{skin2}}',
+      width: 20,
+      linecap: round
+    }
+
+# Eyelid closing animations
+Eyelid Animation:
+  style: |
+    @keyframes eyelid-top-animation {
+      0%, 90%, 100% {
+        transform: translateY(0px);
+      }
+      92% {
+        transform: translateY(20px);
+      }
+    }
+    @keyframes eyelid-bottom-animation {
+      0%, 90%, 100% {
+        transform: translateY(0px);
+      }
+      92% {
+        transform: translateY(-20px);
+      }
+    }  
+
+# Style applies the eyelid closing animation
+Eyelid Styles:
+  style: 
+    style: |
+      .eyelid-top
+      {
+        animation: eyelid-top-animation 8s infinite;
+        fill: {{skin2}};
+        transform: translateY(0);
+      }
+      .eyelid-bottom
+      {
+        animation: eyelid-bottom-animation 8s infinite;
+        fill: {{skin2}};
+        transform: translateY(0);
+      }
+
+Eyelid Left Top:
+  rect:
+    rect: [100, 20]
+    x: 160
+    y: 105
+    addClass: eyelid-top
+
+Eyelid Right Top:
+  rect:
+    rect: [100, 20]
+    x: 335
+    y: 105
+    addClass: eyelid-top
+
+Eyelid Left Bottom:
+  rect:
+    rect: [100, 20]
+    x: 160
+    y: 165
+    addClass: eyelid-bottom
+
+Eyelid Right Bottom:
+  rect:
+    rect: [100, 20]
+    x: 335
+    y: 165
+    addClass: eyelid-bottom
+
+# Eyebrow closing and raising animations
+Eyebrow Animation:
+  style: |
+    @keyframes eyebrow-close-animation {
+      0%, 90%, 100% {
+        margin-top: 0px;
+      }
+      92% {
+        margin-top: 10px;
+        padding-top: 0px;
+      }
+    }
+    @keyframes eyebrow-raise-animation {
+      0%, 87.5%, 92.5%, 100% {
+        padding-top: 10px;
+      }
+      90%, 95% {
+        padding-top: 0px;
+      }
+    }
+
+# Style applies the eyebrow closing and raising animations
+Eyebrow Style:
+  style: |
+    .eyebrow
+    {
+      animation: eyebrow-close-animation 8s infinite, eyebrow-raise-animation 15s infinite;
+      color: {{hair1}};
+      padding-top: 0px !important;
+    }
+    .eyebrow-inner
+    {
+      border-top: 10px solid {{hair1}};
+      width: inherit;
+      height: inherit;
+      padding-top: inherit;
+    }
+    .eyebrow-inner.left {
+      border-radius: 45% 30% 0 0;
+    }
+    .eyebrow-inner.right {
+      border-radius: 30% 45% 0 0;
+    }
+
+Eyebrow Left:
+  foreignObject: 
+    foreignObject: [ 100, 50 ]
+    x: 155
+    y: 90
+    addClass: eyebrow
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml">
+        <div class="eyebrow-inner left"></div>
+      </html>'
+
+Eyebrow Right:
+  foreignObject: 
+    foreignObject: [ 100, 50 ]
+    x: 340
+    y: 90
+    addClass: eyebrow
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml">
+        <div class="eyebrow-inner right"></div>
+      </html>'
+
+Nostrils:
+  foreignObject: 
+    foreignObject: [ 90, 40 ]
+    x: 252.5
+    y: 235
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="width: 80px; height: 30px;border-radius: 50% 50% 25% 25%;border: 5px {{nose}} solid; border-style: ridge groove groove ridge"/>'
+
+Nose:
+  foreignObject: 
+    foreignObject: [ 60, 105 ]
+    x: 267.5
+    y: 180
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" style="width: 50px; height: 100px;border-radius: 0 0 35% 35%;border: 5px {{nose}} solid; border-style: none groove groove ridge;background: {{skin2}}"/>'

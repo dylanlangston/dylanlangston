@@ -175,7 +175,7 @@ export class SVG {
                 super(titleNode);
             }
         }
-        
+
         class DescriptionElement extends SVGjs.Container {
             constructor(desc: string) {
                 const descNode: SVGGraphicsElement = SVGjs.create('desc');
@@ -183,21 +183,29 @@ export class SVG {
                 super(descNode)
             }
         }
-          
-          // Add a method to create a rounded rect
+
+        // Add a method to create a rounded rect
         SVGjs.extend(SVGjs.Container, {
-            title: function(title: string) {
+            title: function (title: string) {
                 return (<any>this).put(new TitleElement(title));
             },
-            desc: function(desc: string) {
+            desc: function (desc: string) {
                 return (<any>this).put(new DescriptionElement(desc));
             },
             raw: function (object: any) {
                 (<SVGjs.Container>this).put(<SVGjs.Element>SVGjs.SVG(object));
             },
-            import: async function(file: string) {
-                const output = await build([new Template(file, null, TemplateType.SVG, data)]);
-                (<SVGjs.Container>this).put(<SVGjs.Element>SVGjs.SVG(output[0].out));
+            import: async function (file: string) {
+                const output = await build([new Template(file, null, TemplateType.SVG, data, false)]);
+                const xmlDoc = new DOMParser().parseFromString(output[0].out!, 'image/svg+xml');
+                const svgElement = xmlDoc.getElementsByTagName('svg')[0];
+
+                const xmlserializer = new XMLSerializer();
+                Array.from(svgElement.childNodes)
+                    .map(c => xmlserializer.serializeToString(c))
+                    .forEach(c => {
+                        (<SVGjs.Container>this).put(<SVGjs.Element>SVGjs.SVG(c));
+                    });
             }
         });
 
@@ -214,12 +222,12 @@ export class SVG {
         })
 
         const draw = SVGjs.SVG();
-        
+
         async function executeFunction(parent: any, funcName: string, params: any) {
             const func: Function = parent[funcName];
             if (typeof func === 'function') {
                 const paramKeys = typeof params === 'object' ? Object.keys(params) : [];
-        
+
                 if (paramKeys.findIndex(p => p == funcName) != -1) {
                     const parameters = params[funcName];
                     let result;
@@ -228,7 +236,7 @@ export class SVG {
                     } else {
                         result = func.apply(parent, Array.isArray(parameters) ? parameters : [parameters]);
                     }
-        
+
                     for (let chainedFunctionName of paramKeys.filter(p => p != funcName)) {
                         await executeFunction(result, chainedFunctionName, params[chainedFunctionName]);
                     }

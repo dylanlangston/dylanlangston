@@ -113,15 +113,17 @@ async function processTemplate(template: Template, templates: Template[], debug:
 
     if (!(await validate(template.type, file))) throw `Invalid ${template.type} template: '${template.in}'`;
 
-    const minifiedOutput = await minify(template.type, file, debug, con);
+    if (template.minify !== false) {
+        file = await minify(template.type, file, debug, con);
+    }
 
     if (template.out != null) {
         const outFile = path.join(outDir, template.out);
-        fs.writeFileSync(outFile, minifiedOutput);
+        fs.writeFileSync(outFile, file);
 
         (con ?? console).log(`${template.type} file generated: '${outFile}'`);
     }
-    else template.out = minifiedOutput;
+    else template.out = file;
 }
 
 export async function build(templates: Template[], debug: boolean = false, con?: typeof console): Promise<Template[]> {

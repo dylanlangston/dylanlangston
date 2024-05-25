@@ -1,0 +1,31 @@
+Hair Front Right:
+  foreignObject: 
+    foreignObject: [ 160, 150 ]
+    x: 380
+    y: 360
+    addClass: 'hair'
+    attr: [ 'transform', 'rotate(20, 380, 360)' ]
+    css: 
+      border-radius: 50% 50% 37% 50%;
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml"/>' 
+
+Hair Front Left:
+  ellipse: 
+    ellipse: [ 12, 150 ]
+    x: 98
+    y: 160
+    addClass: 'hair'
+
+Hair Front Right 2:
+  ellipse: 
+    ellipse: [ 12, 150 ]
+    x: 490
+    y: 160
+    addClass: 'hair'
+
+Hair Front Middle:
+  ellipse: 
+    ellipse: [ 200, 13 ]
+    x: 200
+    y: 47
+    addClass: 'hair'

@@ -1,0 +1,33 @@
+Fadein Style:
+  style: |
+    svg {
+      opacity: 1;
+      animation: fade-in 1000ms;
+    }
+    @keyframes fade-in {
+      0% {
+        opacity: 0.00;
+      },
+      50% {
+        opacity: 0.01;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+# Style to ensure foreignObjects inherit their parent element style
+ForeignObject Style:
+  style: |
+    foreignObject html, .inherit {
+      width: inherit;
+      height: inherit;
+      background: inherit;
+      border-radius: inherit;
+      border-color: inherit;
+      border-width: inherit;
+      border-style: inherit;
+      padding: inherit;
+      margin: inherit;
+      animation: inherit;
+    }

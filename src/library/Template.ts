@@ -7,6 +7,7 @@ export enum TemplateType {
 export type SVGTemplate = {
     in: string;
     out: string | null;
+    minify: boolean;
     data: any | {
         files?: string[]
     };
@@ -15,6 +16,7 @@ export type SVGTemplate = {
 export type MarkdownTemplate = {
     in: string;
     out: string | null;
+    minify: boolean;
     data: any;
 }
 
@@ -30,11 +32,13 @@ export class Template implements SVGTemplate, MarkdownTemplate, DarkSVGVarient {
         files?: string[]
     };
     type: TemplateType;
+    minify: boolean = true;
 
-    constructor(templateFileNameIn: string, generatedFileNameOut: string | null, type: TemplateType, data: any) {
+    constructor(templateFileNameIn: string, generatedFileNameOut: string | null, type: TemplateType, data: any, minify: boolean = true) {
         this.in = templateFileNameIn;
         this.out = generatedFileNameOut;
         this.data = data;
         this.type = type;
+        this.minify = minify;
     }
 }

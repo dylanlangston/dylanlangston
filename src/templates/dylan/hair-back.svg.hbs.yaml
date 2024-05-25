@@ -1,0 +1,47 @@
+# Style defines the hair background gradient
+Hair Style:
+  defs:
+    defs: 
+    addDef: |
+      <radialGradient id="hair_gradient" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+        <stop offset="0%" stop-color="{{hair1}}" />
+        <stop offset="100%" stop-color="{{hair2}}" />
+      </radialGradient>
+  style: [
+    '.hair',
+    {
+      fill: url(#hair_gradient),
+      background: 'radial-gradient({{hair1}}, {{hair2}})'
+    }
+  ]
+
+Hair Back:
+  foreignObject: 
+    foreignObject: [ 400, 450 ]
+    x: 100
+    y: 25
+    addClass: 'hair'
+    css:
+      border-radius: 50% 50% 50% 50%/35% 35% 65% 65%;
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml"/>' 
+
+Hair Back Left:
+  ellipse: 
+    ellipse: [ 200, 350 ]
+    x: 80
+    y: 190
+    addClass: 'hair'
+
+Hair Back Left 2:
+  ellipse: 
+    ellipse: [ 100, 200 ]
+    x: 80
+    y: 120
+    addClass: 'hair'
+
+Hair Back Right:
+  ellipse: 
+    ellipse: [ 150, 350 ]
+    x: 380
+    y: 120
+    addClass: 'hair'

@@ -1,0 +1,127 @@
+
+Mustache Style:
+  style: |
+    .mustache {
+      border-top: 20px solid {{mustache}};
+    }
+
+Mustache:
+  foreignObject: 
+    foreignObject: [ 200, 70 ]
+    x: 200
+    y: 300
+    css:
+      border-radius: 30% 30% 0 0;
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="mustache"/>'
+
+Mustache 2:
+  foreignObject: 
+    foreignObject: [ 160, 90 ]
+    x: 220
+    y: 290
+    css:
+      border-radius: 25% 25% 0 0;
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="mustache"/>'
+
+Sideburn Style:
+  style: |
+    .sideburn {
+      background: {{beard}};
+      border-radius: 50%;
+    }
+
+Left Sideburn:
+  foreignObject: 
+    foreignObject: [ 30, 90 ]
+    x: 95
+    y: 190
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="sideburn"/>'
+
+Right Sideburn:
+  foreignObject: 
+    foreignObject: [ 30, 90 ]
+    x: 475
+    y: 190
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="sideburn"/>'
+
+Beard Style:
+  style: |
+    .beard {
+      background: {{beard}};
+    }
+    .left1 {
+      border-radius: 35% 80% 30% 50%;
+    }
+    .right1 {
+      border-radius: 80% 35% 50% 30%;
+    }
+    .left2 {
+      border-radius: 25% 50% 25% 100%;
+    }
+    .right2 {
+      border-radius: 50% 25% 100% 50%;
+    }
+    .left3, .right3 {
+      border-radius: 100%;
+    }
+    .beard-bottom {
+      border-bottom: 40px solid {{beard}};
+      border-radius: 100%;
+      height: 75%;
+    }
+
+Left Beard 1:
+  foreignObject: 
+    foreignObject: [ 70, 90 ]
+    x: 100
+    y: 230
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="beard left1"/>'
+
+Right Beard 1:
+  foreignObject: 
+    foreignObject: [ 70, 90 ]
+    x: 425
+    y: 230
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="beard right1"/>'
+
+Left Beard 2:
+  foreignObject: 
+    foreignObject: [ 90, 90 ]
+    x: 110
+    y: 305
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="beard left2"/>'
+
+Right Beard 2:
+  foreignObject: 
+    foreignObject: [ 90, 90 ]
+    x: 400
+    y: 305
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="beard right2"/>'
+
+Left Beard 3:
+  foreignObject: 
+    foreignObject: [ 30, 20 ]
+    x: 185
+    y: 375
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="beard left3"/>'
+
+Right Beard 3:
+  foreignObject: 
+    foreignObject: [ 30, 20 ]
+    x: 385
+    y: 375
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="beard right3"/>'
+
+Bottom Beard 1:
+  foreignObject: 
+    foreignObject: [ 300, 200 ]
+    x: 150
+    y: 270
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="beard-bottom"/>'
+
+Bottom Beard 2:
+  foreignObject: 
+    foreignObject: [ 350, 190 ]
+    x: 125
+    y: 250
+    addObject: '<html xmlns="http://www.w3.org/1999/xhtml" class="beard-bottom"/>'
