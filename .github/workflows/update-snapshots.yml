@@ -15,6 +15,8 @@ jobs:
     container:
       image: mcr.microsoft.com/playwright:latest
       options: --user root
+    env:
+      HOME: /root
     steps:
       - name: Checkout Repository
         uses: actions/checkout@main
@@ -46,7 +48,6 @@ jobs:
 
       - name: Update Snapshots
         env:
-          HOME: /root
           github: true
         run: npm run update-snapshots --prefix ./src
 

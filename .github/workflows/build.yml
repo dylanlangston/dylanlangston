@@ -16,6 +16,8 @@ jobs:
   update-readme:
     name: "Build ReadMe and Commit"
     runs-on: ubuntu-latest
+    env:
+      HOME: /root
     container:
       image: mcr.microsoft.com/playwright:latest
       options: --user root
@@ -64,7 +66,6 @@ jobs:
           github: true
           ACTIONS_RUNTIME_TOKEN: ${{ steps.get_jwt.outputs.ACTIONS_RUNTIME_TOKEN }}
           ACTIONS_RESULTS_URL: ${{ steps.get_jwt.outputs.ACTIONS_RESULTS_URL }}
-          HOME: /root
         run: npm run test --prefix ./src
 
       - name: Build Project
