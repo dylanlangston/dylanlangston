@@ -2,7 +2,7 @@
 <p align="center">
     <picture width="100%" alt="Dylan Langston's Github profile 🙋‍♂️" align="center">
       <source media="(prefers-color-scheme: dark)" srcset="../dylan-dark.svg">
-      <img src="../dylan.svg" alt="Dylan Langston's Github profile 🙋‍♂️">
+      <img src="../dylan-light.svg" alt="Dylan Langston's Github profile 🙋‍♂️">
     </picture>
 </p>
 
