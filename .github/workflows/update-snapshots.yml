@@ -29,7 +29,6 @@ jobs:
           cache-dependency-path: "${{ github.workspace }}/src"
 
       - name: Install Node Dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci --prefix ./src
 
       - name: Update Snapshots
