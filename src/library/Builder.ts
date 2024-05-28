@@ -1,13 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { default as Handlebars } from 'handlebars';
 import { TemplateType, Template } from './Template';
 import { SVG } from './SVG';
 import { Markdown } from './Markdown';
-import { GitHubStatsFetcher } from './GithubStats';
 import * as yaml from 'js-yaml';
-import { default as mime } from 'mime';
-import { register as registerHandlerbarHelpers } from './HandlebarsHelpers';
+import { compileAsync, register as registerHandlerbarHelpers } from './HandlebarsHelpers';
 
 registerHandlerbarHelpers();
 
@@ -19,14 +16,6 @@ export function get_default_templates(): Template[] {
     return JSON.parse(fs.readFileSync(templatesFilePath, 'utf8'));
 }
 
-async function populateTemplate(template: string, input: any, debug: boolean = false): Promise<any> {
-    if (input.github && Object.keys(input.github).includes("username") && !input.githubPrepopulated) {
-        const githubStats = new GitHubStatsFetcher(input.github.username, process.env.PERSONAL_ACCESS_TOKEN ?? process.env.GITHUB_TOKEN);
-        input.github = await githubStats.fetchStats(debug);
-        input.githubPrepopulated = true;
-    }
-    return input;
-}
 async function validate(type: TemplateType, input: string): Promise<boolean> {
     switch (type) {
         case TemplateType.SVG:
@@ -57,17 +46,16 @@ async function processTemplate(template: Template, templates: Template[], debug:
     }
 
     const templateSource = fs.readFileSync(path.join(cwd, 'templates', template.in), 'utf8');
-    const handlebars = Handlebars.compile(templateSource);
-    const data = await populateTemplate(template.in, template.data, debug);
+    const handlebars = await compileAsync(templateSource);
     let file: string;
 
     switch (template.type) {
         case TemplateType.SVG:
-            const config: any = yaml.load(handlebars(data));
-            file = await SVG.Instance.generateSVGFromConfig(config, data);
+            const config: any = yaml.load(await handlebars(template.data));
+            file = await SVG.Instance.generateSVGFromConfig(config, template.data);
             break;
         case TemplateType.Markdown:
-            file = handlebars(data);
+            file = await handlebars(template.data);
             break;
         default:
             throw `Not Implemented: ${template.type}`;

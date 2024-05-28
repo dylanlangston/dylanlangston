@@ -97,7 +97,7 @@ Dividing Line:
 Github Stats:
   raw: |
     <text x="10" y="40">
-      <tspan x="10" y="40">{{ github.username }}'s Github Stats:</tspan>
-      <tspan class="keyColor" x="10" y="100">{{ keys.repos }}: </tspan>{{ github.repos }} | <tspan class="keyColor">{{ keys.contributed }}</tspan>: {{ github.contributedRepos }} | <tspan class="keyColor">{{ keys.commits }}</tspan>: {{ github.commits }} | <tspan class="keyColor">{{ keys.stars }}</tspan><tspan>: {{ github.stars }}</tspan>
-      <tspan class="keyColor" x="10" y="140">{{ keys.followers }}:</tspan> {{ github.followers }} | <tspan class="keyColor">{{ keys.linesOfCode }}</tspan>: {{ github.linesOfCode }} (<tspan class="addColor">{{ github.linesOfCodeAdded }}++</tspan>, <tspan class="delColor">{{ github.linesOfCodeRemoved }}--</tspan><tspan>)</tspan>
+      <tspan x="10" y="40">{{github.username}}'s Github Stats:</tspan>
+      <tspan class="keyColor" x="10" y="100">{{ keys.repos }}: </tspan>{{await (fetch_github_stats github.username 'repos')}} | <tspan class="keyColor">{{ keys.contributed }}</tspan>: {{await (fetch_github_stats github.username 'contributedRepos')}} | <tspan class="keyColor">{{ keys.commits }}</tspan>: {{await (fetch_github_stats github.username 'commits')}} | <tspan class="keyColor">{{ keys.stars }}</tspan><tspan>: {{await (fetch_github_stats github.username 'stars')}}</tspan>
+      <tspan class="keyColor" x="10" y="140">{{ keys.followers }}:</tspan> {{await (fetch_github_stats github.username 'followers')}} | <tspan class="keyColor">{{ keys.linesOfCode }}</tspan>: {{await (fetch_github_stats github.username 'linesOfCode')}} (<tspan class="addColor">{{await (fetch_github_stats github.username 'linesOfCodeAdded')}}++</tspan>, <tspan class="delColor">{{await (fetch_github_stats github.username 'linesOfCodeRemoved')}}--</tspan><tspan>)</tspan>
     </text>
