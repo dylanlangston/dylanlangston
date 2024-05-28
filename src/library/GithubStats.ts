@@ -1,6 +1,6 @@
 import { Octokit } from 'octokit';
 
-interface GitHubStats {
+export interface GitHubStats {
     username: string;
     repos: number;
     contributedRepos: number;
@@ -28,8 +28,8 @@ export class GitHubStatsFetcher {
         }
     }
 
-    public async fetchStats(debug: boolean): Promise<GitHubStats> {
-        if (debug) {
+    public async fetchStats(): Promise<GitHubStats> {
+        if (!process.env.github) {
             return {
                 username: this.userName,
                 repos: 0,
