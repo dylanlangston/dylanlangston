@@ -1,20 +1,20 @@
 <!-- 
-Version {{build_version}}
-Built {{build_time}} 
+Version {{build_info "version"}}
+Built {{build_info "time"}}
 -->
 
 <h1 align="center">
   <a href="{{imageLink}}" title="Click to View Source">
     <picture width="100%" alt="{{imageAlt}}">
-      <source media="(prefers-color-scheme: dark)" srcset="{{imageDark}}?version={{build_version}}">
-      <img src="{{image}}?version={{build_version}}" alt="{{imageAlt}}">
+      <source media="(prefers-color-scheme: dark)" srcset="{{imageDark}}?version={{{build_info "version"}}}">
+      <img src="{{image}}?version={{{build_info "version"}}}" alt="{{imageAlt}}">
     </picture>
   </a>
 </h1>
 
 <div align="center">
   <picture width="100%" alt="{{statsImageAlt}}">
-    <source media="(prefers-color-scheme: dark)" srcset="{{statsImageDark}}?version={{build_version}}">
-    <img src="{{statsImage}}?version={{build_version}}" alt="{{statsImageAlt}}">
+    <source media="(prefers-color-scheme: dark)" srcset="{{statsImageDark}}?version={{{build_info "version"}}}">
+    <img src="{{statsImage}}?version={{{build_info "version"}}}" alt="{{statsImageAlt}}">
   </picture>
 </div>

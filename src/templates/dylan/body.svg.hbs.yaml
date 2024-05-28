@@ -5,7 +5,7 @@ Shirt style:
     defs:
     addDef: | 
       <pattern id="shirt-background" patternUnits="userSpaceOnUse" viewBox="0 0 400 225" y="50" width="700" height="393.75">
-        <image href="{{{files.solo_webp}}}" preserveAspectRatio="meet" width="400" height="225"/>
+        <image href="{{embed files.solo}}" preserveAspectRatio="meet" width="400" height="225"/>
       </pattern>
 
 Shirt:

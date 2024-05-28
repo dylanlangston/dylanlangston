@@ -19,7 +19,7 @@ Background style 2:
     defs:
     addDef: | 
       <pattern id="background" patternUnits="userSpaceOnUse" y="0" x="0" width="{{width}}" height="{{height}}">
-        <image href="{{{files.bliss_webp}}}" preserveAspectRatio="none" width="{{width}}" height="{{height}}"/>
+        <image href="{{embed files.bliss}}" preserveAspectRatio="none" width="{{width}}" height="{{height}}"/>
       </pattern>
 
 Background:

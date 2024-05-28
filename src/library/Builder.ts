@@ -6,35 +6,10 @@ import { SVG } from './SVG';
 import { Markdown } from './Markdown';
 import { GitHubStatsFetcher } from './GithubStats';
 import * as yaml from 'js-yaml';
-import packageJson from '../package.json';
 import { default as mime } from 'mime';
+import { register as registerHandlerbarHelpers } from './HandlebarsHelpers';
 
-Handlebars.registerHelper('ifCond', function (this: any, v1, operator, v2, options) {
-    switch (operator) {
-        case '==':
-            return (v1 == v2) ? options.fn(this as any) : options.inverse(this);
-        case '===':
-            return (v1 === v2) ? options.fn(this) : options.inverse(this);
-        case '!=':
-            return (v1 != v2) ? options.fn(this) : options.inverse(this);
-        case '!==':
-            return (v1 !== v2) ? options.fn(this) : options.inverse(this);
-        case '<':
-            return (v1 < v2) ? options.fn(this) : options.inverse(this);
-        case '<=':
-            return (v1 <= v2) ? options.fn(this) : options.inverse(this);
-        case '>':
-            return (v1 > v2) ? options.fn(this) : options.inverse(this);
-        case '>=':
-            return (v1 >= v2) ? options.fn(this) : options.inverse(this);
-        case '&&':
-            return (v1 && v2) ? options.fn(this) : options.inverse(this);
-        case '||':
-            return (v1 || v2) ? options.fn(this) : options.inverse(this);
-        default:
-            return options.inverse(this);
-    }
-});
+registerHandlerbarHelpers();
 
 export const cwd = process.cwd();
 const templatesFilePath = path.join(cwd, 'build-config.json');
@@ -45,19 +20,6 @@ export function get_default_templates(): Template[] {
 }
 
 async function populateTemplate(template: string, input: any, debug: boolean = false): Promise<any> {
-    input.build_time = new Date();
-    input.build_version = packageJson.version;
-    if (input.files && Array.isArray(input.files)) {
-        const newFilesObj: any = {};
-        for (let i = 0; i < input.files.length; i++) {
-            const file: string = input.files[i];
-            const contentType = mime.getType(file) || 'application/octet-stream';
-            const fileContent = fs.readFileSync(path.join(cwd, 'static', file), { encoding: 'base64' });
-
-            newFilesObj[file.replace('.', '_')] = `data:${contentType};base64,${fileContent}`;
-        }
-        input.files = newFilesObj;
-    }
     if (input.github && Object.keys(input.github).includes("username") && !input.githubPrepopulated) {
         const githubStats = new GitHubStatsFetcher(input.github.username, process.env.PERSONAL_ACCESS_TOKEN ?? process.env.GITHUB_TOKEN);
         input.github = await githubStats.fetchStats(debug);

@@ -4,10 +4,10 @@
     "out": "dylan-light.svg",
     "type": "SVG",
     "data": {
-      "files": [
-        "bliss.webp",
-        "solo.webp"
-      ],
+      "files": {
+        "bliss": "bliss.webp",
+        "solo": "solo.webp"
+      },
       "width": 1600,
       "height": 800,
       "hair1": "#6e3710",
@@ -57,9 +57,9 @@
       "font": "\"JetBrains Mono\", monospace",
       "fontSize": "32px",
       "lineWidth": 1590,
-      "files": [
-        "jetbrains_mono.woff2"
-      ],
+      "files": {
+        "jetbrains": "jetbrains_mono.woff2"
+      },
       "github": {
         "username": "dylanlangston"
       },
