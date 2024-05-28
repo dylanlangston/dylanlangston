@@ -85,7 +85,7 @@ export function register() {
     Handlebars.registerHelper('fetch_github_stats', async function (this: any, username: string, statName: string) {
         const accessToken = process.env.PERSONAL_ACCESS_TOKEN ?? process.env.GITHUB_TOKEN;
         if (!accessToken) {
-            return {
+            githubStatsMap[username] = new Promise((resolve) => resolve({
                 username: this.userName,
                 repos: 0,
                 contributedRepos: 0,
@@ -95,9 +95,9 @@ export function register() {
                 linesOfCode: 1,
                 linesOfCodeAdded: 2,
                 linesOfCodeRemoved: 1
-            };
+            }));
         }
-        if (typeof githubStatsMap[username] === 'undefined') {
+        else if (typeof githubStatsMap[username] === 'undefined') {
             const githubStats = new GitHubStatsFetcher(username, accessToken);
             githubStatsMap[username] = githubStats.fetchStats();
         }

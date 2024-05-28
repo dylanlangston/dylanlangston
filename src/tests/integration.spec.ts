@@ -5,6 +5,9 @@ test('Ensure layout is correct', async ({ page }) => {
     waitUntil: "load"
   });
 
+  // Wait for fade in effect
+  await new Promise(r => setTimeout(r, 1000));
+
   await expect(page).toHaveScreenshot("body.png", {
     clip: {
       x: 0,
