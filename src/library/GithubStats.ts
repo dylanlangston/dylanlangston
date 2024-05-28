@@ -16,32 +16,14 @@ export class GitHubStatsFetcher {
     private userName: string;
     private octokit: Octokit;
 
-    constructor(userName: string, accessToken?: string) {
+    constructor(userName: string, accessToken: string) {
         this.userName = userName;
-        if (accessToken) {
-            this.octokit = new Octokit({
-                auth: accessToken
-            });
-        }
-        else {
-            this.octokit = new Octokit();
-        }
+        this.octokit = new Octokit({
+            auth: accessToken
+        });
     }
 
     public async fetchStats(): Promise<GitHubStats> {
-        if (!process.env.github) {
-            return {
-                username: this.userName,
-                repos: 0,
-                contributedRepos: 0,
-                commits: 0,
-                stars: 0,
-                followers: 0,
-                linesOfCode: 1,
-                linesOfCodeAdded: 2,
-                linesOfCodeRemoved: 1
-            };
-        }
         const [
             repoInfo,
             contributedReposInfo,
