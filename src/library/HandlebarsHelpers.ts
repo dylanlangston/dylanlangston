@@ -36,6 +36,7 @@ export async function compileAsync<T>(template: T) {
   };
 
 export function register() {
+    // Source - https://stackoverflow.com/a/16315366
     Handlebars.registerHelper('ifCond', function (this: any, v1, operator, v2, options) {
         switch (operator) {
             case '==':
