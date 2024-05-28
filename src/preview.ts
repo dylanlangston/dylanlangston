@@ -38,7 +38,7 @@ async function startServer() {
             if (server == undefined) {
                 server = http.createServer(async (req, res) => {
                     if (req.url) {
-                        const requestedFile = req.url == "/" ? "/ReadMe.md" : req.url;
+                        const requestedFile = req.url == "/" ? "/ReadMe.md" : new URL(req.url, `http://localhost:${port}/`).pathname;
                         const matchingTemplates = default_templates.filter(t => '/' + t.out == requestedFile);
                         const filename = path.join(outDir, requestedFile);
                         if (fs.existsSync(filename)) {
