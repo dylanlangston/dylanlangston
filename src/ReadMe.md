@@ -228,7 +228,8 @@ In this project, we utilize images under fair use to create derivative artwork. 
   </tr>
 </table>
 
-
+### Special Thanks 🙏
+Shout out to [Andrew6rant](https://github.com/Andrew6rant/Andrew6rant)'s fantastic github profile for inspiration and the css used for the [`templates/stats.svg.hbs.yaml`](templates/stats.svg.hbs.yaml).
 
 ### External Resources ℹ️
 Here are some additional resources which are used:
