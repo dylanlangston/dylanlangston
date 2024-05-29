@@ -135,6 +135,7 @@ __Preview__
 graph LR;
     subgraph "input" [Inputs]
       G((build-config.json))
+      ENV(("Environment variables"))
       I[("`./templates`")]
       H[("`./static`")]
     end
@@ -154,6 +155,7 @@ graph LR;
     subgraph "logic" [ ]
       B[./library/Builder.ts]
       K([js-yaml])
+      HH[HandlebarsHelpers.ts]
       L([Handlebars.js])
       D[./library/SVG.ts]
       N([SVG.js])
@@ -180,10 +182,11 @@ graph LR;
     A ==>|imports| B
     B -->|imports| D
     B -->|imports| E
-    B -->|imports| GS
     B -.->|writes| J
     B -->|imports| K
-    B -->|imports| L
+    B -->|imports| HH
+    HH -->|imports| L
+    HH -->|imports| GS
     D -->|imports| N
     D -->|imports| O
     D -->|imports| P
@@ -203,6 +206,7 @@ graph LR;
     Q ==>|imports| B
     Q -->|imports| R
     Q -->|imports| U
+    ENV -.->|reads| B 
 ```
 
 ### Citations 📓
