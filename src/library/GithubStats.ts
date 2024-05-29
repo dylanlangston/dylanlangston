@@ -54,35 +54,71 @@ export class GitHubStatsFetcher {
     }
 
     private async fetchRepoCount(...ownerAffiliations: string[]): Promise<number> {
-        const query = `
-            query($login: String!, $ownerAffiliations: [RepositoryAffiliation]) {
-                user(login: $login) {
-                    repositories(ownerAffiliations: $ownerAffiliations, privacy: PUBLIC) {
-                        totalCount
-                    }
-                }
-            }
-        `;
-        const variables = { login: this.userName, ownerAffiliations };
-        const response = await this.makeRequest(query, variables);
-        return response.user.repositories.totalCount;
-    }
+        let totalCount = 0;
+        let hasNextPage = true;
+        let endCursor = null;
 
-    private async fetchContributedRepoCount(): Promise<number> {
-        const query = `
-            query($login: String!) {
-                user(login: $login) {
-                    contributionsCollection {
-                        repositoryContributions(first: 1) {
+        while (hasNextPage) {
+            const query = `
+                query($login: String!, $ownerAffiliations: [RepositoryAffiliation], $first: Int, $after: String) {
+                    user(login: $login) {
+                        repositories(ownerAffiliations: $ownerAffiliations, privacy: PUBLIC, first: $first, after: $after) {
                             totalCount
+                            pageInfo {
+                                hasNextPage
+                                endCursor
+                            }
+                            nodes {
+                                name
+                            }
                         }
                     }
                 }
-            }
-        `;
-        const variables = { login: this.userName };
-        const response = await this.makeRequest(query, variables);
-        return response.user.contributionsCollection.repositoryContributions.totalCount;
+            `;
+            const variables = { login: this.userName, ownerAffiliations, first: 100, after: endCursor };
+            const response = await this.makeRequest(query, variables);
+            totalCount += response.user.repositories.totalCount;
+            hasNextPage = response.user.repositories.pageInfo.hasNextPage;
+            endCursor = response.user.repositories.pageInfo.endCursor;
+        }
+
+        return totalCount;
+    }
+
+    private async fetchContributedRepoCount(): Promise<number> {
+        let totalCount = 0;
+        let hasNextPage = true;
+        let endCursor = null;
+
+        while (hasNextPage) {
+            const query = `
+                query($login: String!, $first: Int, $after: String) {
+                    user(login: $login) {
+                        contributionsCollection {
+                            repositoryContributions(first: $first, after: $after) {
+                                totalCount
+                                pageInfo {
+                                    hasNextPage
+                                    endCursor
+                                }
+                                nodes {
+                                    repository {
+                                        name
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            `;
+            const variables = { login: this.userName, first: 100, after: endCursor };
+            const response = await this.makeRequest(query, variables);
+            totalCount += response.user.contributionsCollection.repositoryContributions.totalCount;
+            hasNextPage = response.user.contributionsCollection.repositoryContributions.pageInfo.hasNextPage;
+            endCursor = response.user.contributionsCollection.repositoryContributions.pageInfo.endCursor;
+        }
+
+        return totalCount;
     }
 
     private async fetchCommitCount(): Promise<number> {
@@ -103,54 +139,95 @@ export class GitHubStatsFetcher {
     }
 
     private async fetchStarCount(): Promise<number> {
-        const query = `
-            query($login: String!) {
-                user(login: $login) {
-                    repositories(first: 100, privacy: PUBLIC) {
-                        nodes {
-                            stargazers {
-                                totalCount
+        let starCount = 0;
+        let hasNextPage = true;
+        let endCursor = null;
+
+        while (hasNextPage) {
+            const query = `
+                query($login: String!, $first: Int, $after: String) {
+                    user(login: $login) {
+                        repositories(first: $first, privacy: PUBLIC, after: $after) {
+                            pageInfo {
+                                hasNextPage
+                                endCursor
+                            }
+                            nodes {
+                                stargazers {
+                                    totalCount
+                                }
                             }
                         }
                     }
                 }
-            }
-        `;
-        const variables = { login: this.userName };
-        const response = await this.makeRequest(query, variables);
-        const repos = response.user.repositories.nodes;
-        return repos.reduce((acc: number, repo: any) => acc + repo.stargazers.totalCount, 0);
+            `;
+            const variables = { login: this.userName, first: 100, after: endCursor };
+            const response = await this.makeRequest(query, variables);
+            const repos = response.user.repositories.nodes;
+            starCount += repos.reduce((acc: number, repo: any) => acc + repo.stargazers.totalCount, 0);
+            hasNextPage = response.user.repositories.pageInfo.hasNextPage;
+            endCursor = response.user.repositories.pageInfo.endCursor;
+        }
+
+        return starCount;
     }
 
     private async fetchFollowerCount(): Promise<number> {
-        const query = `
-            query($login: String!) {
-                user(login: $login) {
-                    followers {
-                        totalCount
+        let totalCount = 0;
+        let hasNextPage = true;
+        let endCursor = null;
+
+        while (hasNextPage) {
+            const query = `
+                query($login: String!, $first: Int, $after: String) {
+                    user(login: $login) {
+                        followers(first: $first, after: $after) {
+                            totalCount
+                            pageInfo {
+                                hasNextPage
+                                endCursor
+                            }
+                            nodes {
+                                login
+                            }
+                        }
                     }
                 }
-            }
-        `;
-        const variables = { login: this.userName };
-        const response = await this.makeRequest(query, variables);
-        return response.user.followers.totalCount;
+            `;
+            const variables = { login: this.userName, first: 100, after: endCursor };
+            const response = await this.makeRequest(query, variables);
+            totalCount += response.user.followers.totalCount;
+            hasNextPage = response.user.followers.pageInfo.hasNextPage;
+            endCursor = response.user.followers.pageInfo.endCursor;
+        }
+
+        return totalCount;
     }
 
     private async fetchLOC(): Promise<{ added: number, removed: number }> {
-        const query = `
-            query($login: String!) {
-                user(login: $login) {
-                    repositories(first: 100, privacy: PUBLIC) {
-                        nodes {
-                            defaultBranchRef {
-                                target {
-                                    ... on Commit {
-                                        history(first: 100) {
-                                            edges {
-                                                node {
-                                                    additions
-                                                    deletions
+        let added = 0, removed = 0;
+        let hasNextPage = true;
+        let endCursor = null;
+
+        while (hasNextPage) {
+            const query = `
+                query($login: String!, $first: Int, $after: String) {
+                    user(login: $login) {
+                        repositories(first: $first, privacy: PUBLIC, after: $after) {
+                            pageInfo {
+                                hasNextPage
+                                endCursor
+                            }
+                            nodes {
+                                defaultBranchRef {
+                                    target {
+                                        ... on Commit {
+                                            history(first: 100) {
+                                                edges {
+                                                    node {
+                                                        additions
+                                                        deletions
+                                                    }
                                                 }
                                             }
                                         }
@@ -160,20 +237,22 @@ export class GitHubStatsFetcher {
                         }
                     }
                 }
-            }
-        `;
-        const variables = { login: this.userName };
-        const response = await this.makeRequest(query, variables);
-        const repos = response.user.repositories.nodes;
-        let added = 0, removed = 0;
+            `;
+            const variables = { login: this.userName, first: 100, after: endCursor };
+            const response = await this.makeRequest(query, variables);
+            const repos = response.user.repositories.nodes;
 
-        for (const repo of repos) {
-            if (repo.defaultBranchRef && repo.defaultBranchRef.target) {
-                for (const commit of repo.defaultBranchRef.target.history.edges) {
-                    added += commit.node.additions;
-                    removed += commit.node.deletions;
+            for (const repo of repos) {
+                if (repo.defaultBranchRef && repo.defaultBranchRef.target) {
+                    for (const commit of repo.defaultBranchRef.target.history.edges) {
+                        added += commit.node.additions;
+                        removed += commit.node.deletions;
+                    }
                 }
             }
+
+            hasNextPage = response.user.repositories.pageInfo.hasNextPage;
+            endCursor = response.user.repositories.pageInfo.endCursor;
         }
 
         return { added, removed };
