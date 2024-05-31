@@ -41,5 +41,11 @@ export default defineConfig({
     command: 'npm run preview',
     url: 'http://localhost:8080',
     reuseExistingServer: true,
+    stderr: 'pipe',
+    stdout: 'pipe',
+    env: {
+      ...process.env,
+      'dont_watch': 'true'
+    }
   },
 });

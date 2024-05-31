@@ -9,7 +9,7 @@ import { default as mime } from 'mime';
 
 const port = 8080;
 
-async function startServer() {
+async function startServer(watch: boolean) {
     let server: http.Server | undefined;
     let wss: WebSocket.WebSocketServer | undefined;
 
@@ -106,6 +106,8 @@ async function startServer() {
         });
     }
 
+    if (!watch) return;
+
     let debounce: NodeJS.Timeout | undefined;
     const watcher: fs.WatchListener<string> = (eventType, filename) => {
         if (debounce) {
@@ -125,9 +127,49 @@ async function startServer() {
         }, 500);
     };
     fs.watch(path.resolve(cwd, 'build-config.json'), watcher);
-    fs.watch(path.resolve(cwd, 'templates'), watcher);
+    watchDirectoriesRecusively(path.resolve(cwd, 'templates'), watcher);
 }
 
-startServer().catch(err => {
+const watchDirectoriesRecusively = (dirPath: string, innerWatcher: fs.WatchListener<string>): void => {
+    const watcher: fs.WatchListener<string> = (eventType, filename) => {
+        if (filename) {
+            innerWatcher(eventType, filename);
+
+            if (eventType === 'rename') {
+                const filePath: string = path.join(dirPath, filename.toString());
+                fs.stat(filePath, (err: NodeJS.ErrnoException | null, stats: fs.Stats) => {
+                    if (!err && stats.isDirectory()) {
+                        watchDirectoriesRecusively(filePath, innerWatcher);
+                    }
+                });
+            }
+        }
+    }
+    fs.watch(dirPath, watcher);
+
+    fs.readdir(dirPath, (err: NodeJS.ErrnoException | null, files: string[]) => {
+        if (err) {
+            console.error(`Error reading directory ${dirPath}:`, err);
+            return;
+        }
+
+        files.forEach(file => {
+            const filePath: string = path.join(dirPath, file);
+            fs.stat(filePath, (err: NodeJS.ErrnoException | null, stats: fs.Stats) => {
+                if (err) {
+                    console.error(`Error stating file ${filePath}:`, err);
+                    return;
+                }
+
+                if (stats.isDirectory()) {
+                    watchDirectoriesRecusively(filePath, innerWatcher);
+                }
+            });
+        });
+    });
+};
+
+startServer(typeof process.env.dont_watch === 'undefined').catch(err => {
     console.error('Error starting server:', err);
+    process.exit(1);
 });
