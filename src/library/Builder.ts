@@ -1,16 +1,19 @@
 import * as fs from 'fs';
+import * as fsPromises from 'fs/promises';
 import * as path from 'path';
 import { TemplateType, Template } from './Template';
 import { SVG } from './SVG';
 import { Markdown } from './Markdown';
 import * as yaml from 'js-yaml';
 import { compileAsync, register as registerHandlerbarHelpers } from './HandlebarsHelpers';
+import { generateWebPreview } from './GeneratePreview';
 
 registerHandlerbarHelpers();
 
 export const cwd = process.cwd();
 const templatesFilePath = path.join(cwd, 'build-config.json');
 export const outDir = path.join(cwd, 'out');
+export const distDir = path.join(cwd, 'dist');
 
 export function get_default_templates(): Template[] {
     return JSON.parse(fs.readFileSync(templatesFilePath, 'utf8'));
@@ -45,7 +48,7 @@ async function processTemplate(template: Template, templates: Template[], debug:
         return;
     }
 
-    const templateSource = fs.readFileSync(path.join(cwd, 'templates', template.in), 'utf8');
+    const templateSource = await fsPromises.readFile(path.join(cwd, 'templates', template.in), 'utf8');
     const handlebars = await compileAsync(templateSource);
     let file: string;
 
@@ -69,7 +72,7 @@ async function processTemplate(template: Template, templates: Template[], debug:
 
     if (template.out != null) {
         const outFile = path.join(outDir, template.out);
-        fs.writeFileSync(outFile, file);
+        await fsPromises.writeFile(outFile, file);
 
         (con ?? console).log(`${template.type} file generated: '${outFile}'`);
     }
@@ -78,11 +81,37 @@ async function processTemplate(template: Template, templates: Template[], debug:
 
 export async function build(templates: Template[], debug: boolean = false, con?: typeof console): Promise<Template[]> {
     if (!fs.existsSync(outDir)) {
-        fs.mkdirSync(outDir);
+        fsPromises.mkdir(outDir);
     }
+
+    const originalTemplates = JSON.parse(JSON.stringify(templates));
 
     for (let template of templates) {
         await processTemplate(template, templates, debug, con);
     }
+
+    if (!debug) await build_github_pages_site(originalTemplates);
     return templates;
+}
+
+export async function build_github_pages_site(templates: Template[], con?: typeof console) {
+    if (!fs.existsSync(distDir)) {
+        await fsPromises.mkdir(distDir);
+    }
+
+    for (let template of templates) {
+        if (template.out) {
+            const preview = await generateWebPreview('/' + template.out, templates);
+            const out = path.join(distDir, template.out);
+            switch (template.type) {
+                case TemplateType.Markdown:
+                    if (template.out == "ReadMe.md") {
+                        await fsPromises.writeFile(path.join(distDir, 'index.html'), preview.content);
+                        return;
+                    }
+                default:
+                    await fsPromises.writeFile(out, preview.content);
+            }
+        }
+    }
 }

@@ -3,9 +3,8 @@ import * as http from 'http';
 import * as path from 'path';
 import * as WebSocket from 'ws'; // Import WebSocket module
 import { build, get_default_templates, cwd, outDir } from './library/Builder';
-import { Markdown } from './library/Markdown';
 import { NullLogger } from './library/NullLogger';
-import { default as mime } from 'mime';
+import { generateWebPreview } from './library/GeneratePreview';
 
 const port = 8080;
 
@@ -39,47 +38,16 @@ async function startServer(watch: boolean) {
                 server = http.createServer(async (req, res) => {
                     if (req.url) {
                         const requestedFile = req.url == "/" ? "/ReadMe.md" : new URL(req.url, `http://localhost:${port}/`).pathname;
-                        const matchingTemplates = default_templates.filter(t => '/' + t.out == requestedFile);
-                        const filename = path.join(outDir, requestedFile);
-                        if (fs.existsSync(filename)) {
-                            if (matchingTemplates.length == 1) {
-                                const file = fs.readFileSync(filename, 'utf8');
-                                switch (matchingTemplates[0].type) {
-                                    case "Markdown":
-                                        res.writeHead(200, { 'Content-Type': 'text/html' });
-                                        res.end(`
-                                            <html>
-                                                <head>
-                                                    <title>${requestedFile}</title>
-                                                    <style>
-                                                        ${fs.readFileSync('node_modules/github-markdown-css/github-markdown.css', 'utf8')}
-                                                    </style>
-                                                    <script>
-                                                        const socket = new WebSocket((window.location.protocol == 'https:' ? 'wss://' : 'ws://') + window.location.hostname + ':' + window.location.port);
-                                                        socket.onmessage = (event) => event.data === 'reload' ? window.location.reload() : null;
-                                                    </script>
-                                                </head>
-                                                <body class="markdown-body">
-                                                    ${await Markdown.Instance.toHtml(file)}
-                                                </body>
-                                            </html>
-                                            `);
-                                        return;
-                                    case "DarkSVGVarient":
-                                    case "SVG":
-                                        res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
-                                        res.end(file);
-                                        return;
-                                    default:
-                                        throw "Not Implemented!";
-                                }
-                            }
-                            const file = fs.readFileSync(filename);
-                            const contentType = mime.getType(filename) || 'application/octet-stream';
-                            res.writeHead(200, { 'Content-Type': contentType });
-                            res.end(file);
-                            return;
-                        }
+                        await generateWebPreview(requestedFile, default_templates)
+                            .then((preview) => {
+                                res.writeHead(200, { 'Content-Type': preview.type });
+                                res.end(preview.content);
+                            })
+                            .catch((err) => {
+                                res.writeHead(404, err);
+                                res.end();
+                            });
+                        return;
                     }
                     res.writeHead(404, 'File Not Found');
                     res.end();

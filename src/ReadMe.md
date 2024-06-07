@@ -152,6 +152,15 @@ graph LR;
       U([Playwright])
     end
 
+    subgraph "generatepreview" [ ]
+      GP[./library/GeneratePreview.ts]
+    end
+
+    T -->|Imports| generatepreview
+    B -->|Imports| generatepreview
+    generatepreview -.->|Writes| dist
+    dist -.->|Upload| pages
+
     subgraph "logic" [ ]
       B[./library/Builder.ts]
       K([js-yaml])
@@ -170,6 +179,8 @@ graph LR;
     subgraph "out" [Outputs]
       S{{"http://localhost:8080/"}}
       J[("`./out`")]
+      dist[("`./dist`")]
+      pages(("Github Pages"))
     end
 
     build ~~~ logic

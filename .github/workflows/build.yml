@@ -70,3 +70,17 @@ jobs:
           git add .
           git commit -m "Update README" || echo "No changes to commit"
           git push
+
+      - name: Upload GitGub Pages artifact
+        uses: actions/upload-pages-artifact@main
+        with:
+          path: dist
+      
+  deployGithubPages:
+    if: ${{ success() || needs.Build.result == 'success' }}
+    uses: dylanlangston/dylanlangston/.github/workflows/deploy_github_pages.yml@main
+    needs: build
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
