@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import * as fsPromises from 'fs/promises';
+const fsPromises = fs.promises;
 import * as path from 'path';
 import { TemplateType, Template } from './Template';
 import { SVG } from './SVG';

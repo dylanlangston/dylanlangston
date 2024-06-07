@@ -24,10 +24,12 @@ jest.mock('fs', () => {
         ...actualFS,
         promises: {
             readFile: jest.fn(),
+            mkdir: jest.fn(),
+            writeFile: jest.fn()
         },
         readFileSync: jest.fn(),
         mkdirSync: jest.fn(),
-        existsSync: jest.fn(),
+        existsSync: jest.fn().mockReturnValue(true),
         writeFileSync: jest.fn()
     }
 });
@@ -45,6 +47,7 @@ jest.mock('../library/Markdown', () => {
     class MockedMarkdown {
         public static Instance = new MockedMarkdown();
 
+        toHtml = jest.fn().mockReturnValue('<p>Mocked HTML</p>');
         minify = jest.fn().mockReturnValue('<p>Mocked HTML</p>');
         validate = jest.fn().mockReturnValue(true);
     };
@@ -82,7 +85,7 @@ describe('build function', () => {
         await jest.runAllTimersAsync();
         await build(templates);
 
-        expect(fs.writeFileSync).toHaveBeenCalledWith(expect.any(String), expect.any(String));
+        expect(fs.promises.writeFile).toHaveBeenCalledWith(expect.any(String), expect.any(String));
         expect(Markdown.Instance.minify).toHaveBeenCalledTimes(1);
         expect(SVG.Instance.generateSVGFromConfig).toHaveBeenCalledTimes(1);
     });
