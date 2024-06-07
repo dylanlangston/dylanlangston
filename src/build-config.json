@@ -86,7 +86,7 @@
       "image": "dylan-light.svg",
       "imageDark": "dylan-dark.svg",
       "imageAlt": "Dylan",
-      "imageLink": "./src/ReadMe.md",
+      "imageLink": "https://github.com/dylanlangston/dylanlangston/tree/master/src",
       "statsImage": "stats-light.svg",
       "statsImageDark": "stats-dark.svg",
       "statsImageAlt": "Profile Info and Stats"
