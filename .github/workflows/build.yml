@@ -79,7 +79,7 @@ jobs:
   deployGithubPages:
     if: ${{ success() || needs.Build.result == 'success' }}
     uses: dylanlangston/dylanlangston/.github/workflows/deploy-github-pages.yml@master
-    needs: build
+    needs: update-readme
     permissions:
       contents: read
       pages: write
