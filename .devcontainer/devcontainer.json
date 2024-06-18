@@ -5,6 +5,9 @@
 		"target": "base",
 		"context": ".."
 	},
+    "features": {
+        "git-lfs": "latest"
+    },
 	"containerUser": "vscode",
 	"postCreateCommand": "npm install --prefix ./src",
 	"runArgs": ["--volume=/var/lib/docker", "--privileged"],
