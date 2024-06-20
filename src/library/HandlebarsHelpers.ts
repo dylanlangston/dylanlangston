@@ -107,4 +107,8 @@ export function register() {
         if (typeof statResult === 'undefined') throw `Missing github stat: '${statName}'`;
         return statResult;
     });
+
+    Handlebars.registerHelper('date-month', function(date) {
+        return (date.getMonth() + 1) + '/' + date.getDate(); 
+    });
 }
