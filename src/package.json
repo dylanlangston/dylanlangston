@@ -1,6 +1,6 @@
 {
   "name": "dylanlangston",
-  "version": "2.0.53",
+  "version": "2.0.58",
   "description": "Dylan Langston's Github Profile Readme",
   "type": "module",
   "scripts": {
@@ -52,6 +52,6 @@
     "ts-jest": "^29.1.4",
     "tsx": "^4.10.5",
     "typescript": "^5.4.5",
-    "ws": "^8.17.0"
+    "ws": "^8.17.1"
   }
 }
