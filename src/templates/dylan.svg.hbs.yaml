@@ -51,6 +51,7 @@ Mouth:
 Beard:
   import: './dylan/beard.svg.hbs.yaml'
 
+# Defines the conditional behavior for different holidays
 {{#ifCond (build_info "date-month") '==' "1/1"}}
 Speech Bubble:
   import: './dylan/speech-bubble.svg.hbs.yaml'
