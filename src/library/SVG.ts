@@ -162,7 +162,7 @@ export class SVG {
         }
     }
 
-    async generateSVGFromConfig(config: any, data: any): Promise<string> {
+    async generateSVGFromConfig(config: any, data: any, buildVersion: string, buildTime: Date, outputFolder: string, debug: boolean, con?: typeof console): Promise<string> {
         const window = (await this.svgdom).createSVGWindow()
         const document = window.document
 
@@ -196,7 +196,7 @@ export class SVG {
                 (<SVGjs.Container>this).put(<SVGjs.Element>SVGjs.SVG(object));
             },
             import: async function (file: string) {
-                const output = await build([new Template(file, null, TemplateType.SVG, data, false)]);
+                const output = await build([new Template(file, null, TemplateType.SVG, data, false)], buildVersion, buildTime, outputFolder, debug, con);
                 const xmlDoc = new DOMParser().parseFromString(output[0].out!, 'image/svg+xml');
                 const svgElement = xmlDoc.getElementsByTagName('svg')[0];
 

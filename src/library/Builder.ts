@@ -8,12 +8,14 @@ import * as yaml from 'js-yaml';
 import { compileAsync, register as registerHandlerbarHelpers } from './HandlebarsHelpers';
 import { generateWebPreview } from './GeneratePreview';
 
-registerHandlerbarHelpers();
-
 export const cwd = process.cwd();
 const templatesFilePath = path.join(cwd, 'build-config.json');
-export const outDir = path.join(cwd, 'out');
-export const distDir = path.join(cwd, 'dist');
+export function outDir(...args: string[]) {
+    return path.join(cwd, 'out', ...args);;
+} 
+export function distDir(...args: string[]) {
+    return path.join(cwd, 'dist', ...args)
+}
 
 export function get_default_templates(): Template[] {
     return JSON.parse(fs.readFileSync(templatesFilePath, 'utf8'));
@@ -39,12 +41,12 @@ async function minify(type: TemplateType, input: string, debug: boolean = false,
             throw `Not Implemented: ${type}`;
     }
 }
-async function processTemplate(template: Template, templates: Template[], debug: boolean = false, con?: typeof console) {
+async function processTemplate(template: Template, templates: Template[], version: string, dateTime: Date, outputFolder: string = '', debug: boolean = false, con?: typeof console) {
     if (template.type == TemplateType.DarkSVGVarient) {
         const originalSVGTemplate: Template = JSON.parse(JSON.stringify(templates.find(t => t.out == template.in)));
         originalSVGTemplate.out = template.out;
         originalSVGTemplate.data.darkThemeClass = "dark";
-        await processTemplate(originalSVGTemplate, templates, debug, con);
+        await processTemplate(originalSVGTemplate, templates, version, dateTime, outputFolder, debug, con);
         return;
     }
 
@@ -55,7 +57,7 @@ async function processTemplate(template: Template, templates: Template[], debug:
     switch (template.type) {
         case TemplateType.SVG:
             const config: any = yaml.load(await handlebars(template.data));
-            file = await SVG.Instance.generateSVGFromConfig(config, template.data);
+            file = await SVG.Instance.generateSVGFromConfig(config, template.data, version, dateTime, outputFolder, debug, con);
             break;
         case TemplateType.Markdown:
             file = await handlebars(template.data);
@@ -71,7 +73,7 @@ async function processTemplate(template: Template, templates: Template[], debug:
     }
 
     if (template.out != null) {
-        const outFile = path.join(outDir, template.out);
+        const outFile = path.join(outDir(outputFolder), template.out);
         await fsPromises.writeFile(outFile, file);
 
         (con ?? console).log(`${template.type} file generated: '${outFile}'`);
@@ -79,34 +81,36 @@ async function processTemplate(template: Template, templates: Template[], debug:
     else template.out = file;
 }
 
-export async function build(templates: Template[], debug: boolean = false, con?: typeof console): Promise<Template[]> {
-    if (!fs.existsSync(outDir)) {
-        fsPromises.mkdir(outDir);
+export async function build(templates: Template[], version: string, dateTime: Date, outputFolder: string = '', debug: boolean = false, con?: typeof console): Promise<Template[]> {
+    registerHandlerbarHelpers(version, dateTime, debug);
+
+    if (!fs.existsSync(outDir(outputFolder))) {
+        fsPromises.mkdir(outDir(outputFolder));
     }
 
     const originalTemplates = JSON.parse(JSON.stringify(templates));
 
     for (let template of templates) {
-        await processTemplate(template, templates, debug, con);
+        await processTemplate(template, templates, version, dateTime, outputFolder, debug, con);
     }
 
-    if (!debug) await build_github_pages_site(originalTemplates);
+    if (!debug) await build_github_pages_site(originalTemplates, outputFolder, con);
     return templates;
 }
 
-export async function build_github_pages_site(templates: Template[], con?: typeof console) {
-    if (!fs.existsSync(distDir)) {
-        await fsPromises.mkdir(distDir);
+export async function build_github_pages_site(templates: Template[], outputFolder: string, con?: typeof console) {
+    if (!fs.existsSync(distDir(outputFolder))) {
+        await fsPromises.mkdir(distDir(outputFolder));
     }
 
     for (let template of templates) {
         if (template.out) {
-            const preview = await generateWebPreview('/' + template.out, templates);
-            const out = path.join(distDir, template.out);
+            const preview = await generateWebPreview('/' + template.out, templates, outputFolder);
+            const out = path.join(distDir(''), template.out);
             switch (template.type) {
                 case TemplateType.Markdown:
                     if (template.out == "ReadMe.md") {
-                        await fsPromises.writeFile(path.join(distDir, 'index.html'), preview.content);
+                        await fsPromises.writeFile(path.join(distDir(''), 'index.html'), preview.content);
                         return;
                     }
                 default:

@@ -83,7 +83,7 @@ describe('build function', () => {
         ];
 
         await jest.runAllTimersAsync();
-        await build(templates);
+        await build(templates, '1.0.0', new Date());
 
         expect(fs.promises.writeFile).toHaveBeenCalledWith(expect.any(String), expect.any(String));
         expect(Markdown.Instance.minify).toHaveBeenCalledTimes(1);

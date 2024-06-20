@@ -7,7 +7,7 @@
     "build": "tsx build.ts",
     "preview": "tsx preview.ts",
     "test": "npm run test:unit && npm run test:integration",
-    "test:unit": "jest",
+    "test:unit": "BUILD_TIME=01/02/2024 jest",
     "test:integration": "playwright test",
     "update-snapshots": "playwright test --update-snapshots"
   },

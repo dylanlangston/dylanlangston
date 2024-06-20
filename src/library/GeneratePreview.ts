@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as http from 'http';
 import * as path from 'path';
 import { outDir } from './Builder';
 import { Markdown } from './Markdown';
@@ -12,9 +13,9 @@ export class Preview {
     ) {}
 }
 
-export async function generateWebPreview(requestedFile: string, templates: Template[]): Promise<Preview> {
+export async function generateWebPreview(requestedFile: string, templates: Template[], outputFolder: string): Promise<Preview> {
     const matchingTemplates = templates.filter(t => '/' + t.out == requestedFile);
-    const filename = path.join(outDir, requestedFile);
+    const filename = path.join(outDir(outputFolder), requestedFile);
     if (fs.existsSync(filename)) {
         if (matchingTemplates.length == 1) {
             const file = fs.readFileSync(filename, 'utf8');
@@ -49,4 +50,24 @@ export async function generateWebPreview(requestedFile: string, templates: Templ
         return new Preview(contentType, file);
     }
     throw "File not found: " + filename;
+}
+
+export function getServer(port: number, templates: Template[], outputFolder: string) {
+    return http.createServer(async (req, res) => {
+        if (req.url) {
+            const requestedFile = req.url == "/" ? "/ReadMe.md" : new URL(req.url, `http://localhost:${port}/`).pathname;
+            await generateWebPreview(requestedFile, templates, outputFolder)
+                .then((preview) => {
+                    res.writeHead(200, { 'Content-Type': preview.type });
+                    res.end(preview.content);
+                })
+                .catch((err) => {
+                    res.writeHead(404, err);
+                    res.end();
+                });
+            return;
+        }
+        res.writeHead(404, 'File Not Found');
+        res.end();
+    });
 }

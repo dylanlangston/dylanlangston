@@ -1,10 +1,9 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { cwd } from './Builder';
+import { build, cwd } from './Builder';
 import { default as Handlebars } from 'handlebars';
 import { default as mime } from 'mime';
-import packageJson from '../package.json';
 import { GitHubStats, GitHubStatsFetcher } from './GithubStats';
 
 // Extend the Handlebars compile method to handle async data
@@ -35,7 +34,7 @@ export async function compileAsync<T>(template: T) {
     return delegate;
   };
 
-export function register() {
+export function register(buildVersion: string, buildTime: Date, debug: boolean) {
     // Source - https://stackoverflow.com/a/16315366
     Handlebars.registerHelper('ifCond', function (this: any, v1, operator, v2, options) {
         switch (operator) {
@@ -70,13 +69,14 @@ export function register() {
         return `data:${contentType};base64,${fileContent}`;
     });
 
-    const buildtime = new Date();;
     Handlebars.registerHelper('build_info', function (this: any, type: string) {
         switch (type) {
             case "version":
-                return packageJson.version;
+                return buildVersion;
             case "time":
-                return buildtime;
+                return buildTime;
+            case "date-month":
+                return (buildTime.getMonth() + 1) + '/' + buildTime.getDate();
             default:
                 throw "Not Implemented";
         }
@@ -85,7 +85,7 @@ export function register() {
     const githubStatsMap: { [username: string] : Promise<GitHubStats>; } = {}
     Handlebars.registerHelper('fetch_github_stats', async function (this: any, username: string, statName: string) {
         const accessToken = process.env.PERSONAL_ACCESS_TOKEN ?? process.env.GITHUB_TOKEN;
-        if (!accessToken) {
+        if (debug || !accessToken) {
             githubStatsMap[username] = new Promise((resolve) => resolve({
                 username: this.userName,
                 repos: 0,
@@ -106,9 +106,5 @@ export function register() {
 
         if (typeof statResult === 'undefined') throw `Missing github stat: '${statName}'`;
         return statResult;
-    });
-
-    Handlebars.registerHelper('date-month', function(date) {
-        return (date.getMonth() + 1) + '/' + date.getDate(); 
     });
 }
