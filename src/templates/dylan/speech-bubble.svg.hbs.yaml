@@ -39,8 +39,7 @@ Speech Bubble style:
           --SpeechBubbleStroke: {{speechBubbleStrokeDark}};
         }
       }
-      {{/ifCond}}
-      {{#ifCond darkThemeClass '==' 'dark'}}
+      {{else}}
       .speech-bubble {
         --SpeechBubbleFill: {{speechBubbleDark}};
         --SpeechBubbleStroke: {{speechBubbleStrokeDark}};
@@ -87,38 +86,3 @@ Speech Bubble:
   y: 50
   addClass: speech-bubble
   attr: [ "filter", "url(#speech_blur_filter)"]
-
-{{#ifCond (build_info "date-month") '==' "1/1"}}
-Happy New Year:
-  import: './dylan/messages/happy-new-year.svg.hbs.yaml'
-{{else ifCond (build_info "date-month") '==' "2/14"}}
-Happy Valentines:
-  import: './dylan/messages/happy-valentines.svg.hbs.yaml'
-{{else ifCond (build_info "date-month") '==' "3/17"}}
-Saint Patrick's:
-  import: './dylan/messages/saint-patricks.svg.hbs.yaml'
-{{else ifCond (build_info "date-month") '==' "3/22"}}
-Happy Birthday:
-  import: './dylan/messages/happy-birthday.svg.hbs.yaml'
-{{else ifCond (build_info "date-month") '==' "4/1"}}
-April Fools:
-  import: './dylan/messages/april-fools.svg.hbs.yaml'
-{{else ifCond (build_info "date-month") '==' "4/22"}}
-Earth Day:
-  import: './dylan/messages/earth-day.svg.hbs.yaml'
-{{else ifCond (build_info "date-month") '==' "5/4"}}
-Star Wars:
-  import: './dylan/messages/star-wars.svg.hbs.yaml'
-{{else ifCond (build_info "date-month") '==' "5/5"}}
-Cinco De Mayo:
-  import: './dylan/messages/cinco-de-mayo.svg.hbs.yaml'
-{{else ifCond (build_info "date-month") '==' "10/31"}}
-Happy Halloween:
-  import: './dylan/messages/happy-halloween.svg.hbs.yaml'
-{{else ifCond (build_info "date-month") '==' "12/25"}}
-Merry Christmas:
-  import: './dylan/messages/merry-christmas.svg.hbs.yaml'
-{{else}}
-Hello World:
-  import: './dylan/messages/hello-world.svg.hbs.yaml'
-{{/ifCond}}

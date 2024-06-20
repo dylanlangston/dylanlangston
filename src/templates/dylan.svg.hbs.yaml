@@ -50,5 +50,60 @@ Mouth:
   import: './dylan/mouth.svg.hbs.yaml'
 Beard:
   import: './dylan/beard.svg.hbs.yaml'
+
+{{#ifCond (build_info "date-month") '==' "1/1"}}
 Speech Bubble:
   import: './dylan/speech-bubble.svg.hbs.yaml'
+Happy New Year:
+  import: './dylan/messages/happy-new-year.svg.hbs.yaml'
+{{else ifCond (build_info "date-month") '==' "2/14"}}
+Speech Bubble:
+  import: './dylan/speech-bubble.svg.hbs.yaml'
+Happy Valentines:
+  import: './dylan/messages/happy-valentines.svg.hbs.yaml'
+{{else ifCond (build_info "date-month") '==' "3/17"}}
+Speech Bubble:
+  import: './dylan/speech-bubble.svg.hbs.yaml'
+Saint Patrick's:
+  import: './dylan/messages/saint-patricks.svg.hbs.yaml'
+{{else ifCond (build_info "date-month") '==' "3/22"}}
+Speech Bubble:
+  import: './dylan/speech-bubble.svg.hbs.yaml'
+Happy Birthday:
+  import: './dylan/messages/happy-birthday.svg.hbs.yaml'
+{{else ifCond (build_info "date-month") '==' "4/1"}}
+Speech Bubble:
+  import: './dylan/speech-bubble.svg.hbs.yaml'
+April Fools:
+  import: './dylan/messages/april-fools.svg.hbs.yaml'
+{{else ifCond (build_info "date-month") '==' "4/22"}}
+Speech Bubble:
+  import: './dylan/speech-bubble.svg.hbs.yaml'
+Earth Day:
+  import: './dylan/messages/earth-day.svg.hbs.yaml'
+{{else ifCond (build_info "date-month") '==' "5/4"}}
+Speech Bubble:
+  import: './dylan/speech-bubble.svg.hbs.yaml'
+Star Wars:
+  import: './dylan/messages/star-wars.svg.hbs.yaml'
+{{else ifCond (build_info "date-month") '==' "5/5"}}
+Speech Bubble:
+  import: './dylan/speech-bubble.svg.hbs.yaml'
+Cinco De Mayo:
+  import: './dylan/messages/cinco-de-mayo.svg.hbs.yaml'
+{{else ifCond (build_info "date-month") '==' "10/31"}}
+Speech Bubble:
+  import: './dylan/speech-bubble.svg.hbs.yaml'
+Happy Halloween:
+  import: './dylan/messages/happy-halloween.svg.hbs.yaml'
+{{else ifCond (build_info "date-month") '==' "12/25"}}
+Speech Bubble:
+  import: './dylan/speech-bubble.svg.hbs.yaml'
+Merry Christmas:
+  import: './dylan/messages/merry-christmas.svg.hbs.yaml'
+{{else}}
+Speech Bubble:
+  import: './dylan/speech-bubble.svg.hbs.yaml'
+Hello World:
+  import: './dylan/messages/hello-world.svg.hbs.yaml'
+{{/ifCond}}
