@@ -29,7 +29,7 @@
     "github-markdown-css": "^5.6.1",
     "handlebars": "^4.7.8",
     "js-yaml": "^4.1.0",
-    "mime": "^4.0.1",
+    "mime": "^4.0.4",
     "octokit": "^4.0.2",
     "postcss": "^8.4.39",
     "remark": "^15.0.1",
