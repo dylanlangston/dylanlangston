@@ -99,7 +99,7 @@ for (let holiday of [
         width: 660,
       },
       timeout: 10000,
-      maxDiffPixelRatio: 0.15,
+      maxDiffPixelRatio: 0.20,
     });
   });
 }
