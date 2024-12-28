@@ -12,7 +12,7 @@ test.beforeEach(async ({ page }) => {
   const info = test.info();
   const port = 8080 + info.parallelIndex;
 
-  let date: Date = new Date("01/01/2024");
+  let date: Date = new Date("01/02/2024");
   if (info.tags[0]) {
     date = new Date(info.tags[0].substring(1, info.tags[0].length).replace('/', '-'));
   }
