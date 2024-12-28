@@ -1,0 +1,54 @@
+Earth Day Style:
+  defs:
+    defs:
+    addDef: |
+      <filter
+        id="dropshadow"
+        x="0%" y="0%"
+        width="100%" height="100%">
+          <feDropShadow dx="3" dy="3" stdDeviation="1" flood-opacity="0.7"/>
+      </filter>
+  style: |
+    .earth-day {
+      transform-origin: 1125px 300px;
+      stroke: darkgreen;
+      stroke-width: 1px;
+      animation: earth-day-animation ease-in-out 2s infinite alternate;
+    }
+    @keyframes earth-day-animation {
+      0% {
+        transform: rotate(2deg);
+      }
+      100% {
+        transform: rotate(-2deg);
+      }
+    }
+    @media (prefers-reduced-motion) {
+      .earth-day {
+        animation: none !important;
+      }
+    }
+
+Earth:
+  path:
+    fill: 'forestgreen'
+    path:
+      {{await (path_from "Earth" "CabinSketch-Bold.ttf" 200 0 0)}}
+    width: 650
+    height: 200
+    x: 800
+    y: 100
+    addClass: earth-day
+    attr: [ "filter", "url(#dropshadow)"]
+
+Day:
+  path:
+    fill: 'mediumseagreen'
+    path:
+      {{await (path_from "Day" "CabinSketch-Bold.ttf" 200 0 0)}}
+    width: 400
+    height: 200
+    x: 950
+    y: 320
+    addClass: earth-day
+    attr: [ "filter", "url(#dropshadow)"]

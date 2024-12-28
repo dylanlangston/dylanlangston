@@ -1,0 +1,54 @@
+Happy New Year Style:
+  defs:
+    defs:
+    addDef: |
+      <filter 
+        id="dropshadow" 
+        x="0%" y="0%" 
+        width="100%" height="100%">
+          <feDropShadow dx="3" dy="3" stdDeviation="1" flood-opacity="0.7"/>
+      </filter>
+  style: |
+    .happy-new-year {
+      transform-origin: 1125px 300px;
+      stroke: white;
+      stroke-width: 1px;
+      animation: happy-new-year-animation ease-in-out 1s infinite alternate;
+    }
+    @keyframes happy-new-year-animation {
+      0% {
+        transform: rotate(5deg);
+      }
+      100% {
+        transform: rotate(-5deg);
+      }
+    }
+    @media (prefers-reduced-motion) {
+      .happy-new-year {
+        animation: none !important;
+      }
+    }
+
+Happy:
+  path:
+    fill: 'yellow'
+    path:
+      {{await (path_from "Happy" "SummersFirecrackersRescaled.ttf" 180 0 0)}}
+    width: 450
+    height: 180
+    x: 900
+    y: 100
+    addClass: happy-new-year
+    attr: [ "filter", "url(#dropshadow)"]
+
+New Year:
+  path:
+    fill: 'yellow'
+    path:
+      {{await (path_from "New Year!" "SummersFirecrackersRescaled.ttf" 180 0 0)}}
+    width: 750
+    height: 180
+    x: 760
+    y: 295
+    addClass: happy-new-year
+    attr: [ "filter", "url(#dropshadow)"]

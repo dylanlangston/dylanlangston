@@ -54,9 +54,7 @@ Stats Style:
         fill: white;
       }
     }
-    {{/ifCond}}
-
-    {{#ifCond darkThemeClass '==' 'dark'}}
+    {{else}}
     .background{fill: #161b22}
     .keyColor {fill: #ffa657;}
     .valueColor {fill: #a5d6ff;}

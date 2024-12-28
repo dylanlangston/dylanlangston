@@ -1,0 +1,78 @@
+April Fools Style:
+  defs:
+    defs:
+    addDef: |
+      <filter
+        id="wiggle-shadow"
+        x="-20%" y="-20%"
+        width="140%" height="140%"
+        filterUnits="objectBoundingBox"
+        primitiveUnits="userSpaceOnUse">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+        <feOffset in="blur" dx="2" dy="2" result="offsetBlur"/>
+        <feFlood flood-color="rgba(0,0,0,0.5)" result="offsetColor"/>
+        <feComposite in2="offsetBlur" in="offsetColor" operator="in" result="offsetBlur"/>
+        <feMerge>
+          <feMergeNode in="offsetBlur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+  style: |
+    .april-fools {
+      transform-origin: 1125px 300px;
+      stroke: purple;
+      stroke-width: 1px;
+      animation: april-fools-wiggle 3s linear infinite alternate,
+                 april-fools-color 5s linear infinite alternate;
+    }
+    @keyframes april-fools-wiggle {
+      0% {
+        transform: rotate(5deg) scale(0.98);
+      }
+      50% {
+        transform: rotate(0deg) scale(1.02);
+      }
+      100% {
+        transform: rotate(-5deg) scale(0.98);
+      }
+    }
+    @keyframes april-fools-color {
+      0% {
+        fill: limegreen;
+      }
+      50% {
+        fill: hotpink;
+      }
+      100% {
+        fill: limegreen;
+      }
+    }
+    @media (prefers-reduced-motion) {
+      .april-fools {
+        animation: none !important;
+      }
+    }
+
+April:
+  path:
+    fill: 'limegreen'
+    path:
+      {{await (path_from "April" "Lobster.otf" 200 0 0)}}
+    width: 400
+    height: 200
+    x: 800
+    y: 90
+    addClass: april-fools
+    attr: [ "filter", "url(#wiggle-shadow)"]
+
+Fools:
+  path:
+    fill: 'hotpink'
+    path:
+      {{await (path_from "Fools!" "Lobster.otf" 200 0 0)}}
+    width: 500
+    height: 200
+    x: 900
+    y: 300
+    addClass: april-fools
+    attr: [ "filter", "url(#wiggle-shadow)"]

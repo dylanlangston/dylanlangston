@@ -1,0 +1,54 @@
+Happy St Patricks Style:
+  defs:
+    defs:
+    addDef: |
+      <filter
+        id="dropshadow"
+        x="0%" y="0%"
+        width="100%" height="100%">
+          <feDropShadow dx="3" dy="3" stdDeviation="1" flood-opacity="0.7"/>
+      </filter>
+  style: |
+    .happy-st-patricks {
+      transform-origin: 1125px 300px;
+      stroke: lightgreen;
+      stroke-width: 1px;
+      animation: happy-st-patricks-animation ease-in-out 1s infinite alternate;
+    }
+    @keyframes happy-st-patricks-animation {
+      0% {
+        transform: rotate(3deg);
+      }
+      100% {
+        transform: rotate(-3deg);
+      }
+    }
+    @media (prefers-reduced-motion) {
+      .happy-st-patricks {
+        animation: none !important;
+      }
+    }
+
+Happy:
+  path:
+    fill: 'forestgreen'
+    path:
+      {{await (path_from "Happy" "Irishclovers.otf" 180 0 0)}}
+    width: 450
+    height: 180
+    x: 900
+    y: 100
+    addClass: happy-st-patricks
+    attr: [ "filter", "url(#dropshadow)"]
+
+Patricks!:
+  path:
+    fill: 'forestgreen'
+    path:
+      {{await (path_from "St. Patricks!" "Irishclovers.otf" 180 0 0)}}
+    width: 750
+    height: 180
+    x: 750
+    y: 295
+    addClass: happy-st-patricks
+    attr: [ "filter", "url(#dropshadow)"]

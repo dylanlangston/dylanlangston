@@ -1,5 +1,5 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
-module.exports = {
+const jestConfig = {
   transform: {
   '^.+\\.m?[tj]sx?$': [
       'ts-jest',
@@ -23,3 +23,5 @@ module.exports = {
   roots: ["./tests"],
   reporters: process.env.github ? ['./tests/reporters/jest-github-actions-reporter.js', 'default'] : [ 'default' ]
 };
+
+export default jestConfig;

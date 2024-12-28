@@ -1,30 +1,30 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { cwd } from './Builder';
+import { build, cwd } from './Builder';
 import { default as Handlebars } from 'handlebars';
 import { default as mime } from 'mime';
-import packageJson from '../package.json';
 import { GitHubStats, GitHubStatsFetcher } from './GithubStats';
+import { SVG } from './SVG';
 
 // Extend the Handlebars compile method to handle async data
 export async function compileAsync<T>(template: T) {
-  
+
     const isPromise = (obj: any) => !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function'
 
     const delegate = async (context: T) => {
         const hb = Handlebars.compile(template);
 
         const promises: Promise<any>[] = [];
-    
-        Handlebars.registerHelper("await", function(this: any, promise) {
+
+        Handlebars.registerHelper("await", function (this: any, promise) {
             if (isPromise(promise)) {
                 const id = promises.push(promise);
                 return `\{\{await ${id - 1}\}\}`
             }
             else throw "Not a promise: " + JSON.stringify(promise);
         });
-    
+
         const compiledTemplate = hb(context);
         const asyncResults = await Promise.all(promises);
         const compiledTemplateWithAsyncResults = compiledTemplate.replace(/\{\{await (\d+)\}\}/g, (match, id) => {
@@ -33,9 +33,9 @@ export async function compileAsync<T>(template: T) {
         return compiledTemplateWithAsyncResults;
     };
     return delegate;
-  };
+};
 
-export function register() {
+export function register(buildVersion: string, buildTime: Date, debug: boolean) {
     // Source - https://stackoverflow.com/a/16315366
     Handlebars.registerHelper('ifCond', function (this: any, v1, operator, v2, options) {
         switch (operator) {
@@ -70,22 +70,28 @@ export function register() {
         return `data:${contentType};base64,${fileContent}`;
     });
 
-    const buildtime = new Date();;
     Handlebars.registerHelper('build_info', function (this: any, type: string) {
         switch (type) {
             case "version":
-                return packageJson.version;
+                return buildVersion;
             case "time":
-                return buildtime;
+                return buildTime;
+            case "date-month":
+                return (buildTime.getMonth() + 1) + '/' + buildTime.getDate();
             default:
                 throw "Not Implemented";
         }
     });
 
-    const githubStatsMap: { [username: string] : Promise<GitHubStats>; } = {}
+    Handlebars.registerHelper('path_from', async function (this: any, message: string, fontPath: string, fontSize: number, x: number, y: number) {
+        const svgPath = await SVG.Instance.generateSVGPathFromText(path.join("static",fontPath), message, fontSize, x, y);
+        return svgPath
+    })
+
+    const githubStatsMap: { [username: string]: Promise<GitHubStats>; } = {}
     Handlebars.registerHelper('fetch_github_stats', async function (this: any, username: string, statName: string) {
         const accessToken = process.env.PERSONAL_ACCESS_TOKEN ?? process.env.GITHUB_TOKEN;
-        if (!accessToken) {
+        if (debug || !accessToken) {
             githubStatsMap[username] = new Promise((resolve) => resolve({
                 username: this.userName,
                 repos: 0,

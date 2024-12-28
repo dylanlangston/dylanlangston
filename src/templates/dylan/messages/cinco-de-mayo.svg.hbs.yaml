@@ -1,0 +1,54 @@
+Cinco De Mayo Style:
+  defs:
+    defs:
+    addDef: |
+      <filter
+        id="dropshadow"
+        x="0%" y="0%"
+        width="100%" height="100%">
+          <feDropShadow dx="3" dy="3" stdDeviation="1" flood-opacity="0.7"/>
+      </filter>
+  style: |
+    .cinco-de-mayo {
+      transform-origin: 1125px 300px;
+      stroke: darkgreen;
+      stroke-width: 1px;
+      animation: cinco-de-mayo-animation ease-in-out 1s infinite alternate;
+    }
+    @keyframes cinco-de-mayo-animation {
+      0% {
+        transform: rotate(3deg);
+      }
+      100% {
+        transform: rotate(-3deg);
+      }
+    }
+    @media (prefers-reduced-motion) {
+      .cinco-de-mayo {
+        animation: none !important;
+      }
+    }
+
+Cinco:
+  path:
+    fill: 'red'
+    path:
+      {{await (path_from "Cinco" "Sdfestivaldemo.ttf" 180 0 0)}}
+    width: 600
+    height: 180
+    x: 825
+    y: 100
+    addClass: cinco-de-mayo
+    attr: [ "filter", "url(#dropshadow)"]
+
+De Mayo:
+  path:
+    fill: 'green'
+    path:
+      {{await (path_from "de Mayo" "Sdfestivaldemo.ttf" 180 0 0)}}
+    width: 750
+    height: 180
+    x: 750
+    y: 295
+    addClass: cinco-de-mayo
+    attr: [ "filter", "url(#dropshadow)"]

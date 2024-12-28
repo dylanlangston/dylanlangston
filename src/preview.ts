@@ -4,18 +4,20 @@ import * as path from 'path';
 import * as WebSocket from 'ws'; // Import WebSocket module
 import { build, get_default_templates, cwd, outDir } from './library/Builder';
 import { NullLogger } from './library/NullLogger';
-import { generateWebPreview } from './library/GeneratePreview';
+import { generateWebPreview, getServer } from './library/GeneratePreview';
+import packageJson from './package.json';
 
-const port = 8080;
+const default_port = 8080;
+const outputDir = 'preview';
 
-async function startServer(watch: boolean) {
+async function startServer(watch: boolean, port: number) {
     let server: http.Server | undefined;
     let wss: WebSocket.WebSocketServer | undefined;
 
     const rebuildAndStartServer = async () => {
         const default_templates = get_default_templates();
         try {
-            const result = await build(default_templates, true, new NullLogger());
+            const result = await build(default_templates, packageJson.version, new Date(process.env.BUILD_TIME ?? new Date()), outputDir, true, new NullLogger());
         }
         catch (err) {
             console.error("Build Failed ⚠️\n", err);
@@ -35,23 +37,7 @@ async function startServer(watch: boolean) {
 
         try {
             if (server == undefined) {
-                server = http.createServer(async (req, res) => {
-                    if (req.url) {
-                        const requestedFile = req.url == "/" ? "/ReadMe.md" : new URL(req.url, `http://localhost:${port}/`).pathname;
-                        await generateWebPreview(requestedFile, default_templates)
-                            .then((preview) => {
-                                res.writeHead(200, { 'Content-Type': preview.type });
-                                res.end(preview.content);
-                            })
-                            .catch((err) => {
-                                res.writeHead(404, err);
-                                res.end();
-                            });
-                        return;
-                    }
-                    res.writeHead(404, 'File Not Found');
-                    res.end();
-                });
+                server = getServer(port, default_templates, outputDir);
 
                 wss = new WebSocket.WebSocketServer({ server });
                 server.listen(port, () => {
@@ -137,7 +123,7 @@ const watchDirectoriesRecusively = (dirPath: string, innerWatcher: fs.WatchListe
     });
 };
 
-startServer(typeof process.env.dont_watch === 'undefined').catch(err => {
+startServer(typeof process.env.dont_watch === 'undefined', default_port).catch(err => {
     console.error('Error starting server:', err);
     process.exit(1);
 });
