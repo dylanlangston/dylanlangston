@@ -13,13 +13,26 @@ on:
   workflow_dispatch:
 
 jobs:
+  read-playwright-version:
+      name: 'Read Playwright Version'
+      runs-on: ubuntu-latest
+      outputs:
+        playwright-version: ${{ steps.get_playwright_version.outputs.playwright-version }}
+      steps:
+        - uses: actions/checkout@v4
+        - run: |
+            playwright_version=$(node -e 'console.log(require("./src/package-lock.json")["packages"]["node_modules/@playwright/test"].version)')
+            echo "playwright-version=$playwright_version" >> $GITHUB_OUTPUT
+          id: get_playwright_version
+
   update-readme:
     name: "Build ReadMe and Commit"
     runs-on: ubuntu-latest
+    needs: read-playwright-version
     env:
       HOME: /root
     container:
-      image: mcr.microsoft.com/playwright:latest
+      image: mcr.microsoft.com/playwright:v${{ needs.read-playwright-version.outputs.playwright-version }}-noble
       options: --user root
     steps:
       - name: Checkout Repository
