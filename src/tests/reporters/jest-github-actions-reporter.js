@@ -1,6 +1,3 @@
-const { EOL } = await import('os');
-const { summary } = await import('./github-actions-summary.mjs')
-
 /** @type {import('@jest/reporters').Reporter} */
 class JestGitHubActionsReporter {
   /**
@@ -8,6 +5,9 @@ class JestGitHubActionsReporter {
    * @param {import('@jest/reporters').AggregatedResult} results
    */
   async onRunComplete(contexts, results) {
+    const { EOL } = await import('os');
+    const { summary } = await import('./github-actions-summary.mjs')
+
     if (await summary.previousSummaryPresent()) {
       summary.addSeparator();
     }
