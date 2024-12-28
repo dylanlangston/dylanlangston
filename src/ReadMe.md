@@ -241,6 +241,105 @@ In this project, we utilize images under fair use to create derivative artwork. 
       <p>License: Solo Cup Company/Dart Container</p>
     </td>
   </tr>
+  <tr>
+    <td>
+      <p>Hello World Font: <em>Rock Salt</em></p>
+    </td>
+    <td>
+      <p>Source: <a href="https://www.fontsquirrel.com/fonts/rock-salt">Fontsquirrel</a></p>
+      <p>License: Apache License v2.00</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>Git Statistics Font: <em>Jetbrains Mono</em></p>
+    </td>
+    <td>
+      <p>Source: <a href="https://www.jetbrains.com/lp/mono/">Jetbrains</a></p>
+      <p>License: SIL OPEN FONT LICENSE Version 1.1</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>April Fools Font: <em>Lobster</em></p>
+    </td>
+    <td>
+      <p>Source: <a href="https://www.dafont.com/lobster.font">dafont</a></p>
+      <p>License: Public domain / GPL / OFL</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>Cinco De Mayo Font: <em>SD Festival</em></p>
+    </td>
+    <td>
+      <p>Source: <a href="https://www.fontspace.com/sd-festival-font-f96437">Fontspace</a></p>
+      <p>License: Demo</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>Earth Day Font: <em>Cabin Sketch</em></p>
+    </td>
+    <td>
+      <p>Source: <a href="https://fonts.google.com/specimen/Cabin+Sketch">Google Fonts</a></p>
+      <p>License: SIL OPEN FONT LICENSE Version 1.1</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>Happy Halloween Font: <em>PW HALLOWEEN</em></p>
+    </td>
+    <td>
+      <p>Source: <a href="https://www.fontspace.com/pw-halloween-font-f41064">Fontspace</a></p>
+      <p>License: Freeware, commercial use requires donation</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>Happy New Year Font: <em>Summers Firecrackers</em></p>
+    </td>
+    <td>
+      <p>Source: <a href="https://www.fontspace.com/summers-firecrackers-font-f5415">Fontspace</a></p>
+      <p>License: Freeware</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>Happy Valentines Font: <em>Hearts With Everything</em></p>
+    </td>
+    <td>
+      <p>Source: <a href="https://www.fontspace.com/hearts-with-everything-font-f10517">Fontspace</a></p>
+      <p>License: Freeware, Non-Commercial</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>Christmas Font: <em>Christmas Snow</em></p>
+    </td>
+    <td>
+      <p>Source: <a href="https://www.fontspace.com/christmas-snow-font-f103296">Fontspace</a></p>
+      <p>License: Freeware, Non-Commercial</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>Saint Patricks Font: <em>Irish Clovers</em></p>
+    </td>
+    <td>
+      <p>Source: <a href="https://www.fontspace.com/irish-clovers-font-f76037">Fontspae</a></p>
+      <p>License: Demo</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>Star Wars Font: <em>Death Star</em></p>
+    </td>
+    <td>
+      <p>Source: <a href="https://www.dafont.com/death-star.font">dafont</a></p>
+      <p>License: Free for personal use</p>
+    </td>
+  </tr>
 </table>
 
 ### Special Thanks 🙏
@@ -263,6 +362,9 @@ Here are some additional resources which are used:
   </tr>
   <tr>
     <td><a href="https://github.com/octokit/octokit.js">Octokit.js</a> - Used to retrieve Github Stats</td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/opentypejs/opentype.js">opentype.js</a> - Used to generate SVG paths from fonts</td>
   </tr>
   <tr>
     <td><a href="https://github.com/microsoft/playwright">Playwright</a> - Integration testing</td>

@@ -6,6 +6,7 @@ import autoprefixer from 'autoprefixer';
 import * as SVGjs from '@svgdotjs/svg.js';
 import { build } from './Builder';
 import { Template, TemplateType } from './Template';
+import opentype from 'opentype.js';
 
 const cssNanoPreset = cssnano({
     preset: [
@@ -160,6 +161,18 @@ export class SVG {
             (con ?? console).error('Error while minifying SVG:', error);
             return svgString;
         }
+    }
+
+    async generateSVGPathFromText(
+        fontPath: string,
+        text: string,
+        fontSize: number,
+        x: number,
+        y: number
+    ): Promise<string> {
+        const font = await opentype.load(fontPath)
+        const path = font.getPath(text, x, y, fontSize);
+        return path.toPathData(2);
     }
 
     async generateSVGFromConfig(config: any, data: any, buildVersion: string, buildTime: Date, outputFolder: string, debug: boolean, con?: typeof console): Promise<string> {

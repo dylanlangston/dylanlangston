@@ -67,11 +67,6 @@ Speech Bubble:
   import: './dylan/speech-bubble.svg.hbs.yaml'
 Saint Patrick's:
   import: './dylan/messages/saint-patricks.svg.hbs.yaml'
-{{else ifCond (build_info "date-month") '==' "3/22"}}
-Speech Bubble:
-  import: './dylan/speech-bubble.svg.hbs.yaml'
-Happy Birthday:
-  import: './dylan/messages/happy-birthday.svg.hbs.yaml'
 {{else ifCond (build_info "date-month") '==' "4/1"}}
 Speech Bubble:
   import: './dylan/speech-bubble.svg.hbs.yaml'

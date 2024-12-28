@@ -1,21 +1,55 @@
-Happy New Year:
-  raw: |
-    <text x="750" y="325">
-      <tspan textLength="750" height="410">May the 4th be with you!</tspan>
-    </text>
-
-Text Style:
+Star Wars Day Style:
+  defs:
+    defs:
+    addDef: |
+      <filter
+        id="dropshadow"
+        x="0%" y="0%"
+        width="100%" height="100%">
+          <feDropShadow dx="3" dy="3" stdDeviation="1" flood-opacity="0.7"/>
+      </filter>
   style: |
-    text, tspan {
-      font: bold 70px sans-serif;
+    .star-wars-day {
+      transform-origin: 1125px 300px;
+      fill: gold;
+      stroke: black;
+      stroke-width: 0.5px;
+      animation: star-wars-day-animation ease-in-out 2s infinite alternate;
     }
-    {{#ifCond darkThemeClass '!=' 'dark'}}
-    text, tspan {
-      white-space: pre;
-      fill: black;
+    @keyframes star-wars-day-animation {
+      0% {
+        transform: rotate(2deg);
+      }
+      100% {
+        transform: rotate(-2deg);
+      }
     }
-    {{else}}
-    text, tspan {
-      fill: white;
+    @media (prefers-reduced-motion) {
+      .star-wars-day {
+        animation: none !important;
+      }
     }
-    {{/ifCond}}
+
+MayThe4th:
+  path:
+    fill: 'gold'
+    path:
+      {{await (path_from "May the 4th" "DeathStar.otf" 150 0 0)}}
+    width: 800
+    height: 180
+    x: 725
+    y: 100
+    addClass: star-wars-day
+    attr: [ "filter", "url(#dropshadow)"]
+
+BeWithYou:
+  path:
+    fill: 'gold'
+    path:
+      {{await (path_from "be with you!" "DeathStar.otf" 100 0 0)}}
+    width: 700
+    height: 180
+    x: 775
+    y: 295
+    addClass: star-wars-day
+    attr: [ "filter", "url(#dropshadow)"]
