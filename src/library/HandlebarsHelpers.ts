@@ -84,7 +84,8 @@ export function register(buildVersion: string, buildTime: Date, debug: boolean) 
     });
 
     Handlebars.registerHelper('path_from', async function (this: any, message: string, fontPath: string, fontSize: number, x: number, y: number) {
-        const svgPath = await SVG.Instance.generateSVGPathFromText(path.join("static",fontPath), message, fontSize, x, y);
+        const fontPathNormalized = fontPath.startsWith("http") ? fontPath : path.join("static",fontPath);
+        const svgPath = await SVG.Instance.generateSVGPathFromText(fontPathNormalized, message, fontSize, x, y);
         return svgPath
     })
 

@@ -7,6 +7,7 @@ import * as SVGjs from '@svgdotjs/svg.js';
 import { build } from './Builder';
 import { Template, TemplateType } from './Template';
 import opentype from 'opentype.js';
+import { readFile } from 'fs/promises';
 
 const cssNanoPreset = cssnano({
     preset: [
@@ -170,7 +171,16 @@ export class SVG {
         x: number,
         y: number
     ): Promise<string> {
-        const font = await opentype.load(fontPath)
+        let font;
+        if (fontPath.startsWith('http')) {
+            const buffer = await fetch(fontPath).then(res => res.arrayBuffer());
+            font = opentype.parse(buffer);
+        }
+        else {
+            const file = await readFile(fontPath);
+            font = opentype.parse(file.buffer);
+        }
+        // const font = await opentype.load(fontPath)
         const path = font.getPath(text, x, y, fontSize);
         return path.toPathData(2);
     }
