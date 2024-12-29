@@ -8,6 +8,7 @@ import { build } from './Builder';
 import { Template, TemplateType } from './Template';
 import opentype from 'opentype.js';
 import { readFile } from 'fs/promises';
+import { XastElement } from 'svgo/lib/types';
 
 const cssNanoPreset = cssnano({
     preset: [
@@ -96,6 +97,7 @@ export class SVG {
         try {
             const result = SVGO.optimize(await this.processCSS(svgString), {
                 multipass: true,
+                floatPrecision: 0,
                 js2svg: {
                     indent: 2,
                     pretty: debug,
@@ -105,56 +107,90 @@ export class SVG {
                         name: "preset-default",
                         params: {
                             overrides: {
-                                removeDoctype: undefined,
-                                removeXMLProcInst: undefined,
-                                removeComments: undefined,
-                                removeMetadata: undefined,
-                                removeEditorsNSData: undefined,
-                                cleanupAttrs: undefined,
-                                mergeStyles: undefined,
+                                removeEditorsNSData: {
+                                    additionalNamespaces: ['http://svgjs.dev/svgjs', 'http://www.w3.org/2000/svg']
+                                },
+                                cleanupAttrs: {
+                                    newlines: true,
+                                    spaces: true,
+                                    trim: true,
+                                },
                                 inlineStyles: {
-                                    onlyMatchedOnce: false,
+                                    onlyMatchedOnce: true,
                                     removeMatchedSelectors: true,
                                     useMqs: ['prefers-color-scheme', 'prefers-reduced-motion'],
                                 },
-                                minifyStyles: undefined,
-                                cleanupIds: undefined,
-                                removeUselessDefs: undefined,
-                                cleanupNumericValues: undefined,
-                                convertColors: undefined,
+                                minifyStyles: {
+                                    restructure: true,
+                                    comments: false,
+                                    forceMediaMerge: true,
+                                    usage: {
+                                        classes: true,
+                                        ids: true,
+                                        tags: true,
+                                        force: true
+                                    }
+                                },
+                                cleanupIds: {
+                                    remove: true,
+                                    minify: true
+                                },
+                                convertColors: {
+                                    shortname: true,
+                                    shorthex: true,
+                                    rgb2hex: true,
+                                    names2hex: true
+                                },
+                                cleanupNumericValues: {
+                                    convertToPx: true,
+                                    floatPrecision: 1,
+                                    leadingZero: false
+                                },
+                                convertPathData: {
+                                    curveSmoothShorthands: false,
+                                },
                                 removeUnknownsAndDefaults: {
                                     keepRoleAttr: true
                                 },
-                                removeNonInheritableGroupAttrs: undefined,
-                                removeUselessStrokeAndFill: undefined,
                                 removeViewBox: false,
-                                cleanupEnableBackground: undefined,
-                                removeHiddenElems: undefined,
-                                removeEmptyText: undefined,
-                                convertShapeToPath: undefined,
-                                convertEllipseToCircle: undefined,
-                                moveElemsAttrsToGroup: undefined,
-                                moveGroupAttrsToElems: undefined,
-                                collapseGroups: undefined,
-                                convertPathData: undefined,
-                                convertTransform: undefined,
-                                removeEmptyAttrs: undefined,
-                                removeEmptyContainers: undefined,
-                                mergePaths: undefined,
-                                removeUnusedNS: undefined,
-                                sortAttrs: undefined,
-                                sortDefsChildren: undefined,
                                 removeTitle: false,
-                                removeDesc: undefined,
                             }
                         }
                     },
                     {
-                        name: "removeEditorsNSData",
+                        name: 'addAttributesToSVGElement',
                         params: {
-                            additionalNamespaces: ['http://svgjs.dev/svgjs']
+                            attributes: [{ "xmlns:x": "http://www.w3.org/1999/xhtml" }]
                         }
                     },
+                    "removeXMLNS",
+                    {
+                        name: 'removeAllXMLNS',
+                        fn: function () {
+                            return {
+                                element: {
+                                    enter: function (node) {
+                                        switch (node.name) {
+                                            case "div":
+                                            case "html":
+                                                node.name = `x:${node.name}`
+                                                return
+                                            case "svg":
+                                                return
+                                        }
+
+                                        if (node.attributes.xmlns) {
+                                            delete node.attributes.xmlns;
+                                        }
+                                        //   else if (node.attributes.xmlns) {
+                                        //     node.attributes.xmlns = ""
+                                        //     node.name = "xhtml:html"
+                                        //   }
+                                    },
+                                },
+                            };
+                        }
+                    }
                 ]
             });
             return result.data;

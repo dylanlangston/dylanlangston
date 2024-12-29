@@ -19,7 +19,7 @@ Fadein Style:
 # Style to ensure foreignObjects inherit their parent element style
 ForeignObject Style:
   style: |
-    foreignObject html, .inherit {
+    foreignObject *, .inherit {
       width: inherit;
       height: inherit;
       background: inherit;
