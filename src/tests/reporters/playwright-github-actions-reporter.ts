@@ -8,7 +8,7 @@ import type * as reporterTypes from 'playwright/types/testReporter';
 const artifactClient = new DefaultArtifactClient();
 const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
 async function uploadImages(files: string[], parentDir: string, browser: string, testName: string, attempt: number): Promise<string> {
-  const fileName = `${testName}-${browser}-${attempt}`.replace('/', '-');
+  const fileName = `${testName}-${browser}-${attempt}`.replaceAll('/', '-');
   const uploadResponse = await artifactClient.uploadArtifact(fileName, files, parentDir, {
     compressionLevel: 0
   });
