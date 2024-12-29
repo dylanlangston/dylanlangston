@@ -163,7 +163,6 @@ export class SVG {
                             attributes: [{ "xmlns:x": "http://www.w3.org/1999/xhtml" }]
                         }
                     },
-                    "removeXMLNS",
                     {
                         name: 'removeAllXMLNS',
                         fn: function () {
