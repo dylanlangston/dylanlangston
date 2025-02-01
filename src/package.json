@@ -35,7 +35,7 @@
     "postcss": "^8.5.1",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
-    "remark-preset-lint-consistent": "^6.0.0",
+    "remark-preset-lint-consistent": "^6.0.1",
     "remark-preset-lint-recommended": "^7.0.0",
     "svgdom": "^0.1.19",
     "svgo": "^3.3.2"
