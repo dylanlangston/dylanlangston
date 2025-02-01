@@ -41,7 +41,7 @@
     "svgo": "^3.3.2"
   },
   "devDependencies": {
-    "@actions/artifact": "^2.1.11",
+    "@actions/artifact": "^2.2.1",
     "@playwright/test": "^1.50.1",
     "@types/jest": "^29.5.14",
     "@types/js-yaml": "^4.0.9",
