@@ -8,7 +8,24 @@ on:
       - '.github/workflows/build.yml'
   
   schedule:
-    - cron: "0 5 * * *" # This will run the action every day at midnight EST time
+    - cron: "0 5 * * 0"  # Runs every Monday at midnight EST
+    - cron: "0 5 1 1 *"  # Jan 1
+    - cron: "0 5 2 1 *"  # Jan 2
+    - cron: "0 5 14 2 *" # Feb 14
+    - cron: "0 5 15 2 *" # Feb 15
+    - cron: "0 5 17 3 *" # Mar 17
+    - cron: "0 5 18 3 *" # Mar 18
+    - cron: "0 5 1 4 *"  # Apr 1
+    - cron: "0 5 2 4 *"  # Apr 2
+    - cron: "0 5 22 4 *" # Apr 22
+    - cron: "0 5 23 4 *" # Apr 23
+    - cron: "0 5 4 5 *"  # May 4
+    - cron: "0 5 5 5 *"  # May 5
+    - cron: "0 5 6 5 *"  # May 6
+    - cron: "0 5 31 10 *" # Oct 31
+    - cron: "0 5 1 11 *"  # Nov 1
+    - cron: "0 5 25 12 *" # Dec 25
+    - cron: "0 5 26 12 *" # Dec 26
 
   workflow_dispatch:
 
