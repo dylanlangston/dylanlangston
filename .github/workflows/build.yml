@@ -8,7 +8,7 @@ on:
       - '.github/workflows/build.yml'
   
   schedule:
-    - cron: "0 5 * * 0"  # Runs every Monday at midnight EST
+    - cron: "0 5 * * 0"  # Runs every Sunday at midnight EST
     - cron: "0 5 1 1 *"  # Jan 1
     - cron: "0 5 2 1 *"  # Jan 2
     - cron: "0 5 14 2 *" # Feb 14
