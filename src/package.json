@@ -51,7 +51,7 @@
     "@types/ws": "^8.18.1",
     "esrun": "^3.2.26",
     "jest": "^29.7.0",
-    "postcss-cli": "^11.0.0",
+    "postcss-cli": "^11.0.1",
     "ts-jest": "^29.3.1",
     "typescript": "^5.8.2",
     "ws": "^8.18.1"
