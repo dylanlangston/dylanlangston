@@ -36,7 +36,7 @@ jobs:
       outputs:
         playwright-version: ${{ steps.get_playwright_version.outputs.playwright-version }}
       steps:
-        - uses: actions/checkout@v4
+        - uses: actions/checkout@v5
         - run: |
             playwright_version=$(node -e 'console.log(require("./src/package-lock.json")["packages"]["node_modules/@playwright/test"].version)')
             echo "playwright-version=$playwright_version" >> $GITHUB_OUTPUT
