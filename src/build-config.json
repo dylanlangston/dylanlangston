@@ -89,16 +89,6 @@
     "type": "DarkSVGVarient"
   },
   {
-    "in": "stats-light.svg",
-    "out": "stats-light-no-anim.svg",
-    "type": "AnimationDisabledSVG"
-  },
-  {
-    "in": "stats-light.svg",
-    "out": "stats-dark-no-anim.svg",
-    "type": "DarkAnimationDisabledSVG"
-  },
-  {
     "in": "readme.md.hbs",
     "out": "ReadMe.md",
     "type": "Markdown",
