@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { getServer } from '../library/GeneratePreview';
-import { build, get_default_templates } from '../library/Builder';
+import { Builder, get_default_templates } from '../library/Builder';
 import * as http from 'http';
 import { NullLogger } from '../library/NullLogger';
 
@@ -18,7 +18,14 @@ test.beforeEach(async ({ page }) => {
   }
 
   if (serverInstances[info.parallelIndex]?.date != date) {
-    const buildResult = await build(templates, '1.0.0', date, `test-${port}`, true, new NullLogger());
+    const buildResult = await Builder.create()
+      .withTemplates(templates)
+      .withVersion('1.0.0')
+      .withDateTime(date)
+      .withOutputFolder(`test-${port}`)
+      .withDebug(true)
+      .withConsole(new NullLogger())
+      .build();
   }
 
   if (!(serverInstances[info.parallelIndex]?.server)) {
@@ -35,8 +42,9 @@ test.beforeEach(async ({ page }) => {
     waitUntil: "load"
   });
 
-  // Wait for fade in effect
-  await new Promise(r => setTimeout(r, 1000));
+  await page.emulateMedia({
+    reducedMotion: 'reduce'
+  })
 });
 
 test('Ensure layout is correct', async ({ page }) => {

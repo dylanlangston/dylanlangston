@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as http from 'http';
 import * as path from 'path';
 import * as WebSocket from 'ws'; // Import WebSocket module
-import { build, get_default_templates, cwd, outDir } from './library/Builder';
+import { Builder, get_default_templates, cwd, outDir } from './library/Builder';
 import { NullLogger } from './library/NullLogger';
 import { generateWebPreview, getServer } from './library/GeneratePreview';
 import packageJson from './package.json';
@@ -17,7 +17,13 @@ async function startServer(watch: boolean, port: number) {
     const rebuildAndStartServer = async () => {
         const default_templates = get_default_templates();
         try {
-            const result = await build(default_templates, packageJson.version, new Date(process.env.BUILD_TIME ?? new Date()), outputDir, true, new NullLogger());
+            const result = await Builder.create()
+                .withTemplates(default_templates)
+                .withVersion(packageJson.version)
+                .withDateTime(new Date(process.env.BUILD_TIME ?? new Date()))
+                .withOutputFolder(outputDir)
+                .withConsole(new NullLogger())
+                .build();
         }
         catch (err) {
             console.error("Build Failed ⚠️\n", err);

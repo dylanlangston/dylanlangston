@@ -39,6 +39,8 @@ export async function generateWebPreview(requestedFile: string, templates: Templ
                     </html>
                     `);
                 case "DarkSVGVarient":
+                case "AnimationDisabledSVG":
+                case "DarkAnimationDisabledSVG":
                 case "SVG":
                     return new Preview('image/svg+xml', file);
                 default:

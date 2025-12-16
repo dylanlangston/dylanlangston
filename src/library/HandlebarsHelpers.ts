@@ -1,7 +1,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { build, cwd } from './Builder';
+import { cwd } from './Builder';
 import { default as Handlebars } from 'handlebars';
 import { default as mime } from 'mime';
 import { GitHubStats, GitHubStatsFetcher } from './GithubStats';

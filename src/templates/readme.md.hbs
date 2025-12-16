@@ -6,6 +6,8 @@ Built {{build_info "time"}}
 <h1 align="center">
   <a href="{{imageLink}}" title="Click to View Source">
     <picture width="100%" alt="{{imageAlt}}">
+      <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="{{imageDarkNoAnim}}?version={{{build_info "version"}}}">
+      <source media="(prefers-reduced-motion: reduce)" srcset="{{imageNoAnim}}?version={{{build_info "version"}}}">
       <source media="(prefers-color-scheme: dark)" srcset="{{imageDark}}?version={{{build_info "version"}}}">
       <img src="{{image}}?version={{{build_info "version"}}}" alt="{{imageAlt}}">
     </picture>
@@ -14,6 +16,8 @@ Built {{build_info "time"}}
 
 <div align="center">
   <picture width="100%" alt="{{statsImageAlt}}">
+    <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="{{statsImageDarkNoAnim}}?version={{{build_info "version"}}}">
+    <source media="(prefers-reduced-motion: reduce)" srcset="{{statsImageNoAnim}}?version={{{build_info "version"}}}">
     <source media="(prefers-color-scheme: dark)" srcset="{{statsImageDark}}?version={{{build_info "version"}}}">
     <img src="{{statsImage}}?version={{{build_info "version"}}}" alt="{{statsImageAlt}}">
   </picture>

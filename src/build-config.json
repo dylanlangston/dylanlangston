@@ -46,6 +46,16 @@
     "type": "DarkSVGVarient"
   },
   {
+    "in": "dylan-light.svg",
+    "out": "dylan-light-no-anim.svg",
+    "type": "AnimationDisabledSVG"
+  },
+  {
+    "in": "dylan-light.svg",
+    "out": "dylan-dark-no-anim.svg",
+    "type": "DarkAnimationDisabledSVG"
+  },
+  {
     "in": "stats.svg.hbs.yaml",
     "out": "stats-light.svg",
     "type": "SVG",
@@ -79,16 +89,30 @@
     "type": "DarkSVGVarient"
   },
   {
+    "in": "stats-light.svg",
+    "out": "stats-light-no-anim.svg",
+    "type": "AnimationDisabledSVG"
+  },
+  {
+    "in": "stats-light.svg",
+    "out": "stats-dark-no-anim.svg",
+    "type": "DarkAnimationDisabledSVG"
+  },
+  {
     "in": "readme.md.hbs",
     "out": "ReadMe.md",
     "type": "Markdown",
     "data": {
       "image": "dylan-light.svg",
       "imageDark": "dylan-dark.svg",
+      "imageNoAnim": "dylan-light-no-anim.svg",
+      "imageDarkNoAnim": "dylan-dark-no-anim.svg",
       "imageAlt": "Dylan",
       "imageLink": "https://github.com/dylanlangston/dylanlangston/tree/master/src",
       "statsImage": "stats-light.svg",
       "statsImageDark": "stats-dark.svg",
+      "statsImageNoAnim": "stats-light-no-anim.svg",
+      "statsImageDarkNoAnim": "stats-dark-no-anim.svg",
       "statsImageAlt": "Profile Info and Stats"
     }
   }

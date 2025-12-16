@@ -1,8 +1,10 @@
 export enum TemplateType {
     SVG = "SVG",
     Markdown = "Markdown",
-    DarkSVGVarient = "DarkSVGVarient"
-  }
+    DarkSVGVarient = "DarkSVGVarient",
+    AnimationDisabledSVG = "AnimationDisabledSVG",
+    DarkAnimationDisabledSVG = "DarkAnimationDisabledSVG",
+}
 
 export type SVGTemplate = {
     in: string;

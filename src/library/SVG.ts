@@ -4,11 +4,10 @@ import postcss from 'postcss';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
 import * as SVGjs from '@svgdotjs/svg.js';
-import { build } from './Builder';
+import { Builder, cwd, distDir, outDir } from './Builder';
 import { Template, TemplateType } from './Template';
 import opentype from 'opentype.js';
 import { readFile } from 'fs/promises';
-import { XastElement } from 'svgo/lib/types';
 
 const cssNanoPreset = cssnano({
     preset: [
@@ -55,7 +54,7 @@ export class SVG {
 
     private svgdom = import('svgdom');
 
-    async processCSS(svg: string): Promise<string> {
+    async processCSS(svg: string, disableAnimation: boolean): Promise<string> {
         const xmlDoc = new DOMParser().parseFromString(svg, 'image/svg+xml');
 
         const cssContent: string[] = [];
@@ -73,6 +72,13 @@ export class SVG {
 
         const styleElement = xmlDoc.createElement('style');
         styleElement.textContent = result.css;
+        if (disableAnimation) {
+            const disableAnimationStyle = `
+            * {
+                animation: none !important;
+            }`;
+            styleElement.textContent += `\n${disableAnimationStyle}`;
+        }
         const svgElement = xmlDoc.getElementsByTagName('svg')[0]
         svgElement.appendChild(styleElement);
 
@@ -93,9 +99,9 @@ export class SVG {
     }
 
     // Function to minify SVG file
-    async minify(svgString: string, debug: boolean, con?: typeof console): Promise<string> {
+    async minify(svgString: string, disableAnimation: boolean, debug: boolean, con?: typeof console): Promise<string> {
         try {
-            const result = SVGO.optimize(await this.processCSS(svgString), {
+            const result = SVGO.optimize(await this.processCSS(svgString, disableAnimation), {
                 multipass: true,
                 floatPrecision: 0,
                 js2svg: {
@@ -224,7 +230,7 @@ export class SVG {
 
         SVGjs.registerWindow(window, document);
 
-        class TitleElement extends SVGjs.Container {
+        class TitleElement extends SVGjs.Element {
             constructor(title: string) {
                 const titleNode: SVGGraphicsElement = SVGjs.create('title');
                 titleNode.textContent = title;
@@ -232,11 +238,11 @@ export class SVG {
             }
         }
 
-        class DescriptionElement extends SVGjs.Container {
+        class DescriptionElement extends SVGjs.Element {
             constructor(desc: string) {
                 const descNode: SVGGraphicsElement = SVGjs.create('desc');
                 descNode.textContent = desc;
-                super(descNode)
+                super(descNode);
             }
         }
 
@@ -252,7 +258,15 @@ export class SVG {
                 (<SVGjs.Container>this).put(<SVGjs.Element>SVGjs.SVG(object));
             },
             import: async function (file: string) {
-                const output = await build([new Template(file, null, TemplateType.SVG, data, false)], buildVersion, buildTime, outputFolder, debug, con);
+                const output = await Builder.create()
+                    .withTemplates([new Template(file, null, TemplateType.SVG, data, false)])
+                    .withVersion(buildVersion)
+                    .withDateTime(buildTime)
+                    .withOutputFolder(outputFolder)
+                    .withDebug(debug)
+                    .withConsole(con!)
+                    .skipGithubPages()
+                    .build();
                 const xmlDoc = new DOMParser().parseFromString(output[0].out!, 'image/svg+xml');
                 const svgElement = xmlDoc.getElementsByTagName('svg')[0];
 
