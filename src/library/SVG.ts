@@ -151,9 +151,7 @@ export class SVG {
                                 },
                                 removeUnknownsAndDefaults: {
                                     keepRoleAttr: true
-                                },
-                                removeViewBox: false,
-                                removeTitle: false,
+                                }
                             }
                         }
                     },
