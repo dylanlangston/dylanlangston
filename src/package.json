@@ -26,7 +26,7 @@
     "@xmldom/xmldom": "^0.9.8",
     "autoprefixer": "^10.4.24",
     "cssnano": "^7.1.2",
-    "github-markdown-css": "^5.8.1",
+    "github-markdown-css": "^5.9.0",
     "handlebars": "^4.7.8",
     "js-yaml": "^4.1.1",
     "mime": "^4.1.0",
