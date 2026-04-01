@@ -1,22 +1,22 @@
 <!-- 
-Version 2.0.286
-Built Sun Mar 29 2026 05:33:12 GMT+0000 (Coordinated Universal Time)
+Version 2.0.287
+Built Wed Apr 01 2026 05:45:19 GMT+0000 (Coordinated Universal Time)
 -->
 
 <h1 align="center">
   <a href="https://github.com/dylanlangston/dylanlangston/tree/master/src" title="Click to View Source">
     <picture width="100%" alt="Dylan">
-      <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="dylan-dark-no-anim.svg?version=2.0.286">
-      <source media="(prefers-reduced-motion: reduce)" srcset="dylan-light-no-anim.svg?version=2.0.286">
-      <source media="(prefers-color-scheme: dark)" srcset="dylan-dark.svg?version=2.0.286">
-      <img src="dylan-light.svg?version=2.0.286" alt="Dylan">
+      <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="dylan-dark-no-anim.svg?version=2.0.287">
+      <source media="(prefers-reduced-motion: reduce)" srcset="dylan-light-no-anim.svg?version=2.0.287">
+      <source media="(prefers-color-scheme: dark)" srcset="dylan-dark.svg?version=2.0.287">
+      <img src="dylan-light.svg?version=2.0.287" alt="Dylan">
     </picture>
   </a>
 </h1>
 
 <div align="center">
   <picture width="100%" alt="Profile Info and Stats">
-    <source media="(prefers-color-scheme: dark)" srcset="stats-dark.svg?version=2.0.286">
-    <img src="stats-light.svg?version=2.0.286" alt="Profile Info and Stats">
+    <source media="(prefers-color-scheme: dark)" srcset="stats-dark.svg?version=2.0.287">
+    <img src="stats-light.svg?version=2.0.287" alt="Profile Info and Stats">
   </picture>
 </div>
