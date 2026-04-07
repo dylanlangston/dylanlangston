@@ -3,5 +3,8 @@
   "compilerOptions": {
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
+    "types": ["jest", "node"],
+    "rootDir": ".",
+    "ignoreDeprecations": "6.0"
   },
 }
