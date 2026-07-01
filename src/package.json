@@ -28,7 +28,7 @@
     "cssnano": "^8.0.2",
     "github-markdown-css": "^5.9.0",
     "handlebars": "^4.7.9",
-    "js-yaml": "^4.2.0",
+    "js-yaml": "^5.2.0",
     "mime": "^4.1.0",
     "octokit": "^5.0.5",
     "opentype.js": "^2.0.0",
