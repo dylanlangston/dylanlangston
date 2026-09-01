@@ -23,7 +23,7 @@
   "homepage": "https://github.com/dylanlangston/dylanlangston#readme",
   "dependencies": {
     "@svgdotjs/svg.js": "^3.2.8",
-    "@xmldom/xmldom": "^0.9.10",
+    "@xmldom/xmldom": "^0.9.12",
     "autoprefixer": "^10.5.4",
     "cssnano": "^9.0.1",
     "github-markdown-css": "^5.9.0",
