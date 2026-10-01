@@ -24,7 +24,7 @@
   "dependencies": {
     "@svgdotjs/svg.js": "^3.2.8",
     "@xmldom/xmldom": "^0.9.12",
-    "autoprefixer": "^10.5.4",
+    "autoprefixer": "^10.6.1",
     "cssnano": "^9.1.1",
     "github-markdown-css": "^5.9.0",
     "handlebars": "^4.7.9",
