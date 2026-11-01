@@ -25,7 +25,7 @@
     "@svgdotjs/svg.js": "^3.2.8",
     "@xmldom/xmldom": "^0.9.12",
     "autoprefixer": "^10.6.1",
-    "cssnano": "^9.1.1",
+    "cssnano": "^9.9.0",
     "github-markdown-css": "^5.9.0",
     "handlebars": "^4.7.10",
     "js-yaml": "^5.4.2",
